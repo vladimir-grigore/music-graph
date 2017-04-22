@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import SearchBar from './SearchBar.jsx';
+import SideMenu from './SideMenu.jsx';
 
 class App extends Component {
   constructor(props) {
@@ -11,6 +12,7 @@ class App extends Component {
     return (
       <div>
         <SearchBar />
+        <SideMenu />
       </div>
     );
   }
