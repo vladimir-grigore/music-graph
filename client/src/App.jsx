@@ -1,12 +1,19 @@
-const React = require('react');
+import React, {Component} from 'react';
+import SearchBar from './SearchBar.jsx';
 
-class App extends React.Component {
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {}
+  }
+
   render() {
     return (
-      <h1>Welcome to {this.props.name} who have come to Zombo.com</h1>
+      <div className="container">
+        <SearchBar />
+      </div>
     );
   }
 }
 
-module.exports = App;
-
+export default App;
