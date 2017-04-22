@@ -38,10 +38,14 @@ class SearchBar extends Component {
   render() {
     return (
       <div>
-        <h2>Search for an Artist</h2>
-        <input className='artist-lookup'
-        value={this.state.value}
-        placeholder="search artist" onKeyPress={this.lookUpArtist} onChange={this.handleKeyDown}/>
+        <input
+          id="search-form"
+          className='artist-lookup'
+          placeholder="search artist"
+          value={this.state.value}
+          onKeyPress={this.lookUpArtist}
+          onChange={this.handleKeyDown}
+        />
       </div>
     );
   }
