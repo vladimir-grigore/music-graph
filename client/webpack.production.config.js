@@ -2,7 +2,7 @@ const webpack = require('webpack');
 const path = require('path');
 
 module.exports = {
-  entry: path.resolve(__dirname, 'src/index.jsx'),
+  entry: ['babel-polyfill', path.resolve(__dirname, 'src/index.jsx')],
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js'
@@ -14,7 +14,13 @@ module.exports = {
       use: {
         loader: 'babel-loader',
         options: {
-          presets: ['env', 'react']
+          presets: ['env', 'react'],
+          plugins: [
+            "transform-object-rest-spread",
+            "transform-decorators-legacy",
+            "transform-class-properties",
+            "transform-regenerator"
+          ],
         }
       }
     }]
