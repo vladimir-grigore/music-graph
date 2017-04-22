@@ -25,9 +25,12 @@
     "babel-polyfill": "^6.23.0",
     "babel-preset-env": "^1.4.0",
     "babel-preset-react": "^6.24.1",
+    "css-loader": "^0.28.0",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
+    "sass-loader": "^6.0.3",
     "spotify-web-api-node": "^2.3.6",
+    "style-loader": "^0.16.1",
     "vis": "^4.19.1",
     "webpack": "^2.4.1"
   }
