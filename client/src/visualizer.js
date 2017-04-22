@@ -88,17 +88,11 @@ export default class Visualizer {
     switch (node.group) {
       case 'artist':
         const albums = await spotify_API.get_albums_for_artist(node.id);
-        albums.forEach(album => {
-          this.toggleAlbumNode(album.id, album.name, album.images[album.images.length - 1].url, album.popularity);
-          this.toggleAlbumEdge(node.id, album.id);
-        });
+        this.toggleAlbums(node.id, albums);
         break;
       case 'album':
         const tracks = await spotify_API.get_tracks_for_album(node.id);
-        tracks.forEach(track => {
-          this.toggleTrackNode(track.id, track.name);
-          this.toggleTrackEdge(node.id, track.id);
-        });
+        this.toggleTracks(node.id, tracks);
         break;
       case 'track':
         const track = await spotify_API.get_track(node.id);
@@ -108,6 +102,20 @@ export default class Visualizer {
         console.log('sorry');
     }
     // const randomId = (new Date().getTime()).toString(36);
+  }
+
+  toggleAlbums(artistID, albums) {
+    albums.forEach(album => {
+      this.toggleAlbumNode(album.id, album.name, album.images[album.images.length - 1].url, album.popularity);
+      this.toggleAlbumEdge(artistID, album.id);
+    });
+  };
+
+  toggleTracks(albumID, tracks){
+    tracks.forEach(track => {
+      this.toggleTrackNode(track.id, track.name);
+      this.toggleTrackEdge(albumID, track.id);
+    });
   }
 
   toggleArtistNode(id, label, image, popularity) {
