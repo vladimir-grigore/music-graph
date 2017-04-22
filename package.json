@@ -1,0 +1,23 @@
+{
+  "name": "music-graph",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "./start.sh",
+    "install": "./install.sh",
+    "postinstall": "./postinstall.sh",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vladimir-grigore/music-graph.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vladimir-grigore/music-graph/issues"
+  },
+  "homepage": "https://github.com/vladimir-grigore/music-graph#readme"
+}
