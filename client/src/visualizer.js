@@ -154,9 +154,11 @@ export default class Visualizer {
     }
   }
 
-  toggleAlbumNode(id, label, image, popularity) {
+  async toggleAlbumNode(id, label, image, popularity) {
     // Remove the album node if it already exists
     if(this.nodes.get(id)){
+      const tracks = await spotify_API.get_tracks_for_album(id);
+      this.toggleTracks(id, tracks);
       this.nodes.remove(id);
     } else {
       this.nodes.add({
