@@ -1,16 +1,13 @@
 const SpotifyAPI = require('./spotify_web_api.js');
 const spotify_API = new SpotifyAPI();
 
-const LENGTH_MAIN = 350,
-  LENGTH_SERVER = 150,
-  LENGTH_SUB = 50,
-  WIDTH_SCALE = 2,
-  GREEN = 'green',
-  RED = '#C5000B',
-  ORANGE = 'orange',
-  GRAY = 'gray',
-  BLACK = '#2B1B17',
-  BLUE = 'blue';
+const WIDTH_SCALE = 2,
+  GREEN = '#81d664',
+  RED = '#c5000b',
+  ORANGE = '#ffaa00',
+  GRAY = '#8e8b8b',
+  BLACK = '#000000',
+  BLUE = '#0c18f7';
 
 import { DataSet, Network } from 'vis';
 
@@ -26,8 +23,15 @@ export default class Visualizer {
     };
 
     this.options = Object.assign({}, {
-      interaction: { hover: true },
+      interaction: { 
+        hover: true 
+      },
       nodes: {
+        borderWidth: 4,
+        color: {
+          border: BLACK,
+          background: GRAY
+        },
         scaling: {
           min: 8,
           max: 16
@@ -35,14 +39,14 @@ export default class Visualizer {
       },
       edges: {
         color: GRAY,
-        smooth: true
+        smooth: false
       },
       physics: {
         barnesHut: {
-          gravitationalConstant: -30000
+          gravitationalConstant: -300000
         },
         stabilization: {
-          iterations: 2500
+          iterations: 5000
         }
       },
       groups: {
@@ -85,15 +89,15 @@ export default class Visualizer {
       case 'artist':
         const albums = await spotify_API.get_albums_for_artist(node.id);
         albums.forEach(album => {
-          this.addAlbumNode(album.id, album.name, album.images[album.images.length - 1].url, album.popularity);
-          this.addAlbumEdge(node.id, album.id);
+          this.toggleAlbumNode(album.id, album.name, album.images[album.images.length - 1].url, album.popularity);
+          this.toggleAlbumEdge(node.id, album.id);
         });
         break;
       case 'album':
         const tracks = await spotify_API.get_tracks_for_album(node.id);
         tracks.forEach(track => {
-          this.addTrackNode(track.id, track.name);
-          this.addTrackEdge(node.id, track.id);
+          this.toggleTrackNode(track.id, track.name);
+          this.toggleTrackEdge(node.id, track.id);
         });
         break;
       case 'track':
@@ -106,66 +110,111 @@ export default class Visualizer {
     // const randomId = (new Date().getTime()).toString(36);
   }
 
-  addArtistNode(id, label, image, popularity) {
-    this.nodes.add({
-      id,
-      label,
-      shape: 'circularImage',
-      image,
-      title: "Artist pop-up",
-      group: 'artist',
-      value: popularity
-    });
+  toggleArtistNode(id, label, image, popularity) {
+    // Remove the artist node if it already exists
+    if(this.nodes.get(id)){
+      this.nodes.remove(id);
+    } else {
+      this.nodes.add({
+        id,
+        label,
+        shape: 'circularImage',
+        image,
+        title: "Artist pop-up",
+        group: 'artist',
+        value: popularity
+      });
+    }
   }
 
-  addArtistEdge(from, to, label) {
-    this.edges.add({
-      from,
-      to,
-      label,
-      width: WIDTH_SCALE,
+  toggleArtistEdge(from, to, label) {
+    // Get the edge id and remove it if it exists
+    let edge = this.edges.get({
+      filter: function (item) {
+        return (item.from == from && item.to == to);
+      }
     });
+    if(edge.length > 0){
+      this.nodes.remove(edge[0].id);
+    } else {
+      this.edges.add({
+        from,
+        to,
+        label,
+        width: WIDTH_SCALE,
+      });
+    }
   }
 
-  addAlbumNode(id, label, image, popularity) {
-    this.nodes.add({
-      id,
-      label,
-      shape: 'circularImage',
-      image,
-      group: 'album',
-      value: popularity,
-      title: "Album pop-up"
-    });
+  toggleAlbumNode(id, label, image, popularity) {
+    // Remove the album node if it already exists
+    if(this.nodes.get(id)){
+      this.nodes.remove(id);
+    } else {
+      this.nodes.add({
+        id,
+        label,
+        shape: 'circularImage',
+        image,
+        group: 'album',
+        value: popularity,
+        title: "Album pop-up"
+      });
+    }
   }
 
-  addAlbumEdge(from, to, label) {
-    this.edges.add({
-      from,
-      to,
-      label,
-      width: WIDTH_SCALE * 2,
-      title: "Album edge pop-up"
+  toggleAlbumEdge(from, to) {
+    // Get the edge id and remove it if it exists
+    let edge = this.edges.get({
+      filter: function (item) {
+        return (item.from == from && item.to == to);
+      }
     });
+    if(edge.length > 0){
+      this.nodes.remove(edge[0].id);
+    } else {
+      this.edges.add({
+        from,
+        to,
+        width: WIDTH_SCALE,
+        title: "Album edge pop-up",
+        color: {color: BLUE, opacity: 0.3}
+      });
+    }
   }
 
-  addTrackNode(id, label) {
-    this.nodes.add({
-      id,
-      label,
-      shape: 'dot',
-      group: 'track',
-      color: GREEN,
-      value: 6
-    });
+  toggleTrackNode(id, label) {
+    // Remove the track node if it already exists
+    if(this.nodes.get(id)){
+      this.nodes.remove(id);
+    } else {
+      this.nodes.add({
+        id,
+        label,
+        shape: 'dot',
+        group: 'track',
+        color: GREEN,
+        value: 6
+      });
+    }
   }
 
-  addTrackEdge(from, to, label) {
-    this.edges.add({
-      from,
-      to,
-      label,
-      width: WIDTH_SCALE * 2
+  toggleTrackEdge(from, to) {
+    // Get the edge id and remove it if it exists
+    let edge = this.edges.get({
+      filter: function (item) {
+        return (item.from == from && item.to == to);
+      }
     });
+    if(edge.length > 0){
+      this.nodes.remove(edge[0].id);
+    } else {
+      this.edges.add({
+        from,
+        to,
+        width: WIDTH_SCALE,
+        color: {color: GREEN, opacity: 0.3}
+      });
+    }
   }
 }
