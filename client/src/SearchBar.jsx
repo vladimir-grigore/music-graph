@@ -23,8 +23,8 @@ class SearchBar extends Component {
 
       // Search for an artist, display all results
       const artists = await spotify_API.search_artists(this.state.value);
-      for( {id, name } of artists) {
-        visualizer.addArtistNode(id, name);
+      for( {id, name, image, popularity } of artists) {
+        visualizer.addArtistNode(id, name, image, popularity);
       }
       this.setState({value: ''});
     }

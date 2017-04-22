@@ -7,9 +7,22 @@ class SpotifyAPI {
 
   search_artists = async function(name) {
     const data = await this.api.searchArtists(name);
-    return data.body.artists.items.map(item => ({ id: item.id, name: item.name }));
-  }
+    const artists = [];
+    // Filter artist by popularity
+    data.body.artists.items.forEach(function(item){
+      if (item.popularity > 0) {
+        artists.push(item);
+      }
+    });
 
+    return artists.map(item => ({ 
+      id: item.id, 
+      name: item.name, 
+      image: item.images.length > 0 ? item.images[item.images.length - 1].url : 'nothing.jpg',
+      popularity: item.popularity
+    }));
+  }
+  
   get_albums_for_artist = async function(artistID) {
     const data = await this.api.getArtistAlbums(artistID, {limit: 20, market: 'US'})
     const ids = data.body.items.map(x => x.id);
