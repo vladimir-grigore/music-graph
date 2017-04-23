@@ -5,7 +5,7 @@ const WIDTH_SCALE = 2,
   GREEN = '#81d664',
   RED = '#c5000b',
   ORANGE = '#ffaa00',
-  GRAY = '#8e8b8b',
+  GRAY = '#374043',
   BLACK = '#000000',
   BLUE = '#0c18f7';
 
@@ -28,6 +28,7 @@ export default class Visualizer {
       },
       nodes: {
         borderWidth: 4,
+        shadow:true,
         color: {
           border: BLACK,
           background: GRAY
@@ -39,7 +40,8 @@ export default class Visualizer {
       },
       edges: {
         color: GRAY,
-        smooth: false
+        smooth: true,
+        shadow: true
       },
       physics: {
         barnesHut: {
@@ -130,7 +132,8 @@ export default class Visualizer {
         image,
         title: "Artist pop-up",
         group: 'artist',
-        value: popularity
+        value: popularity,
+        font: {size: 6, color: ORANGE, face: 'arial'}
       });
     }
   }
@@ -172,7 +175,8 @@ export default class Visualizer {
         group: 'album',
         value: popularity,
         title: "Album pop-up",
-        hasTracks: false
+        hasTracks: false,
+        font: {size: 6, color: ORANGE, face: 'arial'}
       });
     }
   }
@@ -190,9 +194,9 @@ export default class Visualizer {
       this.edges.add({
         from,
         to,
-        width: WIDTH_SCALE,
+        width: 0,
         title: "Album edge pop-up",
-        color: {color: BLUE, opacity: 0.3}
+        shadow:{color: BLUE, opacity: 0.1}
       });
     }
   }
@@ -210,7 +214,8 @@ export default class Visualizer {
         shape: 'dot',
         group: 'track',
         color: GREEN,
-        value: 6
+        value: 6,
+        font: {size: 6, color: ORANGE, face: 'arial'}
       });
       this.nodes.update({id: albumID, hasTracks: true});
     }
@@ -229,8 +234,7 @@ export default class Visualizer {
       this.edges.add({
         from,
         to,
-        width: WIDTH_SCALE,
-        color: {color: GREEN, opacity: 0.3}
+        width: 0
       });
     }
   }
