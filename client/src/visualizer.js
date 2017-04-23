@@ -87,15 +87,15 @@ export default class Visualizer {
 
     switch (node.group) {
       case 'artist':
-        const albums = await spotify_API.get_albums_for_artist(node.id);
+        let albums = await spotify_API.get_albums_for_artist(node.id);
         this.toggleAlbums(node.id, albums);
         break;
       case 'album':
-        const tracks = await spotify_API.get_tracks_for_album(node.id);
+        let tracks = await spotify_API.get_tracks_for_album(node.id);
         this.toggleTracks(node.id, tracks);
         break;
       case 'track':
-        const track = await spotify_API.get_track(node.id);
+        let track = await spotify_API.get_track(node.id);
         // console.log("_-_", track.tracks[0]['preview_url']);
         break;
       default:
@@ -113,7 +113,7 @@ export default class Visualizer {
 
   toggleTracks(albumID, tracks){
     tracks.forEach(track => {
-      this.toggleTrackNode(track.id, track.name);
+      this.toggleTrackNode(albumID, track.id, track.name);
       this.toggleTrackEdge(albumID, track.id);
     });
   }
@@ -143,7 +143,7 @@ export default class Visualizer {
       }
     });
     if(edge.length > 0){
-      this.nodes.remove(edge[0].id);
+      this.edges.remove(edge[0].id);
     } else {
       this.edges.add({
         from,
@@ -156,9 +156,12 @@ export default class Visualizer {
 
   async toggleAlbumNode(id, label, image, popularity) {
     // Remove the album node if it already exists
-    if(this.nodes.get(id)){
-      const tracks = await spotify_API.get_tracks_for_album(id);
-      this.toggleTracks(id, tracks);
+    let album = this.nodes.get(id);
+    if(album){
+      if(album.hasTracks){
+        let tracks = await spotify_API.get_tracks_for_album(id);
+        this.toggleTracks(id, tracks);
+      }
       this.nodes.remove(id);
     } else {
       this.nodes.add({
@@ -168,7 +171,8 @@ export default class Visualizer {
         image,
         group: 'album',
         value: popularity,
-        title: "Album pop-up"
+        title: "Album pop-up",
+        hasTracks: false
       });
     }
   }
@@ -181,7 +185,7 @@ export default class Visualizer {
       }
     });
     if(edge.length > 0){
-      this.nodes.remove(edge[0].id);
+      this.edges.remove(edge[0].id);
     } else {
       this.edges.add({
         from,
@@ -193,10 +197,12 @@ export default class Visualizer {
     }
   }
 
-  toggleTrackNode(id, label) {
+  toggleTrackNode(albumID, id, label) {
     // Remove the track node if it already exists
+    let album = this.nodes.get(albumID);
     if(this.nodes.get(id)){
       this.nodes.remove(id);
+      this.nodes.update({id: albumID, hasTracks: false});
     } else {
       this.nodes.add({
         id,
@@ -206,6 +212,7 @@ export default class Visualizer {
         color: GREEN,
         value: 6
       });
+      this.nodes.update({id: albumID, hasTracks: true});
     }
   }
 
@@ -217,7 +224,7 @@ export default class Visualizer {
       }
     });
     if(edge.length > 0){
-      this.nodes.remove(edge[0].id);
+      this.edges.remove(edge[0].id);
     } else {
       this.edges.add({
         from,
