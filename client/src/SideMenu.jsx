@@ -12,6 +12,7 @@ class SideMenu extends Component {
         <SearchBar />
         <div className="sideNav" id="sidebar-wrapper">
           <div className="nav-side-menu">
+
           </div>
         </div>
      </div>
