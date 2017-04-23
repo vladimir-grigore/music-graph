@@ -112,7 +112,7 @@ export default class Visualizer {
   clearRemainingArtists(current_node) {
     let all_nodes = this.nodes.get();
     for(let node of all_nodes){
-      if (node.group === 'artist' && current_node.id != node.id) {
+      if (node.group === 'artist' && node.id != current_node.id) {
         this.nodes.remove(node.id);
       }
     }
