@@ -23,8 +23,8 @@ export default class Visualizer {
     };
 
     this.options = Object.assign({}, {
-      interaction: { 
-        hover: true 
+      interaction: {
+        hover: true
       },
       nodes: {
         borderWidth: 4,
