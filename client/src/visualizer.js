@@ -91,6 +91,8 @@ export default class Visualizer {
       case 'artist':
         let albums = await spotify_API.get_albums_for_artist(node.id);
         this.toggleAlbums(node.id, albums);
+        // When expanding an artist, clear the rest of the search results
+        this.clearRemainingArtists(node);
         break;
       case 'album':
         let tracks = await spotify_API.get_tracks_for_album(node.id);
@@ -104,6 +106,16 @@ export default class Visualizer {
         console.log('sorry');
     }
     // const randomId = (new Date().getTime()).toString(36);
+  }
+
+  // Clear all other artists, keep all ablums on the canvas
+  clearRemainingArtists(current_node) {
+    let all_nodes = this.nodes.get();
+    for(let node of all_nodes){
+      if (node.group === 'artist' && current_node.id != node.id) {
+        this.nodes.remove(node.id);
+      }
+    }
   }
 
   toggleAlbums(artistID, albums) {
