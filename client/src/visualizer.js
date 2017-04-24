@@ -144,6 +144,7 @@ export default class Visualizer {
     // Remove the artist node if it already exists
     if(this.nodes.get(id)){
       this.nodes.remove(id);
+      delete this.artistStructure[id];
     } else {
       this.nodes.add({
         id,
@@ -155,6 +156,7 @@ export default class Visualizer {
         value: popularity,
         font: {size: 6, color: ORANGE, face: 'arial'}
       });
+      this.artistStructure[id] = { name: label, albums: {} };
     }
   }
 
