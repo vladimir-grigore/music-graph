@@ -20,6 +20,7 @@ class App extends Component {
 
   render() {
     if (this.state.open) {
+      console.log(this.props);
       return (
         <div>
           <SideMenu />

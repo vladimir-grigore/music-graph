@@ -1,8 +1,9 @@
 // Variables
-$gray: hsla(197, 13%, 19%, 0.5);
+$gray: hsla(197, 13%, 19%, 0.8);
 
 #sidebar-wrapper {
   float: right;
+  z-index: 2;
 }
 .nav-side-menu {
   overflow: auto;
@@ -15,4 +16,5 @@ $gray: hsla(197, 13%, 19%, 0.5);
   width: 300px;
   height: 100%;
   color: #e1ffff;
+  z-index: 2;
 }

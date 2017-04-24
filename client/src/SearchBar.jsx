@@ -11,14 +11,14 @@ class SearchBar extends Component {
     super(props);
     this.lookUpArtist = this.lookUpArtist.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
-    // Component will react to any click - will be moved to a specific 
+    // Component will react to any click - will be moved to a specific
     // tree visualizer component
     this.handleUpdate = this.handleUpdate.bind(this);
     this.state = {
       value: ''
     }
   }
-  
+
   ////////////////////////////////////////////////
   handleUpdate(){
     var nodes = visualizer.getFolderStructure();

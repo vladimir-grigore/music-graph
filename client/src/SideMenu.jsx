@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import SearchBar from './SearchBar.jsx';
+import Content from './Content.jsx';
+import Footer from './Footer.jsx';
 
 class SideMenu extends Component {
   constructor(props) {
@@ -9,10 +11,11 @@ class SideMenu extends Component {
   render() {
     return (
       <div>
-        <SearchBar />
         <div className="sideNav" id="sidebar-wrapper">
+          <SearchBar />
           <div className="nav-side-menu">
-
+            <Content />
+            <Footer />
           </div>
         </div>
      </div>
