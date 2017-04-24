@@ -16,6 +16,7 @@ export default class Visualizer {
     this.container = container;
     this.nodes = new DataSet(nodes);
     this.edges = new DataSet(edges);
+    this.artistStructure = {};
 
     const data = {
       nodes: this.nodes,
@@ -71,6 +72,12 @@ export default class Visualizer {
     this.network.on('click', this.onClick);
   }
 
+  // Returns a folder structure contaning artists
+  // and their albums (with tracks) only when they are expanded
+  getFolderStructure(){
+    return this.artistStructure;
+  }
+
   // Clear all nodes and edges (used for new searches)
   clear() {
     this.nodes.clear();
@@ -89,7 +96,7 @@ export default class Visualizer {
 
     switch (node.group) {
       case 'artist':
-        let albums = await spotify_API.get_albums_for_artist(node.id);
+        let albums = await spotify_API.get_albums_for_artist(node.id);    
         this.toggleAlbums(node.id, albums);
         // When expanding an artist, clear the rest of the search results
         this.clearRemainingArtists(node);
@@ -114,13 +121,14 @@ export default class Visualizer {
     for(let node of all_nodes){
       if (node.group === 'artist' && node.id != current_node.id) {
         this.nodes.remove(node.id);
+        delete this.artistStructure[node.id];
       }
     }
   }
 
   toggleAlbums(artistID, albums) {
     albums.forEach(album => {
-      this.toggleAlbumNode(album.id, album.name, album.images[album.images.length - 1].url, album.popularity);
+      this.toggleAlbumNode(artistID, album.id, album.name, album.images[album.images.length - 1].url, album.popularity);
       this.toggleAlbumEdge(artistID, album.id);
     });
   };
@@ -169,7 +177,7 @@ export default class Visualizer {
     }
   }
 
-  async toggleAlbumNode(id, label, image, popularity) {
+  async toggleAlbumNode(artistID, id, label, image, popularity) {
     // Remove the album node if it already exists
     let album = this.nodes.get(id);
     if(album){
@@ -178,6 +186,8 @@ export default class Visualizer {
         this.toggleTracks(id, tracks);
       }
       this.nodes.remove(id);
+      // Remove albums from the folder structure
+      delete this.artistStructure[artistID].albums[id]
     } else {
       this.nodes.add({
         id,
@@ -190,6 +200,8 @@ export default class Visualizer {
         hasTracks: false,
         font: {size: 6, color: ORANGE, face: 'arial'}
       });
+      // Add albums to the folder structure
+      this.artistStructure[artistID].albums[id] = { name: label, tracks: {} };
     }
   }
 
@@ -214,10 +226,14 @@ export default class Visualizer {
   }
 
   toggleTrackNode(albumID, id, label) {
+    // Get the artistID (used in the folder structure obj)
+    for(var artistID in this.artistStructure) break;
     // Remove the track node if it already exists
     let album = this.nodes.get(albumID);
     if(this.nodes.get(id)){
       this.nodes.remove(id);
+      // Remove tracks from the folder structure
+      delete this.artistStructure[artistID].albums[albumID].tracks[id];
       this.nodes.update({id: albumID, hasTracks: false});
     } else {
       this.nodes.add({
@@ -230,6 +246,8 @@ export default class Visualizer {
         font: {size: 6, color: ORANGE, face: 'arial'}
       });
       this.nodes.update({id: albumID, hasTracks: true});
+      // Add tracks to the folder structure
+      this.artistStructure[artistID].albums[albumID].tracks[id] = { name: label };
     }
   }
 
