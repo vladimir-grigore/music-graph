@@ -26,9 +26,9 @@ class App extends Component {
     this.setState({ artists: obj })
   }
 
-  handleUpdate(event){		
-    this.extractNames(visualizer.getFolderStructure());	
-  }		
+  handleUpdate(event){
+    this.extractNames(visualizer.getFolderStructure());
+  }
 
   async lookUpArtist(artistName){
     // Reset the folder structure

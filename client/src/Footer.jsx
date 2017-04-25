@@ -6,28 +6,9 @@ class Footer extends Component {
   }
   render() {
     return (
-      <div>
+      <div className="footer-div">
         <div className="player__container">
           <div className="player__body">
-            <div className="body__cover">
-              <ul className="list list--cover">
-                <li>
-                  <a className="list__link" href=""><i className="fa fa-navicon"></i></a>
-                </li>
-
-                <li>
-                  <a className="list__link" href=""></a>
-                </li>
-
-                <li>
-                  <a className="list__link" href=""><i className="fa fa-search"></i></a>
-                </li>
-              </ul>
-
-              <img src="http://ecx.images-amazon.com/images/I/51XSHShbPiL.jpg" alt="Album cover" />
-
-              <div className="range"></div>
-            </div>
 
             <div className="body__info">
               <div className="info__album">Album Name</div>
@@ -68,3 +49,22 @@ class Footer extends Component {
 }
 
 export default Footer;
+// <div className="body__cover">
+//   <ul className="list list--cover">
+//     <li>
+//       <a className="list__link" href=""><i className="fa fa-navicon"></i></a>
+//     </li>
+//
+//     <li>
+//       <a className="list__link" href=""></a>
+//     </li>
+//
+//     <li>
+//       <a className="list__link" href=""><i className="fa fa-search"></i></a>
+//     </li>
+//   </ul>
+//
+//   <img src="http://ecx.images-amazon.com/images/I/51XSHShbPiL.jpg" alt="Album cover" />
+//
+//   <div className="range"></div>
+// </div>

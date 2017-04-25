@@ -1,20 +1,45 @@
 // Variables
 $gray: hsla(197, 13%, 19%, 0.8);
 
-#sidebar-wrapper {
-  float: right;
-  z-index: 2;
-}
+// #sidebar-wrapper {
+//   // z-index: 2;
+// }
 .nav-side-menu {
+  float: right;
   overflow: auto;
   font-family: verdana;
   font-size: 12px;
   font-weight: 200;
   background-color: $gray;
-  position: fixed;
+  // position: fixed;
   top: 0px;
   width: 300px;
   height: 100%;
   color: #e1ffff;
+  // z-index: 2;
+
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+.dropdown-menu{
+  position: relative;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  border-radius: 0;
+  border: none;
+  background-color: #222;
+  box-shadow: none;
+}
+.toggle-content,
+.toggle-playlists,
+.toggle-events{
+  position: relative;
+  background-color: $gray;
+  font-size: 16px;
+  font-style: italic;
   z-index: 2;
 }
