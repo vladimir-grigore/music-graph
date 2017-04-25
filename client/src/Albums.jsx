@@ -11,7 +11,9 @@ class Albums extends Component {
     return (
       <li>
         {this.props.value}
-        {tracks}
+        <ul>
+          {tracks}
+        </ul>
       </li>
     )
   }

@@ -13,12 +13,12 @@ var appKey = process.env.CLIENT_ID;
 var appSecret = process.env.CLIENT_SECRET;
 
 //////////// Spotify OAuth ///////////////
-// passport.serializeUser(function(user, done) {
-//   done(null, user);
-// });
-// passport.deserializeUser(function(obj, done) {
-//   done(null, obj);
-// });
+passport.serializeUser(function(user, done) {
+  done(null, user);
+});
+passport.deserializeUser(function(obj, done) {
+  done(null, obj);
+});
 passport.use(new SpotifyStrategy({
     clientID: appKey,
     clientSecret: appSecret,

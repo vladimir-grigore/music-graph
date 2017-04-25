@@ -12,7 +12,9 @@ class Artist extends Component {
     return (
       <li>
         {this.props.value}
-        {albums}
+        <ul>
+          {albums}
+        </ul>
       </li>
     )
   }
