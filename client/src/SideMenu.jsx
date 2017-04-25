@@ -14,7 +14,7 @@ class SideMenu extends Component {
         <div className="sideNav" id="sidebar-wrapper">
           <SearchBar lookUpArtist={this.props.lookUpArtist} />
           <div className="nav-side-menu">
-            <Content visualizer={this.props.visualizer} />
+            <Content data={this.props.data} />
             <Footer />
           </div>
         </div>

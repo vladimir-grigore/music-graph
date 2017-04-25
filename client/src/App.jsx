@@ -13,7 +13,7 @@ class App extends Component {
     super(props);
     this.state = {
       open: true,
-      artists: []
+      artists: {}
     }
     this.lookUpArtist = this.lookUpArtist.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
@@ -23,11 +23,7 @@ class App extends Component {
   }
 
   extractNames(obj){
-    let artistNames = [];
-    for(let item in obj){
-      artistNames.push([item, obj[item].name]);
-    }
-    this.setState({ artists: artistNames });
+    this.setState({ artists: obj })
   }
 
   handleUpdate(event){		
