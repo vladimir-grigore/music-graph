@@ -5,8 +5,9 @@ import Footer from './Footer.jsx';
 
 class SideMenu extends Component {
   constructor(props) {
-     super(props);
-   }
+    super(props);
+  }
+
   render() {
     return (
       <div>
