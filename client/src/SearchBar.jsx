@@ -16,9 +16,10 @@ class SearchBar extends Component {
     if (!(event.key === 'Enter')) {
       return;
     }
-    this.props.lookUpArtist(this.state.value)
-    this.setState({value: ''})
+    this.props.lookUpArtist(this.state.value);
+    this.setState({value: ''});
   }
+  
   render() {
     return (
       <div>

@@ -17,6 +17,7 @@ export default class Visualizer {
     this.nodes = new DataSet(nodes);
     this.edges = new DataSet(edges);
     this.artistStructure = {};
+    this.updateCallback = null;
 
     const data = {
       nodes: this.nodes,
@@ -112,7 +113,8 @@ export default class Visualizer {
       default:
         console.log('sorry');
     }
-    // const randomId = (new Date().getTime()).toString(36);
+    // Handle the asynchronous nature of onClick
+    this.updateCallback();
   }
 
   // Clear all other artists, keep all ablums on the canvas

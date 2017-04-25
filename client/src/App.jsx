@@ -12,11 +12,27 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      open: true
+      open: true,
+      artists: []
     }
     this.lookUpArtist = this.lookUpArtist.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
+    this.handleUpdate = this.handleUpdate.bind(this);
+    this.extractNames = this.extractNames.bind(this);
+    visualizer.updateCallback = this.handleUpdate;
   }
+
+  extractNames(obj){
+    let artistNames = [];
+    for(let item in obj){
+      artistNames.push([item, obj[item].name]);
+    }
+    this.setState({ artists: artistNames });
+  }
+
+  handleUpdate(event){		
+    this.extractNames(visualizer.getFolderStructure());	
+  }		
 
   async lookUpArtist(artistName){
     // Reset the folder structure
@@ -29,6 +45,7 @@ class App extends Component {
     for( {id, name, image, popularity } of artists) {
       visualizer.toggleArtistNode(id, name, image, popularity);
     }
+    this.handleUpdate();
   }
 
   handleToggle(yes){
@@ -43,7 +60,7 @@ class App extends Component {
     if (this.state.open) {
       return (
         <div>
-          <SideMenu visualizer={visualizer} lookUpArtist={this.lookUpArtist}/>
+          <SideMenu data={this.state.artists} lookUpArtist={this.lookUpArtist} />
           <Toggle handleToggle={this.handleToggle} />
         </div>
       )
