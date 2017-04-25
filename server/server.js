@@ -22,7 +22,7 @@ passport.deserializeUser(function(obj, done) {
 passport.use(new SpotifyStrategy({
     clientID: appKey,
     clientSecret: appSecret,
-    callbackURL: "http://localhost:3000/callback"
+    callbackURL: process.env.NODE_ENV === 'production' ? 'https://musicgraph.herokuapp.com/callback' : 'http://localhost:3000/callback'
   },
   function(accessToken, refreshToken, profile, done) {
     process.nextTick(function () {
