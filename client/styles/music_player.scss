@@ -43,7 +43,7 @@ a {
   margin-top: 2rem;
   margin-right: auto;
   margin-left: auto;
-  max-width: 95%;
+  max-width: 100%;
   // max-width: remy(320px);
   background: #fff;
   border-radius: $radius;
@@ -54,7 +54,7 @@ a {
   -ms-transition: opacity 1s ease-in-out;
   -o-transition: opacity 1s ease-in-out;
   transition: opacity 1s ease-in-out;
-  
+
   &:hover{
     opacity: 1;
   }
@@ -141,7 +141,7 @@ a {
   &:after {
     top: remy(-6px);
     left: 3rem;
-    z-index: 3;
+    // z-index: 3;
     width: remy(14px);
     height: remy(14px);
     background: #fff;
