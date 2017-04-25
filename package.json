@@ -19,12 +19,5 @@
   "bugs": {
     "url": "https://github.com/vladimir-grigore/music-graph/issues"
   },
-  "homepage": "https://github.com/vladimir-grigore/music-graph#readme",
-  "dependencies": {
-    "dotenv": "^4.0.0",
-    "passport-oauth": "^1.0.0",
-    "passport-oauth2": "^1.4.0",
-    "passport-spotify": "^0.3.1",
-    "pkginfo": "^0.4.0"
-  }
+  "homepage": "https://github.com/vladimir-grigore/music-graph#readme"
 }
