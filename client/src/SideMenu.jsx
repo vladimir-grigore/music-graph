@@ -7,14 +7,13 @@ class SideMenu extends Component {
   constructor(props) {
      super(props);
    }
-
   render() {
     return (
       <div>
         <div className="sideNav" id="sidebar-wrapper">
-          <SearchBar />
+          <SearchBar lookUpArtist={this.props.lookUpArtist} />
           <div className="nav-side-menu">
-            <Content />
+            <Content visualizer={this.props.visualizer} />
             <Footer />
           </div>
         </div>

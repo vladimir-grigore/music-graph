@@ -1,21 +1,20 @@
 import React, {Component} from 'react';
-import Visualizer from'./visualizer.js';
-
-const network = document.getElementById('network');
-const visualizer = new Visualizer(network);
 
 class Content extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: ''
+      folderStructure: {}
     }
   }
+  componentWillReceiveProps(nextProps){
+    this.setState({folderStructure: nextProps})
+  }
+
   render() {
-    const c =  visualizer.getFolderStructure());
     return (
       <div className="contentArtist">
-        <h1> Artist Name: {c.name} </h1>
+        <h1> Artist Name: abba </h1>
       </div>
     )
   }

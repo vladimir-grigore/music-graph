@@ -1,12 +1,33 @@
 import React, {Component} from 'react';
 import SideMenu from './SideMenu.jsx';
 import Toggle from './Toggle.jsx';
+import SpotifyAPI from './spotify_web_api.js';
+import Visualizer from './visualizer.js';
+
+const spotify_API = new SpotifyAPI();
+const network = document.getElementById('network');
+const visualizer = new Visualizer(network);
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       open: true
+    }
+    this.lookUpArtist = this.lookUpArtist.bind(this);
+    this.handleToggle = this.handleToggle.bind(this);
+  }
+
+  async lookUpArtist(artistName){
+    // Reset the folder structure
+    visualizer.artistStructure = {};
+    // Update visualizer canvas
+    visualizer.clear();
+
+    // Search for an artist, display all results
+    const artists = await spotify_API.search_artists(artistName);
+    for( {id, name, image, popularity } of artists) {
+      visualizer.toggleArtistNode(id, name, image, popularity);
     }
   }
 
@@ -20,17 +41,16 @@ class App extends Component {
 
   render() {
     if (this.state.open) {
-      console.log(this.props);
       return (
         <div>
-          <SideMenu />
-          <Toggle handleToggle={this.handleToggle.bind(this)} />
+          <SideMenu visualizer={visualizer} lookUpArtist={this.lookUpArtist}/>
+          <Toggle handleToggle={this.handleToggle} />
         </div>
       )
     } else {
       return (
         <div>
-          <Toggle handleToggle={this.handleToggle.bind(this)} />
+          <Toggle handleToggle={this.handleToggle} />
         </div>
       )
     }
