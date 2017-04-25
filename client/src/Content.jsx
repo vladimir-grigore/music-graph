@@ -10,7 +10,6 @@ class Content extends Component {
   componentWillReceiveProps(nextProps){
     this.setState({folderStructure: nextProps})
   }
-
   render() {
     return (
       <div className="contentArtist">
