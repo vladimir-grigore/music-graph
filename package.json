@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/vladimir-grigore/music-graph/issues"
   },
-  "homepage": "https://github.com/vladimir-grigore/music-graph#readme"
+  "homepage": "https://github.com/vladimir-grigore/music-graph#readme",
+  "dependencies": {
+    "dotenv": "^4.0.0"
+  }
 }

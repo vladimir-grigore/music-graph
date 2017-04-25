@@ -6,6 +6,13 @@
   <title>Music Graph</title>
 </head>
   <body>
+    <% if(!user) { %>
+      <a href="/auth/spotify">Login with Spotify</a>
+    <% }else{ %>
+      <!-- <div>ID: <%= user.id %></div> -->
+      <div>Profile: <a href="<%= user.profileUrl %>"><%= user.displayName %></a></div>
+      <img style="max-height: 30px;" src=<%= user.photos[0] %> alt="profile-image">
+    <% } %>
     <div id="react-root"></div>
     <div id="network"></div>
     <script src="<%= bundleSrc %>"></script>
