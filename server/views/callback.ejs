@@ -3,6 +3,7 @@
     <script>
     (function() {
       var hash = {};
+      var host = process.env.NODE_ENV === 'production' ? 'https://musicgraph.herokuapp.com': 'http://localhost:3000'
       window.location.hash.replace(/^#\/?/, '').split('&').forEach(function(kv) {
         var spl = kv.indexOf('=');
         if (spl != -1) {
@@ -14,7 +15,7 @@
           type:'access_token',
           access_token: hash.access_token,
           expires_in: hash.expires_in || 0
-        }), 'http://localhost:3000');
+        }), host);
         window.close();
         }
     })();
