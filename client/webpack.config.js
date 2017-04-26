@@ -1,4 +1,5 @@
 const path = require('path');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
   devtool: 'source-map',
@@ -32,5 +33,12 @@ module.exports = {
         'sass-loader'
       ]
     }]
-  }
+  },
+  plugins: [
+    new Dotenv({
+      path: '../.env', // if not simply .env 
+      safe: false, // does not load the .env.example
+      systemvars: true
+    })
+  ]
 };

@@ -6,17 +6,28 @@ import User from './User.jsx';
 
 const spotify_API = new SpotifyAPI();
 const network = document.getElementById('network');
-const visualizer = new Visualizer(network);
+const visualizer = new Visualizer(network, spotify_API);
 
 class App extends Component {
   constructor(props) {
     super(props);
+    const logged_in = localStorage.getItem('logged-in');
     this.state = {
+<<<<<<< HEAD
       artists: {}
+=======
+      open: true,
+      artists: {}, 
+      logged_in
+>>>>>>> master
     }
+
     this.lookUpArtist = this.lookUpArtist.bind(this);
     this.handleUpdate = this.handleUpdate.bind(this);
     this.extractNames = this.extractNames.bind(this);
+    this.addSpotifyAuthToken = this.addSpotifyAuthToken.bind(this);
+    this.logoutUser = this.logoutUser.bind(this);
+    this.loginUser = this.loginUser.bind(this);
     visualizer.updateCallback = this.handleUpdate;
   }
 
@@ -33,14 +44,28 @@ class App extends Component {
     visualizer.artistStructure = {};
     // Update visualizer canvas
     visualizer.clear();
-
     // Search for an artist, display all results
     const artists = await spotify_API.search_artists(artistName);
+
+    ///////////////////////PLAYLISTS///////////////////////////
+    // if(this.state.logged_in) {
+    //   this.addSpotifyAuthToken();
+    //   // const user = await spotify_API.get_current_user();
+    //   // console.log("-----USER------", user);
+    //   const playlists = await spotify_API.get_user_playlists('22kychmuozobpxyvt7upchy3q');
+    //   console.log("PLAYLISTS", playlists);
+
+    //   const playlist1 = await spotify_API.get_playlist('22kychmuozobpxyvt7upchy3q', '0Q8pydgbbdun0Iuvxq7BVH');
+    //   console.log("PLAYLIST1:", playlist1);
+    // }
+    ///////////////////////PLAYLISTS///////////////////////////
+
     for( {id, name, image, popularity } of artists) {
       visualizer.toggleArtistNode(id, name, image, popularity);
     }
     this.handleUpdate();
   }
+<<<<<<< HEAD
   //
   // handleToggle(){
   //   if (this.state.open){
@@ -49,12 +74,55 @@ class App extends Component {
   //     this.setState({ open : true})
   //   }
   // }
+=======
+
+  addSpotifyAuthToken() {
+    const token = localStorage.getItem('access_token');
+    spotify_API.set_api_token(token);
+  }
+
+  logoutUser(){
+    this.setState({ logged_in: false });
+  }
+
+  loginUser(){
+    this.addSpotifyAuthToken();
+    this.setState({ logged_in: true });
+  }
+
+  handleToggle(yes){
+    if (this.state.open){
+      this.setState({ open : false})
+    } else {
+      this.setState({ open : true})
+    }
+  }
+>>>>>>> master
 
   render() {
       return (
         <div>
+<<<<<<< HEAD
           <User />
           <SideMenu data={this.state.artists} lookUpArtist={this.lookUpArtist} />
+=======
+          <User logged_in={this.state.logged_in} 
+                loginUser={this.loginUser}
+                logoutUser={this.logoutUser}
+                />
+          <SideMenu data={this.state.artists} lookUpArtist={this.lookUpArtist} />
+          <Toggle handleToggle={this.handleToggle} />
+        </div>
+      )
+    } else {
+      return (
+        <div>
+          <User logged_in={this.state.logged_in}
+                loginUser={this.loginUser}
+                logoutUser={this.logoutUser}
+                />
+          <Toggle handleToggle={this.handleToggle} />
+>>>>>>> master
         </div>
       )
   }

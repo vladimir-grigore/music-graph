@@ -2,7 +2,13 @@ import SpotifyWebApi from 'spotify-web-api-node';
 
 class SpotifyAPI {
   constructor(){
-    this.api = new SpotifyWebApi({});
+    this.api = new SpotifyWebApi({
+      // clientId : process.env.CLIENT_ID
+    });
+  }
+
+  set_api_token(token) {
+    this.api.setAccessToken(token);
   }
 
   search_artists = async function(name) {
@@ -39,6 +45,22 @@ class SpotifyAPI {
     const data = await this.api.getTracks([trackID]);
     return data.body;
   }
+
+  get_current_user = async function() {
+    const data = await this.api.getMe();
+    return data.body;
+  }
+  
+  get_user_playlists = async function(username) {
+    const data = await this.api.getUserPlaylists(username);
+    return data.body;
+  }
+
+  get_playlist = async function(userID, playlistID) {
+    const data = await this.api.getPlaylist(userID, playlistID);
+    return data.body;
+  }
+
 }
 
 module.exports = SpotifyAPI;
