@@ -37,14 +37,21 @@ function getUserData(accessToken) {
   });
 }
 
-var login_user = function(){
-  login(function(accessToken) {
-    getUserData(accessToken)
-      .then(function(response) {
-        console.log("ACCESS TOKEN", accessToken);
-        console.log("USSER DATA", response);
-      });
-  });
+var login_user = function() {
+  return new Promise((resolve, reject) => {
+    login(function(accessToken) {
+      getUserData(accessToken)
+        .then(function(response) {
+          localStorage.setItem('user_name', response.display_name);
+          localStorage.setItem('user_id', response.id);
+          localStorage.setItem('user_image', response.images[0].url);
+          localStorage.setItem('access_token', accessToken);
+          resolve();
+        }).catch(() => {
+          reject();
+        });
+    });
+  })
 }
 
 module.exports = {login_user};

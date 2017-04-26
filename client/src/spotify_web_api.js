@@ -3,10 +3,12 @@ import SpotifyWebApi from 'spotify-web-api-node';
 class SpotifyAPI {
   constructor(){
     this.api = new SpotifyWebApi({
-      clientId : process.env.CLIENT_ID,
-      clientSecret : process.env.CLIENT_SECRET,
-      redirectUri : process.env.NODE_ENV === 'production' ? 'https://musicgraph.herokuapp.com/callback': 'http://localhost:3000/callback'
+      // clientId : process.env.CLIENT_ID
     });
+  }
+
+  set_api_token(token) {
+    this.api.setAccessToken(token);
   }
 
   search_artists = async function(name) {
@@ -51,6 +53,11 @@ class SpotifyAPI {
   
   get_user_playlists = async function(username) {
     const data = await this.api.getUserPlaylists(username);
+    return data.body;
+  }
+
+  get_playlist = async function(userID, playlistID) {
+    const data = await this.api.getPlaylist(userID, playlistID);
     return data.body;
   }
 

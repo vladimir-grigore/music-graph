@@ -1,5 +1,5 @@
-const SpotifyAPI = require('./spotify_web_api.js');
-const spotify_API = new SpotifyAPI();
+// const SpotifyAPI = require('./spotify_web_api.js');
+// const spotify_API = new SpotifyAPI();
 
 const WIDTH_SCALE = 2,
   GREEN = '#81d664',
@@ -12,11 +12,12 @@ const WIDTH_SCALE = 2,
 import { DataSet, Network } from 'vis';
 
 export default class Visualizer {
-  constructor(container, nodes = [], edges = [], options = {}) {
+  constructor(container, spotify_API, nodes = [], edges = [], options = {}) {
     this.container = container;
     this.nodes = new DataSet(nodes);
     this.edges = new DataSet(edges);
     this.artistStructure = {};
+    this.spotify_API = spotify_API;
     this.updateCallback = null;
 
     const data = {
@@ -97,17 +98,17 @@ export default class Visualizer {
 
     switch (node.group) {
       case 'artist':
-        let albums = await spotify_API.get_albums_for_artist(node.id);    
+        let albums = await this.spotify_API.get_albums_for_artist(node.id);    
         this.toggleAlbums(node.id, albums);
         // When expanding an artist, clear the rest of the search results
         this.clearRemainingArtists(node);
         break;
       case 'album':
-        let tracks = await spotify_API.get_tracks_for_album(node.id);
+        let tracks = await this.spotify_API.get_tracks_for_album(node.id);
         this.toggleTracks(node.id, tracks);
         break;
       case 'track':
-        let track = await spotify_API.get_track(node.id);
+        let track = await this.spotify_API.get_track(node.id);
         // console.log("_-_", track.tracks[0]['preview_url']);
         break;
       default:
@@ -153,7 +154,6 @@ export default class Visualizer {
         label,
         shape: 'circularImage',
         image,
-        title: "Artist pop-up",
         group: 'artist',
         value: popularity,
         font: {size: 6, color: ORANGE, face: 'arial'}
@@ -186,7 +186,7 @@ export default class Visualizer {
     let album = this.nodes.get(id);
     if(album){
       if(album.hasTracks){
-        let tracks = await spotify_API.get_tracks_for_album(id);
+        let tracks = await this.spotify_API.get_tracks_for_album(id);
         this.toggleTracks(id, tracks);
       }
       this.nodes.remove(id);
@@ -200,7 +200,6 @@ export default class Visualizer {
         image,
         group: 'album',
         value: popularity,
-        title: "Album pop-up",
         hasTracks: false,
         font: {size: 6, color: ORANGE, face: 'arial'}
       });
@@ -223,7 +222,6 @@ export default class Visualizer {
         from,
         to,
         width: 0,
-        title: "Album edge pop-up",
         shadow:{color: BLUE, opacity: 0.1}
       });
     }
