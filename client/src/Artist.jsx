@@ -13,7 +13,7 @@ class Artist extends Component {
       <li>
         {this.props.value}
         <ul>
-          {albums}
+          <a href="#">{albums}</a>
         </ul>
       </li>
     )

@@ -1,30 +1,139 @@
-// Variables
-$neon: hsla(188, 100%, 50%, .8);
-$gray: hsla(197, 13%, 19%, 0.5);
-
-// Styles
-html,
+$gray: hsla(197, 13%, 19%, 0.8);
 body {
+  position: absolute;
   background-color: $gray;
-  height: 100%;
-  padding: 0;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
   margin: 0;
-  // z-index: -1;
 }
 
-canvas {
+#react-root {
   background-color: $gray;
-  position: relative;
-  min-height: 100%;
-}
-#network{
-  background-color: $gray;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-}
-#network.vis-network{
-  background-color: $gray;
-  position: relative;
-  min-height: 100%;
+  position: relavent;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  .loginBtn {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: blue;
+    width: 100px;
+    height: 40px;
+    color: white;
+    text-align: center;
+    vertical-align: middle;
+  }
+  .nav-side-menu {
+    width: 30%;
+    min-width: 280px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    background: #666;
+    transition: transform 1s;
+    .collapse-button {
+      color: white;
+      cursor: pointer;
+      position: absolute;
+      right: 100%;
+      padding: 10px;
+      background: #666;
+      border-top-left-radius: 5px;
+      border-bottom-left-radius: 5px;
+      i {
+        transition: transform .5s;
+      }
+    }
+    &.is-collapsed {
+      transform: translate(100%);
+      .collapse-button i {
+        transform: rotate(180deg);
+      }
+    }
+    #search-form.artist-lookup {
+      height: 32px;
+      width: 100%;
+      font-size: 20px;
+      font-style: italic;
+      color: rgba(0, 221, 255, 0.8);
+      background-color: rgba(42, 51, 55, 0.5);
+    }
+    $trans: -40%;
+    $rot: -90deg;
+    $tab-dist: -6.5%;
+    .content-tabs {
+      position: relative;
+      right: $tab-dist;
+      -webkit-transform: translate(-230px) rotate($rot) translate($trans, 0px);
+      -moz-transform: translate(-230px) rotate($rot) translate($trans, 0px);
+      -o-transform: translate(-230px) rotate($rot) translate($trans, 0px);
+      transform: translate(-230px) rotate($rot) translate($trans, 0px);
+    }
+    .tab-btn {
+      background-color: $gray;
+      cursor: pointer;
+      margin: 0;
+      display: inline-block;
+      height: 5px;
+      padding: 10px;
+      border: 1px solid #000;
+      font-family: Arial, sans-serif;
+      font-size: 20px;
+      line-height: 10%;
+      font-weight: bold;
+      text-decoration: none;
+      color: #111;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+      &:hover {
+        background-color: #bbb;
+      }
+    }
+    .footer-div {
+      background-color: white;
+      height: 150px;
+      bottom: 0;
+      right: 0;
+      margin: 0;
+      position: relative;
+      width: 100%;
+      height: 250px;
+      $boxshadow-0: 0 1px 3px -5px rgba(0, 0, 0, .13), 0 1px 3px -10px rgba(0, 0, 0, .23);
+      $boxshadow-1: 0 3px 6px -5px rgba(0, 0, 0, .16), 0 3px 6px -10px rgba(0, 0, 0, .23);
+      $boxshadow-2: 0 10px 20px -5px rgba(0, 0, 0, .19), 0 6px 6px -10px rgba(0, 0, 0, .23);
+      $boxshadow-3: 0 14px 28px -5px rgba(0, 0, 0, .25), 0 10px 10px -10px rgba(0, 0, 0, .22);
+      .share-button-section {
+        position: relative;
+      }
+      .share-button {
+        position: absolute;
+        background: deepskyblue;
+        display: inline-block;
+        font-size: 2em;
+        padding: .5em;
+        border-radius: 100%;
+        width: 1em;
+        text-align: center;
+        transition: .5s background, .5s transform;
+        &:hover {
+          background: khaki;
+        }
+      }
+    }
+
+
+  }
+  #network {
+    background-color: $gray;
+    position: relavent;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+  }
 }

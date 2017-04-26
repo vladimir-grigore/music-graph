@@ -12,7 +12,7 @@ class Albums extends Component {
       <li>
         {this.props.value}
         <ul>
-          {tracks}
+          <a href="#">{tracks}</a>
         </ul>
       </li>
     )

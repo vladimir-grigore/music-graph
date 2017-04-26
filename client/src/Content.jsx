@@ -20,7 +20,7 @@ class Content extends Component {
 
     return (
       <div className="artistEntry" id="content-wrapper">
-        <ul className="nav content-nav scroll-area">
+        <ul className="nav content-nav" id="scroll-area">
           <a href="#">{artistEntry}</a>
         </ul>
       </div>

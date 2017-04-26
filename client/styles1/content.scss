@@ -4,7 +4,7 @@ $green: random(256)-1;
 $blue: random(256)-1;
 
 .artistEntry a{
-  // position: absolute;
+  position: absolute;
   font-size: 25px;
   z-index: 2;
 }
@@ -14,24 +14,24 @@ $blue: random(256)-1;
   height: 100%;
 }
 .content-nav {
-    // position: relative;
-    // top: 0;
-    // margin: 0;
-    // padding: 0;
+    position: relative;
+    top: 0;
+    margin: 0;
+    padding: 0;
     list-style: none;
 }
 .content-nav li {
-    // position: relative;
+    position: relative;
     line-height: 20px;
     display: inline-block;
     width: 100%;
 }
 .content-nav li:before {
     content: '';
-    // position: absolute;
-    // top: 0;
-    // left: 0;
-    // z-index: -1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
     height: 100%;
     width: 3px;
     -webkit-transition: width .2s ease-in;

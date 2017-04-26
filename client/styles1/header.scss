@@ -2,22 +2,33 @@ $neon: hsla(188, 100%, 50%, .8);
 $gray: hsla(197, 13%, 19%, 0.5);
 
 .header-div{
-  background-color: rgb(93, 93, 93);
-  width: 100%;
-  // .loginBtn:before,
-  // .loginBtn:after,
-  // .loginBtn {
-  //   margin: 0;
-  //   transition: box-shadow .5s;
-  // }
+  height: 150px;
+  background-color: white;
+  .loginBtn:before,
+  .loginBtn:after,
+  .loginBtn {
+    max-width: 100%; /* Set a specific width */
+    position: relative;
+    padding-top: 50px;
+    padding-left: 75px;
+    float: left;
+    margin: 0;
+    z-index: 2;
+    transition: box-shadow .5s;
+  }
   #search-form {
     background-color: $gray;
-    width: 280px;
-    font-size: 20px;
+    position: relative;
+    max-width: 48%;
+    float: left;
+    font-size: 15px;
     font-style: italic;
     font-weight: bold;
     color: $neon;
+    z-index: 2;
     transition: box-shadow .5s;
+    margin-right: 100%;
+    margin-top: 14%;
   }
   #search-form:hover{
     box-shadow: 5px 5px 15px black;

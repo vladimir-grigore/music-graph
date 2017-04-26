@@ -1,12 +1,8 @@
 // Variables
 $gray: hsla(197, 13%, 19%, 0.8);
 
-// .dropdown-menu{
-//   width: 100%;
-//   border-radius: 0;
-//   border: none;
-//   background-color: #222;
-//   box-shadow: none;
+// #sidebar-wrapper {
+//   // z-index: 2;
 // }
 .nav-side-menu {
   float: right;
@@ -17,7 +13,7 @@ $gray: hsla(197, 13%, 19%, 0.8);
   background-color: $gray;
   // position: fixed;
   top: 0px;
-  width: 280px;
+  width: 300px;
   height: 100%;
   color: #e1ffff;
   // z-index: 2;
@@ -27,12 +23,23 @@ $gray: hsla(197, 13%, 19%, 0.8);
   -o-transition: all 0.5s ease;
   transition: all 0.5s ease;
 }
+
+.dropdown-menu{
+  position: relative;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  border-radius: 0;
+  border: none;
+  background-color: #222;
+  box-shadow: none;
+}
 .toggle-content,
 .toggle-playlists,
 .toggle-events{
+  position: relative;
   background-color: $gray;
   font-size: 16px;
   font-style: italic;
-  font-size: 16px;
-  // z-index: 2;
+  z-index: 2;
 }
