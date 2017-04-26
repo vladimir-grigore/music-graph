@@ -1,6 +1,5 @@
 const webpack = require('webpack');
 const path = require('path');
-const Dotenv = require('dotenv-webpack');
 
 module.exports = {
   entry: ['babel-polyfill', path.resolve(__dirname, 'src/index.jsx')],
@@ -35,11 +34,6 @@ module.exports = {
     }]
   },
   plugins: [
-    new Dotenv({
-      path: '../.env', // if not simply .env 
-      safe: false, // does not load the .env.example
-      systemvars: true
-    }),
     new webpack.optimize.UglifyJsPlugin({
       beautify: false,
       mangle: {
