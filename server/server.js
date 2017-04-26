@@ -7,7 +7,9 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 
 app.get('/callback', function(req, res) {
-  res.render('callback');
+  res.render('callback', {
+    callback_root: process.env.NODE_ENV === 'production' ? 'https://musicgraph.herokuapp.com': 'http://localhost:3000'
+  });
 });
 
 app.get('/', (req, res) => {
