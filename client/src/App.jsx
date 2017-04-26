@@ -38,6 +38,12 @@ class App extends Component {
 
     // Search for an artist, display all results
     const artists = await spotify_API.search_artists(artistName);
+
+    // const user = await spotify_API.get_current_user();
+    // console.log("USER", user);
+    // const playlists = await spotify_API.get_user_playlists('22kychmuozobpxyvt7upchy3q');
+    // console.log("PLAYLISTS", playlists);
+
     for( {id, name, image, popularity } of artists) {
       visualizer.toggleArtistNode(id, name, image, popularity);
     }

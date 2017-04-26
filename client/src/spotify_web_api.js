@@ -39,6 +39,17 @@ class SpotifyAPI {
     const data = await this.api.getTracks([trackID]);
     return data.body;
   }
+
+  get_current_user = async function() {
+    const data = await this.api.getMe();
+    return data.body;
+  }
+  
+  get_user_playlists = async function(username) {
+    const data = await this.api.getUserPlaylists(username);
+    return data.body;
+  }
+
 }
 
 module.exports = SpotifyAPI;
