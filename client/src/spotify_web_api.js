@@ -2,7 +2,11 @@ import SpotifyWebApi from 'spotify-web-api-node';
 
 class SpotifyAPI {
   constructor(){
-    this.api = new SpotifyWebApi({});
+    this.api = new SpotifyWebApi({
+      clientId : process.env.CLIENT_ID,
+      clientSecret : process.env.CLIENT_SECRET,
+      redirectUri : process.env.NODE_ENV === 'production' ? 'https://musicgraph.herokuapp.com/callback': 'http://localhost:3000/callback'
+    });
   }
 
   search_artists = async function(name) {
