@@ -10,6 +10,8 @@ function get_artist_by_name(name) {
     const results = response.body();
     console.log("RESULTS:", results);
     console.log("RESULTS DATA", results.data());
+  }).catch((err) => {
+    console.error(err);
   });
 }
 
@@ -19,6 +21,8 @@ function get_venue_by_name(name) {
     const results = response.body();
     console.log("RESULTS:", results);
     console.log("RESULTS DATA", results.data());
+  }).catch((err) => {
+    console.error(err);
   });
 }
 
@@ -28,6 +32,8 @@ function get_events_by_artist_id(artistID) {
     const results = response.body();
     console.log("RESULTS:", results);
     console.log("RESULTS DATA", results.data());
+  }).catch((err) => {
+    console.error(err);
   });
 }
 
@@ -37,6 +43,8 @@ function get_events_by_venue_id(venueID) {
     const results = response.body();
     console.log("RESULTS:", results);
     console.log("RESULTS DATA", results.data());
+  }).catch((err) => {
+    console.error(err);
   });
 }
 
@@ -46,6 +54,8 @@ function get_events_by_artist_id_start_end_date(artistID, startDate, endDate) {
     const results = response.body();
     console.log("RESULTS:", results);
     console.log("RESULTS DATA", results.data());
+  }).catch((err) => {
+    console.error(err);
   });
 }
 
@@ -55,6 +65,8 @@ function get_events_by_venue_id_start_end_date(venueID, startDate, endDate) {
     const results = response.body();
     console.log("RESULTS:", results);
     console.log("RESULTS DATA", results.data());
+  }).catch((err) => {
+    console.error(err);
   });
 }
 

@@ -2,9 +2,7 @@ import SpotifyWebApi from 'spotify-web-api-node';
 
 class SpotifyAPI {
   constructor(){
-    this.api = new SpotifyWebApi({
-      // clientId : process.env.CLIENT_ID
-    });
+    this.api = new SpotifyWebApi({});
   }
 
   set_api_token(token) {
@@ -29,7 +27,7 @@ class SpotifyAPI {
         popularity: item.popularity
       }));
     } catch(err) {
-      console.error();
+      console.error(err);
     }
   }
   
@@ -40,7 +38,7 @@ class SpotifyAPI {
       const result = await this.api.getAlbums(ids);
       return result.body.albums;
     } catch(err) {
-      console.error();
+      console.error(err);
     }
   }
 
@@ -49,7 +47,7 @@ class SpotifyAPI {
       const data = await this.api.getAlbumTracks(albumID);
       return data.body.items;
     } catch(err) {
-      console.error();
+      console.error(err);
     }
   }
 
@@ -58,7 +56,7 @@ class SpotifyAPI {
       const data = await this.api.getTracks([trackID]);
       return data.body;
     } catch(err) {
-      console.error();
+      console.error(err);
     }
   }
 
@@ -66,7 +64,7 @@ class SpotifyAPI {
     try {
       const data = await this.api.getMe();
       return data.body;
-    } catch (err) {
+    } catch(err) {
       return err.statusCode;
     }
   }
@@ -75,7 +73,7 @@ class SpotifyAPI {
     try {
       const data = await this.api.getUserPlaylists(username);
       return data.body;
-    } catch (err) {
+    } catch(err) {
       return err.statusCode;
     }
   }
@@ -84,7 +82,7 @@ class SpotifyAPI {
     try {
       const data = await this.api.getPlaylist(userID, playlistID);
       return data.body;
-    } catch (err) {
+    } catch(err) {
       return err.statusCode;
     }
   }
