@@ -31,7 +31,7 @@ class App extends Component {
   }
 
   extractNames(obj){
-    this.setState({ artists: obj })
+    this.setState({ artists: obj });
   }
 
   handleUpdate(event){
@@ -49,8 +49,8 @@ class App extends Component {
     ///////////////////////PLAYLISTS///////////////////////////
     // if(this.state.logged_in) {
     //   this.addSpotifyAuthToken();
-    //   // const user = await spotify_API.get_current_user();
-    //   // console.log("-----USER------", user);
+    //   const user = await spotify_API.get_current_user();
+    //   console.log("-----USER------", user);
     //   const playlists = await spotify_API.get_user_playlists('22kychmuozobpxyvt7upchy3q');
     //   console.log("PLAYLISTS", playlists);
 
@@ -76,9 +76,9 @@ class App extends Component {
 
   handleToggle(parentNode){
     if (parentNode == 'open'){
-      this.setState({ open : 'closed'})
+      this.setState({ open : 'closed'});
     } else {
-      this.setState({ open : 'open'})
+      this.setState({ open : 'open'});
     }
   }
 
