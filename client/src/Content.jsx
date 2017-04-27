@@ -11,7 +11,7 @@ class Content extends Component {
   }
   render() {
     const artistEntry = Object.keys(this.props.data)
-    .map(item => <Artist key={item} value={this.props.data[item].name} albums={this.props.data[item].albums}/>);
+    .map(item => <Artist key={item} value={this.props.data[item].name} albums={this.props.data[item].albums} />);
 
     // const albums = Object.keys(this.props.data)
     // .map(item => Object.keys(this.props.data[item].albums)
