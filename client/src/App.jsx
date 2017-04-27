@@ -23,21 +23,19 @@ class App extends Component {
     this.handleToggle = this.handleToggle.bind(this);
     this.lookUpArtist = this.lookUpArtist.bind(this);
     this.handleUpdate = this.handleUpdate.bind(this);
-    this.extractNames = this.extractNames.bind(this);
     this.addSpotifyAuthToken = this.addSpotifyAuthToken.bind(this);
     this.logoutUser = this.logoutUser.bind(this);
     this.loginUser = this.loginUser.bind(this);
     visualizer.updateCallback = this.handleUpdate;
   }
 
-  extractNames(obj){
-    this.setState({ artists: obj });
-  }
-
+  // Keep the artist/album/tracks strucutre as a component state
   handleUpdate(event){
-    this.extractNames(visualizer.getFolderStructure());
+    const folderStructure = visualizer.getFolderStructure();
+    this.setState({ artists: folderStructure });
   }
 
+  // Search Spotify API for artist name and populte vis.js canvas
   async lookUpArtist(artistName){
     // Reset the folder structure
     visualizer.artistStructure = {};
@@ -57,7 +55,6 @@ class App extends Component {
     //   }
     //   const playlists = await spotify_API.get_user_playlists('22kychmuozobpxyvt7upchy3q');
     //   console.log("PLAYLISTS", playlists);
-
     //   const playlist1 = await spotify_API.get_playlist('22kychmuozobpxyvt7upchy3q', '0Q8pydgbbdun0Iuvxq7BVH');
     //   console.log("PLAYLIST1:", playlist1);
     // }
@@ -72,6 +69,7 @@ class App extends Component {
     // events.get_events_by_venue_id_start_end_date(3816, '2017-05-01', '2017-08-30');
     ///////////////////////EVENTS API//////////////////////////
 
+    // Populate canvas with artist nodes
     for( {id, name, image, popularity } of artists) {
       visualizer.toggleArtistNode(id, name, image, popularity);
     }
@@ -86,11 +84,14 @@ class App extends Component {
     }
   }
 
+  // Set Spotify API authentication token
+  // Used in getting user info and playlists details
   addSpotifyAuthToken() {
     const token = localStorage.getItem('access_token');
     spotify_API.set_api_token(token);
   }
 
+  // Spotify OAuth, setting user details in local storage
   loginUser(){
     auth.login_user().then(() => {
       localStorage.setItem('logged-in', 'true');
@@ -110,9 +111,9 @@ class App extends Component {
     this.setState({ logged_in: false });
   }
 
-  handleEventClick = (event) => {
-    console.log('hi');
-  }
+  // handleEventClick = (event) => {
+  //   console.log('hi');
+  // }
 
   render() {
     if (this.state.open == 'open') {
