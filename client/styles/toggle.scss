@@ -2,9 +2,9 @@
 // $neon: hsla(188, 100%, 50%, .8);
 $gray: hsla(197, 13%, 19%, 0.5);
 
-.icon-bar:before,
-.icon-bar:after,
-.icon-bar {
+.collapse-button:before,
+.collapse-button:after,
+.collapse-button {
   width: 50px; /* Set a specific width */
   // position: absolute;
   // float: right;
@@ -15,7 +15,7 @@ $gray: hsla(197, 13%, 19%, 0.5);
   // z-index: 2;
   transition: box-shadow .5s;
 }
-.icon-bar a {
+.collapse-button a {
   display: block; /* Make the links appear below each other instead of side-by-side */
   text-align: center; /* Center-align text */
   transition: all 0.3s ease; /* Add transition for hover effects */
@@ -25,11 +25,11 @@ $gray: hsla(197, 13%, 19%, 0.5);
   padding-left: 20px;
   padding-right: 20px;
 }
-.icon-bar a:hover {
+.collapse-button a:hover {
   background-color: hsla(198, 13%, 19%, 0.81); /* Add a hover color */
   box-shadow: 5px 5px 15px $gray;
 }
-// .icon-bar:after.is-active {
+// .collapse-button:after.is-active {
 //   #react-root {
 //     flex: 0;
 //   }

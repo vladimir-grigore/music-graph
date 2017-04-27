@@ -3,6 +3,7 @@ import SideMenu from './SideMenu.jsx';
 import SpotifyAPI from './spotify_web_api.js';
 import Visualizer from './visualizer.js';
 import User from './User.jsx';
+import Toggle from './Toggle.jsx';
 
 const spotify_API = new SpotifyAPI();
 const network = document.getElementById('network');
@@ -13,15 +14,11 @@ class App extends Component {
     super(props);
     const logged_in = localStorage.getItem('logged-in');
     this.state = {
-<<<<<<< HEAD
-      artists: {}
-=======
-      open: true,
-      artists: {}, 
+      open: 'open',
+      artists: {},
       logged_in
->>>>>>> master
     }
-
+    this.handleToggle = this.handleToggle.bind(this);
     this.lookUpArtist = this.lookUpArtist.bind(this);
     this.handleUpdate = this.handleUpdate.bind(this);
     this.extractNames = this.extractNames.bind(this);
@@ -65,16 +62,14 @@ class App extends Component {
     }
     this.handleUpdate();
   }
-<<<<<<< HEAD
-  //
-  // handleToggle(){
-  //   if (this.state.open){
-  //     this.setState({ open : false})
-  //   } else {
-  //     this.setState({ open : true})
-  //   }
-  // }
-=======
+
+  handleToggle(parentNode){
+    if (parentNode == 'open'){
+      this.setState({ open : 'closed'})
+    } else {
+      this.setState({ open : 'open'})
+    }
+  }
 
   addSpotifyAuthToken() {
     const token = localStorage.getItem('access_token');
@@ -89,29 +84,24 @@ class App extends Component {
     this.addSpotifyAuthToken();
     this.setState({ logged_in: true });
   }
-
-  handleToggle(yes){
-    if (this.state.open){
-      this.setState({ open : false})
-    } else {
-      this.setState({ open : true})
-    }
+  handleEventClick = (event) => {
+    console.log('hi');
   }
->>>>>>> master
-
   render() {
+    if (this.state.open == 'open') {
       return (
         <div>
-<<<<<<< HEAD
-          <User />
-          <SideMenu data={this.state.artists} lookUpArtist={this.lookUpArtist} />
-=======
-          <User logged_in={this.state.logged_in} 
+          <User logged_in={this.state.logged_in}
                 loginUser={this.loginUser}
                 logoutUser={this.logoutUser}
                 />
           <SideMenu data={this.state.artists} lookUpArtist={this.lookUpArtist} />
-          <Toggle handleToggle={this.handleToggle} />
+          <Toggle className={this.state.open} handleToggle={this.handleToggle} />
+          <div className="content-tabs">
+            <span className="tab-btn" onClick={this.handleEventClick}>Events</span>
+            <span className="tab-btn">Playlists</span>
+            <span className="tab-btn">Artists</span>
+          </div>
         </div>
       )
     } else {
@@ -121,10 +111,15 @@ class App extends Component {
                 loginUser={this.loginUser}
                 logoutUser={this.logoutUser}
                 />
-          <Toggle handleToggle={this.handleToggle} />
->>>>>>> master
+              <Toggle className={this.state.open} handleToggle={this.handleToggle} />
+              <div className="content-tabs">
+                <span className="tab-btn">Events</span>
+                <span className="tab-btn">Playlists</span>
+                <span className="tab-btn">Artists</span>
+              </div>
         </div>
       )
+    }
   }
 }
 

@@ -5,20 +5,22 @@ class Toggle extends Component {
     super(props);
   }
 
-  get className() {
-    return `collapse-button ${this.props.open ? 'open' : 'closed' }`
-  }
+  // get className() {
+  //   return `collapse-button ${this.props.className ? 'open' : 'closed' }`
+  // }
 
   render() {
     return (
-      <div className={this.className}>
+      <div className={`collapse-button ${this.props.className}`}>
         <a href="#" onClick={this.handleClick}><i className="fa fa-chevron-right"></i></a>
       </div>
     )
   }
 
   handleClick = (event) => {
-    this.props.handleToggle();
+    const parent = event.target.parentNode.parentNode;
+    const parentName = parent.className.split(' ')[1];
+    this.props.handleToggle(parentName);
   }
 }
 
