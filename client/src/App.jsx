@@ -5,6 +5,8 @@ import SpotifyAPI from './spotify_web_api.js';
 import Visualizer from './visualizer.js';
 import User from './User.jsx';
 
+import events from './events.js';
+
 const spotify_API = new SpotifyAPI();
 const network = document.getElementById('network');
 const visualizer = new Visualizer(network, spotify_API);
@@ -57,6 +59,15 @@ class App extends Component {
     //   console.log("PLAYLIST1:", playlist1);
     // }
     ///////////////////////PLAYLISTS///////////////////////////
+
+    ///////////////////////EVENTS API//////////////////////////
+    // events.get_artist_by_name(artistName);
+    // events.get_venue_by_name("Commodore");
+    // events.get_events_by_artist_id(31754);
+    // events.get_events_by_venue_id(3816);
+    // events.get_events_by_artist_id_start_end_date(31754, '2017-05-01', '2017-08-30');
+    // events.get_events_by_venue_id_start_end_date(3816, '2017-05-01', '2017-08-30');
+    ///////////////////////EVENTS API//////////////////////////
 
     for( {id, name, image, popularity } of artists) {
       visualizer.toggleArtistNode(id, name, image, popularity);
