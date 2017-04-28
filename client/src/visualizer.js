@@ -1,13 +1,10 @@
-// const SpotifyAPI = require('./spotify_web_api.js');
-// const spotify_API = new SpotifyAPI();
-
 const WIDTH_SCALE = 2,
-  GREEN = '#81d664',
-  RED = '#c5000b',
-  ORANGE = '#ffaa00',
-  GRAY = '#374043',
-  BLACK = '#000000',
-  BLUE = '#0c18f7';
+  GREEN = '#7CBF7F',
+  BLUE = '#6584C7',
+  RED = '#DC4B7C',
+  PURPLE = '#8D65E0',
+  FONT_GRAY = '#F0F0F0',
+  EDGE_GRAY = '#A6A3A8';
 
 import { DataSet, Network } from 'vis';
 
@@ -26,25 +23,12 @@ export default class Visualizer {
     };
 
     this.options = Object.assign({}, {
-      interaction: {
-        hover: true
-      },
       nodes: {
         borderWidth: 4,
-        shadow:true,
-        color: {
-          border: BLACK,
-          background: GRAY
-        },
-        scaling: {
-          min: 8,
-          max: 16
-        }
       },
       edges: {
-        color: GRAY,
-        smooth: true,
-        shadow: true
+        color: FONT_GRAY,
+        smooth: true
       },
       physics: {
         barnesHut: {
@@ -56,22 +40,25 @@ export default class Visualizer {
       },
       groups: {
         artist: {
-          shape: 'dot',
-          color: RED
+          shape: 'dot'
         },
         album: {
-          shape: 'dot',
-          color: BLUE
+          shape: 'dot'
         },
         track: {
-          shape: 'dot',
-          color: GREEN
+          shape: 'dot'
         }
       }
     }, options);
 
     this.network = new Network(this.container, data, options);
     this.network.on('click', this.onClick);
+  }
+
+  // Returns a random color to be used for track nodes
+  randomColor() {
+    const colorArray = [ GREEN, BLUE, RED, PURPLE ];
+    return colorArray[Math.floor(Math.random() * colorArray.length)]; 
   }
 
   // Returns a folder structure contaning artists
@@ -137,8 +124,9 @@ export default class Visualizer {
   };
 
   toggleTracks(albumID, tracks){
+    const color = this.randomColor();
     tracks.forEach(track => {
-      this.toggleTrackNode(albumID, track.id, track.name);
+      this.toggleTrackNode(albumID, track.id, track.name, color);
       this.toggleTrackEdge(albumID, track.id);
     });
   }
@@ -156,7 +144,13 @@ export default class Visualizer {
         image,
         group: 'artist',
         value: popularity,
-        font: {size: 6, color: ORANGE, face: 'arial'}
+        color: {
+          border: EDGE_GRAY,
+          highlight: {
+            border: FONT_GRAY
+          }
+        },
+        font: {size: 8, color: FONT_GRAY, face: 'arial'}
       });
       this.artistStructure[id] = { name: label, albums: {} };
     }
@@ -200,8 +194,14 @@ export default class Visualizer {
         image,
         group: 'album',
         value: popularity,
+        color: {
+          border: EDGE_GRAY,
+          highlight: {
+            border: FONT_GRAY
+          }
+        },
         hasTracks: false,
-        font: {size: 6, color: ORANGE, face: 'arial'}
+        font: {size: 8, color: FONT_GRAY, face: 'arial'}
       });
       // Add albums to the folder structure
       this.artistStructure[artistID].albums[id] = { name: label, tracks: {} };
@@ -221,13 +221,12 @@ export default class Visualizer {
       this.edges.add({
         from,
         to,
-        width: 0,
-        shadow:{color: BLUE, opacity: 0.1}
+        width: 0
       });
     }
   }
 
-  toggleTrackNode(albumID, id, label) {
+  toggleTrackNode(albumID, id, label, color) {
     // Get the artistID (used in the folder structure obj)
     for(var artistID in this.artistStructure) break;
     // Remove the track node if it already exists
@@ -243,9 +242,9 @@ export default class Visualizer {
         label,
         shape: 'dot',
         group: 'track',
-        color: GREEN,
-        value: 6,
-        font: {size: 6, color: ORANGE, face: 'arial'}
+        color,
+        value: 3,
+        font: {size: 8, color: FONT_GRAY, face: 'arial'}
       });
       this.nodes.update({id: albumID, hasTracks: true});
       // Add tracks to the folder structure
