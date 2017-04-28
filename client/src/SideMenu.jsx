@@ -10,14 +10,6 @@ class SideMenu extends Component {
       tab: 'Artists'
     }
   }
-  // contentToggle() {
-  //     var x = document.getElementById('content-wrapper');
-  //     if (x.style.display === 'none') {
-  //         x.style.display = 'block';
-  //     } else {
-  //         x.style.display = 'none';
-  //     }
-  // }
   handleTabClick = (tab) => {
     this.setState({tab})
   }
@@ -34,7 +26,3 @@ class SideMenu extends Component {
 }
 
 export default SideMenu;
-
-// <button className="toggle-content" onClick={this.contentToggle.bind(this)}>Artists</button>
-// <button className="toggle-playlists" onClick={this.contentToggle.bind(this)}>Playlists</button>
-// <button className="toggle-events" onClick={this.contentToggle.bind(this)}>Events</button>
