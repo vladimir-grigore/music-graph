@@ -10,7 +10,7 @@ class Artist extends Component {
     const albums = Object.keys(this.props.albums)
     .map(item => <Albums key={item} value={this.props.albums[item].name} tracks={this.props.albums[item].tracks} />);
     return (
-      <li>
+      <li className="list__item">
         {this.props.value}
         <ul>
           {albums}
