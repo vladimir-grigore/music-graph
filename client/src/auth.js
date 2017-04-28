@@ -15,11 +15,12 @@ function login(callback) {
       left = (screen.width / 2) - (width / 2),
       top = (screen.height / 2) - (height / 2);
       
-  window.addEventListener("message", function(event) {
+  window.addEventListener("message", function handler(event) {
     var hash = JSON.parse(event.data);
     if (hash.type == 'access_token') {
       callback(hash.access_token);
     }
+    this.removeEventListener("message", handler);
   }, false);
   
   var w = window.open(url,'Spotify',
