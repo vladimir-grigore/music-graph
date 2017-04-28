@@ -16,6 +16,7 @@ export default class Visualizer {
     this.artistStructure = {};
     this.spotify_API = spotify_API;
     this.updateCallback = null;
+    this.nextAlbumColor = 0;
 
     const data = {
       nodes: this.nodes,
@@ -58,7 +59,12 @@ export default class Visualizer {
   // Returns a random color to be used for track nodes
   randomColor() {
     const colorArray = [ GREEN, BLUE, RED, PURPLE ];
-    return colorArray[Math.floor(Math.random() * colorArray.length)]; 
+    if (this.nextAlbumColor == colorArray.length) {
+      this.nextAlbumColor = 0;
+    }
+    let color =  colorArray[this.nextAlbumColor];
+    this.nextAlbumColor += 1;
+    return color;
   }
 
   // Returns a folder structure contaning artists
@@ -204,7 +210,7 @@ export default class Visualizer {
         font: {size: 8, color: FONT_GRAY, face: 'arial'}
       });
       // Add albums to the folder structure
-      this.artistStructure[artistID].albums[id] = { name: label, tracks: {} };
+      this.artistStructure[artistID].albums[id] = { name: label, tracks: {}, color: '' };
     }
   }
 
@@ -249,6 +255,7 @@ export default class Visualizer {
       this.nodes.update({id: albumID, hasTracks: true});
       // Add tracks to the folder structure
       this.artistStructure[artistID].albums[albumID].tracks[id] = { name: label };
+      this.artistStructure[artistID].albums[albumID].color = color;
     }
   }
 
