@@ -6,25 +6,27 @@ import Tabs from './Tabs.jsx';
 class SideMenu extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      tab: 'Artists'
+    }
   }
-  contentToggle() {
-      var x = document.getElementById('content-wrapper');
-      if (x.style.display === 'none') {
-          x.style.display = 'block';
-      } else {
-          x.style.display = 'none';
-      }
-  }
-  handleTabClick = (event) => {
-    console.log('clicked on: ', event.target.id);
-
+  // contentToggle() {
+  //     var x = document.getElementById('content-wrapper');
+  //     if (x.style.display === 'none') {
+  //         x.style.display = 'block';
+  //     } else {
+  //         x.style.display = 'none';
+  //     }
+  // }
+  handleTabClick = (tab) => {
+    this.setState({tab})
   }
   render() {
     return (
       <div className="nav-side-menu" id="sidebar-wrapper">
         <Header lookUpArtist={this.props.lookUpArtist} />
         <Tabs handleTabClick={this.handleTabClick} />
-        <Content lookUpArtist={this.props.lookUpArtist} data={this.props.data} />
+        <Content lookUpArtist={this.props.lookUpArtist} data={this.props.data} currentTab={this.state.tab}/>
         <Footer />
       </div>
     )
