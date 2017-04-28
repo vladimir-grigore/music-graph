@@ -12,12 +12,12 @@ class Albums extends Component {
                            value={this.props.tracks[item].name} 
                            />);
     return (
-      {/*<li style={{color: this.props.color}} onClick={this.props.albumMenuClick(this.props.id)}>
+      <li style={{color: this.props.color}} >
         {this.props.value}
         <ul>
           {tracks}
         </ul>
-      </li>*/}
+      </li>
     )
   }
 }

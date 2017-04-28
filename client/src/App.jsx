@@ -149,8 +149,7 @@ class App extends Component {
                 loginUser={this.loginUser}
                 logoutUser={this.logoutUser}
                 />
-              <Toggle className={this.state.open} handleToggle={this.handleToggle} />
-
+          <Toggle className={this.state.open} handleToggle={this.handleToggle} />
         </div>
       )
     }

@@ -7,9 +7,9 @@ class Tracks extends Component {
 
   render() {
     return (
-      {/*<li onClick={this.props.trackMenuClick(this.props.id)}>
+      <li>
         {this.props.value}
-      </li>*/}
+      </li>
     )
   }
 }

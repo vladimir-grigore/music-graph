@@ -5,10 +5,6 @@ class Toggle extends Component {
     super(props);
   }
 
-  // get className() {
-  //   return `collapse-button ${this.props.className ? 'open' : 'closed' }`
-  // }
-
   render() {
     return (
       <div className={`collapse-button ${this.props.className}`}>
