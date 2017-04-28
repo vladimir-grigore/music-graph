@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Content from './Content.jsx';
 import Footer from './Footer.jsx';
 import Header from './Header.jsx';
-
+import Tabs from './Tabs.jsx';
 class SideMenu extends Component {
   constructor(props) {
     super(props);
@@ -15,10 +15,15 @@ class SideMenu extends Component {
           x.style.display = 'none';
       }
   }
+  handleTabClick = (event) => {
+    console.log('clicked on: ', event.target.id);
+
+  }
   render() {
     return (
       <div className="nav-side-menu" id="sidebar-wrapper">
         <Header lookUpArtist={this.props.lookUpArtist} />
+        <Tabs handleTabClick={this.handleTabClick} />
         <Content lookUpArtist={this.props.lookUpArtist} data={this.props.data} />
         <Footer />
       </div>

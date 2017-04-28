@@ -147,21 +147,16 @@ class App extends Component {
 
     if (this.state.open == 'open') {
       return (
-        <div>
+        <div id="wrapper">
 <button style={buttonStyle} onClick={this.openModal}>Open modal</button >
 <EventsModal isOpen={this.state.isModalOpen} onClose={this.closeModal} />
-
           <User logged_in={this.state.logged_in}
                 loginUser={this.loginUser}
                 logoutUser={this.logoutUser}
                 />
           <SideMenu data={this.state.artists} lookUpArtist={this.lookUpArtist} />
           <Toggle className={this.state.open} handleToggle={this.handleToggle} />
-          <div className="content-tabs">
-            <span className="tab-btn" onClick={this.handleEventClick}>Events</span>
-            <span className="tab-btn">Playlists</span>
-            <span className="tab-btn">Artists</span>
-          </div>
+
         </div>
       )
     } else {
@@ -172,11 +167,6 @@ class App extends Component {
                 logoutUser={this.logoutUser}
                 />
               <Toggle className={this.state.open} handleToggle={this.handleToggle} />
-              <div className="content-tabs">
-                <span className="tab-btn">Events</span>
-                <span className="tab-btn">Playlists</span>
-                <span className="tab-btn">Artists</span>
-              </div>
         </div>
       )
     }

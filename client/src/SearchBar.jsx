@@ -19,10 +19,10 @@ class SearchBar extends Component {
     this.props.lookUpArtist(this.state.value);
     this.setState({value: ''});
   }
-  
+
   render() {
     return (
-      <div>
+      <div className="search">
         <input
           id="search-form"
           className='artist-lookup'
