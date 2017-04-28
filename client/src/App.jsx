@@ -23,7 +23,7 @@ class App extends Component {
       artists: {},
       logged_in,
       ///////////////Events Modal//////////////////
-      isModalOpen: true
+      isModalOpen: false
       ///////////////Events Modal//////////////////
     }
 
@@ -87,7 +87,8 @@ class App extends Component {
     ///////////////////////EVENTS API//////////////////////////
     // events.get_artist_by_name(artistName);
     // events.get_venue_by_name("Commodore");
-    // events.get_events_by_artist_id(31754);
+    events.get_events_by_artist_id(31754);
+    this.openModal();
     // events.get_events_by_venue_id(3816);
     // events.get_events_by_artist_id_start_end_date(31754, '2017-05-01', '2017-08-30');
     // events.get_events_by_venue_id_start_end_date(3816, '2017-05-01', '2017-08-30');

@@ -37,10 +37,9 @@ class EventsModal extends Component {
     return (
       <div> 
         <div style={backdropStyle} onClick={e => this.close(e)}></div>
-        <div className="events-modal">
+        <div style={modalStyle} className="events-modal">
           <h1>Modal title</h1>
           <p>hello</p>
-          <p><button onClick={() => this.props.closeModal()}>Close</button></p>
         </div>
       </div>
     )

@@ -31,7 +31,7 @@ function get_events_by_artist_id(artistID) {
   url.get().then((response) => {
     const results = response.body();
     console.log("RESULTS:", results);
-    console.log("RESULTS DATA", results.data());
+    console.log("RESULTS DATA", results.data().Events);
   }).catch((err) => {
     console.error(err);
   });
