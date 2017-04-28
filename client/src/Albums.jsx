@@ -5,19 +5,19 @@ class Albums extends Component {
   constructor(props) {
     super(props);
   }
-  albumClick = (id) => {
-    console.log('in albums', this.props.id);
-  }
   render() {
     const tracks = Object.keys(this.props.tracks)
-      .map(item => <Tracks key={item} id={item} value={this.props.tracks[item].name} />);
+      .map(item => <Tracks key={item} 
+                           id={item} 
+                           value={this.props.tracks[item].name} 
+                           />);
     return (
-      <li style={{color: this.props.color}} onClick={this.albumClick}>
+      {/*<li style={{color: this.props.color}} onClick={this.props.albumMenuClick(this.props.id)}>
         {this.props.value}
         <ul>
           {tracks}
         </ul>
-      </li>
+      </li>*/}
     )
   }
 }

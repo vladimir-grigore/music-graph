@@ -26,7 +26,11 @@ class SideMenu extends Component {
       <div className="nav-side-menu" id="sidebar-wrapper">
         <Header lookUpArtist={this.props.lookUpArtist} />
         <Tabs handleTabClick={this.handleTabClick} />
-        <Content lookUpArtist={this.props.lookUpArtist} data={this.props.data} currentTab={this.state.tab}/>
+        {/*<Content lookUpArtist={this.props.lookUpArtist} data={this.props.data} currentTab={this.state.tab}/>*/}
+        <Content data={this.props.data} 
+                 currentTab={this.state.tab}
+                 artistMenuClick={this.props.artistMenuClick}
+                 />
         <Footer />
       </div>
     )

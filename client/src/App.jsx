@@ -35,6 +35,19 @@ class App extends Component {
     this.setState({ artists: folderStructure });
   }
 
+  artistMenuClick = (id) => {
+    console.log("You clicked an artist", id);
+  }
+
+  albumMenuClick = (id) => {
+    console.log("You clicked an album", id);
+  }
+
+  trackMenuClick = (id) => {
+    console.log("You clicked a track", id);
+  }
+
+
   // Search Spotify API for artist name and populte vis.js canvas
   async lookUpArtist(artistName){
     // Reset the folder structure
@@ -123,9 +136,10 @@ class App extends Component {
                 loginUser={this.loginUser}
                 logoutUser={this.logoutUser}
                 />
-          <SideMenu data={this.state.artists} lookUpArtist={this.lookUpArtist} />
+          <SideMenu data={this.state.artists} 
+                    artistMenuClick={this.artistMenuClick} 
+                    lookUpArtist={this.lookUpArtist}/>
           <Toggle className={this.state.open} handleToggle={this.handleToggle} />
-
         </div>
       )
     } else {

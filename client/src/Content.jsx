@@ -5,15 +5,16 @@ class Content extends Component {
   constructor(props) {
     super(props);
   }
-  handleSelectedArtist = (id) => {
-    // this.props.lookUpArtist(name)
-      console.log("in content & selected Artist is: ", id);
-  }
 
   render() {
     const artistEntry = Object.keys(this.props.data)
-    .map(item => <Artist key={item} handleArtist={this.handleSelectedArtist} id={item} value={this.props.data[item].name} albums={this.props.data[item].albums} color={this.props.data[item].color}/>);
-
+    .map(item => <Artist key={item} 
+                         id={item} 
+                         value={this.props.data[item].name} 
+                         albums={this.props.data[item].albums} 
+                         color={this.props.data[item].color}
+                         artistMenuClick={this.props.artistMenuClick}
+                         />);
     return (
       <div className="artistEntry" id="content-wrapper">
         <ul className="nav content-nav" id="scroll-area">

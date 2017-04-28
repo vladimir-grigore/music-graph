@@ -4,14 +4,12 @@ class Tracks extends Component {
   constructor(props) {
     super(props);
   }
-  trackClick = (id) => {
-    console.log('in tracks id: ', this.props.id);
-  }
+
   render() {
     return (
-      <li onClick={this.trackClick}>
+      {/*<li onClick={this.props.trackMenuClick(this.props.id)}>
         {this.props.value}
-      </li>
+      </li>*/}
     )
   }
 }
