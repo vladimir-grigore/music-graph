@@ -23,7 +23,7 @@ class App extends Component {
       artists: {},
       logged_in,
       ///////////////Events Modal//////////////////
-      isModalOpen: false
+      isModalOpen: true
       ///////////////Events Modal//////////////////
     }
 
@@ -140,23 +140,16 @@ class App extends Component {
   // }
 
   render() {
-
-    let buttonStyle = {
-        zIndex: 200
-    }
-
     if (this.state.open == 'open') {
       return (
         <div id="wrapper">
-<button style={buttonStyle} onClick={this.openModal}>Open modal</button >
-<EventsModal isOpen={this.state.isModalOpen} onClose={this.closeModal} />
+      <EventsModal isOpen={this.state.isModalOpen} onClose={this.closeModal} />
           <User logged_in={this.state.logged_in}
                 loginUser={this.loginUser}
                 logoutUser={this.logoutUser}
                 />
           <SideMenu data={this.state.artists} lookUpArtist={this.lookUpArtist} />
           <Toggle className={this.state.open} handleToggle={this.handleToggle} />
-
         </div>
       )
     } else {

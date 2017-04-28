@@ -241,6 +241,7 @@ export default class Visualizer {
       this.nodes.remove(id);
       // Remove tracks from the folder structure
       delete this.artistStructure[artistID].albums[albumID].tracks[id];
+      this.artistStructure[artistID].albums[albumID].color = '';
       this.nodes.update({id: albumID, hasTracks: false});
     } else {
       this.nodes.add({
