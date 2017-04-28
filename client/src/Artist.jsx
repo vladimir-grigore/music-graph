@@ -5,12 +5,14 @@ class Artist extends Component {
   constructor(props) {
     super(props);
   }
-
+  artistClick(event) {
+    this.props.handleArtist(this.props.id);
+  }
   render() {
     const albums = Object.keys(this.props.albums)
-    .map(item => <Albums key={item} value={this.props.albums[item].name} tracks={this.props.albums[item].tracks} color={this.props.albums[item].color}/>);
+    .map(item => <Albums key={item} id={item} value={this.props.albums[item].name} tracks={this.props.albums[item].tracks} color={this.props.albums[item].color}/>);
     return (
-      <li className="list__item">
+      <li className="list__item" onClick={this.artistClick.bind(this)}>
         {this.props.value}
         <ul>
           {albums}
@@ -21,37 +23,3 @@ class Artist extends Component {
 }
 
 export default Artist;
-
-//
-// import React, {Component} from 'react';
-// import {ListGroup, ListGroupItem, CustomComponent} from 'react-bootstrap';
-//
-// class Artist extends Component {
-//   constructor(props) {
-//     super(props);
-//   }
-//   alertClicked() {
-//     alert('You clicked the third ListGroupItem');
-//   }
-//   const CustomComponent = React.createClass({
-//   render() {
-//     return (
-//       <li
-//         className="list-group-item"
-//         onClick={() => {}}>
-//         {this.props.children}
-//       </li>
-//     );
-//   }
-// });
-//   render() {
-//     return (
-//       <ListGroup>
-//         <ListGroupItem href="#link1" active>{this.props.value}</ListGroupItem>
-//       </ListGroup>
-//     )
-//   }
-// }
-//
-// export default Artist;
-// // <ListGroupItem onClick={this.alertClicked.bind(this)}></ListGroupItem>
