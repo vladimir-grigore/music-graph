@@ -6,6 +6,9 @@ import User from './User.jsx';
 import Toggle from './Toggle.jsx';
 import auth from './auth.js';
 import events from './events.js';
+///////////////Events Modal//////////////////
+import EventsModal from './EventsModal.jsx';
+///////////////Events Modal//////////////////
 
 const spotify_API = new SpotifyAPI();
 const network = document.getElementById('network');
@@ -18,8 +21,17 @@ class App extends Component {
     this.state = {
       open: 'open',
       artists: {},
-      logged_in
+      logged_in,
+      ///////////////Events Modal//////////////////
+      isModalOpen: false
+      ///////////////Events Modal//////////////////
     }
+
+    ///////////////Events Modal//////////////////
+    this.openModal = this.openModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
+    ///////////////Events Modal//////////////////
+
     this.handleToggle = this.handleToggle.bind(this);
     this.lookUpArtist = this.lookUpArtist.bind(this);
     this.handleUpdate = this.handleUpdate.bind(this);
@@ -28,6 +40,18 @@ class App extends Component {
     this.loginUser = this.loginUser.bind(this);
     visualizer.updateCallback = this.handleUpdate;
   }
+
+
+  ///////////////Events Modal//////////////////
+  openModal() {
+    this.setState({ isModalOpen: true })
+  }
+  closeModal() {
+    this.setState({ isModalOpen: false })
+  }
+  ///////////////Events Modal//////////////////
+
+
 
   // Keep the artist/album/tracks strucutre as a component state
   handleUpdate(event){
@@ -116,9 +140,17 @@ class App extends Component {
   // }
 
   render() {
+
+    let buttonStyle = {
+        zIndex: 200
+    }
+
     if (this.state.open == 'open') {
       return (
         <div>
+<button style={buttonStyle} onClick={this.openModal}>Open modal</button >
+<EventsModal isOpen={this.state.isModalOpen} onClose={this.closeModal} />
+
           <User logged_in={this.state.logged_in}
                 loginUser={this.loginUser}
                 logoutUser={this.logoutUser}
