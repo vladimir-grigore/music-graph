@@ -10,23 +10,21 @@ class SideMenu extends Component {
       tab: 'Artists'
     }
   }
-  // contentToggle() {
-  //     var x = document.getElementById('content-wrapper');
-  //     if (x.style.display === 'none') {
-  //         x.style.display = 'block';
-  //     } else {
-  //         x.style.display = 'none';
-  //     }
-  // }
-  handleTabClick = (tab) => {
+  async handleTabClick (tab) {
     this.setState({tab})
   }
   render() {
     return (
       <div className="nav-side-menu" id="sidebar-wrapper">
         <Header lookUpArtist={this.props.lookUpArtist} />
-        <Tabs handleTabClick={this.handleTabClick} />
-        <Content lookUpArtist={this.props.lookUpArtist} data={this.props.data} currentTab={this.state.tab}/>
+        <Tabs handleTabClick={this.handleTabClick.bind(this)} />
+        <Content data={this.props.data}
+                 currentTab={this.state.tab}
+                 getPlaylist={this.props.getPlaylist}
+                 artistMenuClick={this.props.artistMenuClick}
+                 albumMenuClick={this.props.albumMenuClick}
+                 trackMenuClick={this.props.trackMenuClick}
+                 />
         <Footer />
       </div>
     )
@@ -34,7 +32,3 @@ class SideMenu extends Component {
 }
 
 export default SideMenu;
-
-// <button className="toggle-content" onClick={this.contentToggle.bind(this)}>Artists</button>
-// <button className="toggle-playlists" onClick={this.contentToggle.bind(this)}>Playlists</button>
-// <button className="toggle-events" onClick={this.contentToggle.bind(this)}>Events</button>
