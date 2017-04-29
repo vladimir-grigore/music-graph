@@ -30,23 +30,27 @@ class App extends Component {
   }
 
   // Keep the artist/album/tracks strucutre as a component state
-  handleUpdate(event){
-    const folderStructure = visualizer.getFolderStructure();
+  handleUpdate = async (event) => {
+    const folderStructure = await visualizer.getFolderStructure();
     this.setState({ artists: folderStructure });
   }
 
-  artistMenuClick = (id) => {
-    console.log("You clicked an artist", id);
+  // Handles the artists clicks on the side bar
+  artistMenuClick = async (id) => {
+    await visualizer.handleArtistClick(id);
+    await this.handleUpdate();
   }
 
-  albumMenuClick = (id) => {
-    console.log("You clicked an album", id);
+  // Handles the albums clicks on the side bar
+  albumMenuClick = async (id) => {
+    await visualizer.handleAlbumClick(id);
+    await this.handleUpdate();
   }
 
+  // Handles the track clicks on the side bar
   trackMenuClick = (id) => {
     console.log("You clicked a track", id);
   }
-
 
   // Search Spotify API for artist name and populte vis.js canvas
   async lookUpArtist(artistName){
@@ -86,7 +90,7 @@ class App extends Component {
     for( {id, name, image, popularity } of artists) {
       visualizer.toggleArtistNode(id, name, image, popularity);
     }
-    this.handleUpdate();
+    await this.handleUpdate();
   }
 
   handleToggle(parentNode){
@@ -115,6 +119,7 @@ class App extends Component {
     });
   }
 
+  // Clear user info from local storage and refreh component state
   logoutUser(){
     localStorage.removeItem('logged-in');
     localStorage.removeItem('user_name');
@@ -138,6 +143,8 @@ class App extends Component {
                 />
           <SideMenu data={this.state.artists} 
                     artistMenuClick={this.artistMenuClick} 
+                    albumMenuClick={this.albumMenuClick}
+                    trackMenuClick={this.trackMenuClick}
                     lookUpArtist={this.lookUpArtist}/>
           <Toggle className={this.state.open} handleToggle={this.handleToggle} />
         </div>

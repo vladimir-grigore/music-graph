@@ -12,11 +12,13 @@ class Content extends Component {
     if (tab === 'Artists') {
       return Object.keys(this.props.data)
         .map(item => <Artist key={item} 
-                             artistMenuClick={this.props.artistMenuClick} 
                              id={item} 
                              value={this.props.data[item].name} 
                              albums={this.props.data[item].albums} 
                              color={this.props.data[item].color}
+                             artistMenuClick={this.props.artistMenuClick} 
+                             albumMenuClick={this.props.albumMenuClick}
+                             trackMenuClick={this.props.trackMenuClick}
                              />);
     } else if (tab == 'Playlists') {
       // const playlistEntry = Object.keys(this.props.playlists)
