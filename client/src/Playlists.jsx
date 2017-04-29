@@ -13,6 +13,15 @@ class Playlists extends Component {
       this.setState({playlists});
     }
   }
+  // getPlaylists = async () => {
+  //   if(localStorage.getItem('logged-in')){
+  //     const playlists = await this.props.getPlaylist();
+  //     this.setState({playlists});
+  //   } else {
+  //     // this.this.state.({playlists: {}})
+  //     console.log('pls login');
+  //   }
+  // }
   render() {
     if(!localStorage.getItem('logged-in')){
       return (<h1> Please Log in </h1>)
