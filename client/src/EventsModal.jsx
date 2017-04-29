@@ -42,13 +42,13 @@ class EventsModal extends Component {
       let event_id, date, ticket_url, venue_name, city_name, country_code, state_code;
       for ({ Date, TicketUrl, Venue } in event) {
         event_id = event.Id;
-        date = event.Date.replace(/T\d{2}:\d{2}:\d{2}/,'');
+        date = event.Date.replace(/T\d{2}:\d{2}:\d{2}/,'').trim();
         ticket_url = event.TicketUrl;
         Object.keys(event.Venue).map(({Name, City, StateCode, CountryCode}) => {
-          venue_name = event.Venue.Name;
-          city_name = event.Venue.City;
-          state_code = event.Venue.StateCode;
-          country_code = event.Venue.CountryCode;
+          venue_name = event.Venue.Name.trim();
+          city_name = event.Venue.City.trim();
+          state_code = event.Venue.StateCode.trim();
+          country_code = event.Venue.CountryCode.trim();
         });
         return <li key={event_id}>{date}, {venue_name}, {city_name}, {state_code}, {country_code} <a href={ticket_url}>Buy Tickets</a></li>
       }

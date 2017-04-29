@@ -9,7 +9,6 @@ class Events extends Component {
     this.state = {
       isModalOpen: false,
       eventResults: []
-
       //////////////////Fake Events////////////////////
       // fakeEnvents: [
       //   { 
@@ -46,7 +45,6 @@ class Events extends Component {
       //   }
       // }]
       //////////////////Fake Events////////////////////
-
     }
     events.updateCallback = this.handleEventsUpdate;
   }
@@ -89,7 +87,7 @@ class Events extends Component {
     } else {
         return (
         <div className="events">
-          <EventsModal isOpen={this.state.isModalOpen} onClose={this.closeModal} events={this.state.fakeEnvents} />
+          <EventsModal isOpen={this.state.isModalOpen} onClose={this.closeModal} events={this.state.eventResults.Events} />
           <h1>Events</h1>
           <button onClick={this.openModal}>Open Modal</button>
           <span className="events-btn" id="byArtist" onClick={this.handleClick}>By Artist</span>
@@ -97,7 +95,6 @@ class Events extends Component {
       </div>
       )
     }
-
   }
 }
 
