@@ -5,10 +5,6 @@ import Visualizer from './visualizer.js';
 import User from './User.jsx';
 import Toggle from './Toggle.jsx';
 import auth from './auth.js';
-import events from './events.js';
-///////////////Events Modal//////////////////
-import EventsModal from './EventsModal.jsx';
-///////////////Events Modal//////////////////
 
 const spotify_API = new SpotifyAPI();
 const network = document.getElementById('network');
@@ -21,22 +17,10 @@ class App extends Component {
     this.state = {
       open: 'open',
       artists: {},
-      logged_in,
-      ///////////////Events Modal//////////////////
-      isModalOpen: false
-      ///////////////Events Modal//////////////////
+      logged_in
     }
     visualizer.updateCallback = this.handleUpdate;
   }
-
-  ///////////////Events Modal//////////////////
-  openModal = () => {
-    this.setState({ isModalOpen: true })
-  }
-  closeModal = () => {
-    this.setState({ isModalOpen: false })
-  }
-  ///////////////Events Modal//////////////////
 
   // Keep the artist/album/tracks strucutre as a component state
   handleUpdate = async (event) => {
@@ -69,16 +53,6 @@ class App extends Component {
     visualizer.clear();
     // Search for an artist, display all results
     const artists = await spotify_API.search_artists(artistName);
-
-    ///////////////////////EVENTS API//////////////////////////
-    // events.get_artist_by_name(artistName);
-    // events.get_venue_by_name("Commodore");
-    events.get_events_by_artist_id(31754);
-    this.openModal();
-    // events.get_events_by_venue_id(3816);
-    // events.get_events_by_artist_id_start_end_date(31754, '2017-05-01', '2017-08-30');
-    // events.get_events_by_venue_id_start_end_date(3816, '2017-05-01', '2017-08-30');
-    ///////////////////////EVENTS API//////////////////////////
 
     // Populate canvas with artist nodes
     for( {id, name, image, popularity } of artists) {
@@ -139,7 +113,6 @@ class App extends Component {
     if (this.state.open == 'open') {
       return (
         <div id="wrapper">
-      <EventsModal isOpen={this.state.isModalOpen} onClose={this.closeModal} />
           <User loginUser={this.loginUser}
                 logoutUser={this.logoutUser}
                 logged_in={this.state.logged_in}

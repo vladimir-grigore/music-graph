@@ -5,7 +5,7 @@ class EventsModal extends Component {
     super(props);
   }
 
-  close(e) {
+  close = (e) => {
     e.preventDefault()
 
     if (this.props.onClose) {
@@ -36,7 +36,7 @@ class EventsModal extends Component {
 
     return (
       <div> 
-        <div style={backdropStyle} onClick={e => this.close(e)}></div>
+        <div style={backdropStyle} onClick={this.close}></div>
         <div style={modalStyle} className="events-modal">
           <h1>Modal title</h1>
           <p>hello</p>
