@@ -23,7 +23,7 @@ class App extends Component {
   }
 
   // Keep the artist/album/tracks strucutre as a component state
-  handleUpdate = async (event) => {
+  handleUpdate = async () => {
     const folderStructure = await visualizer.getFolderStructure();
     this.setState({ artists: folderStructure });
   }
@@ -77,7 +77,7 @@ class App extends Component {
   }
 
   // Spotify OAuth, setting user details in local storage
-  loginUser = () => {
+  loginUser = async () => {
     auth.login_user().then(() => {
       localStorage.setItem('logged-in', 'true');
       this.addSpotifyAuthToken();
@@ -102,7 +102,7 @@ class App extends Component {
       this.addSpotifyAuthToken();
       const user = await spotify_API.get_current_user();
       if(user === 401 || user === 403) {
-        this.loginUser();
+        await this.loginUser();
       }
       const playlists = await spotify_API.get_user_playlists(localStorage.getItem('user_id'));
       return playlists;

@@ -16,16 +16,18 @@ class EventsModal extends Component {
   render() {
     if (this.props.isOpen === false) return null;
     let modalStyle = {
-        position: 'absolute',
+        position: 'fixed',
         top: '50%',
-        left: '50%',
+        left: '40%',
+        height: '75%',
+        width: '65%',
         transform: 'translate(-50%, -50%)',
         zIndex: '9999',
         background: '#fff'
       }
 
       let backdropStyle = {
-        position: 'absolute',
+        position: 'fixed',
         width: '100%',
         height: '100%',
         top: '0px',
@@ -33,13 +35,32 @@ class EventsModal extends Component {
         zIndex: '9998',
         background: 'rgba(0, 0, 0, 0.3)'
       }
+    const eventResults = this.props.events;
+    console.log(eventResults);
+
+    const eventDetails = eventResults.map(event => {
+      let event_id, date, ticket_url, venue_name, city_name, country_code, state_code;
+      for ({ Date, TicketUrl, Venue } in event) {
+        event_id = event.Id;
+        date = event.Date.replace(/T\d{2}:\d{2}:\d{2}/,'');
+        ticket_url = event.TicketUrl;
+        Object.keys(event.Venue).map(({Name, City, StateCode, CountryCode}) => {
+          venue_name = event.Venue.Name;
+          city_name = event.Venue.City;
+          state_code = event.Venue.StateCode;
+          country_code = event.Venue.CountryCode;
+        });
+        return <li key={event_id}>{date}, {venue_name}, {city_name}, {state_code}, {country_code} <a href={ticket_url}>Buy Tickets</a></li>
+      }
+    });
 
     return (
       <div> 
         <div style={backdropStyle} onClick={this.close}></div>
         <div style={modalStyle} className="events-modal">
-          <h1>Modal title</h1>
-          <p>hello</p>
+          <ul>Events Modal title
+            {eventDetails}
+          </ul>
         </div>
       </div>
     )
