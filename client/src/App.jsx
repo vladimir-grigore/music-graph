@@ -55,22 +55,6 @@ class App extends Component {
     // Search for an artist, display all results
     const artists = await spotify_API.search_artists(artistName);
 
-    ///////////////////////PLAYLISTS///////////////////////////
-    // if(this.state.logged_in) {
-    //   this.addSpotifyAuthToken();
-    //   const user = await spotify_API.get_current_user();
-    //   if(user === 401 || user === 403) {
-    //     this.loginUser();
-    //   } else {
-    //     console.log("-----USER------", user);
-    //   }
-    //   const playlists = await spotify_API.get_user_playlists(localStorage.getItem('user_id'));
-    //   console.log("PLAYLISTS", playlists);
-      // const playlist1 = await spotify_API.get_playlist('22kychmuozobpxyvt7upchy3q', '0Q8pydgbbdun0Iuvxq7BVH');
-      // console.log("PLAYLIST1:", playlist1);
-    // }
-    ///////////////////////PLAYLISTS///////////////////////////
-
     ///////////////////////EVENTS API//////////////////////////
     // events.get_artist_by_name(artistName);
     // events.get_venue_by_name("Commodore");
@@ -123,35 +107,17 @@ class App extends Component {
     this.setState({ logged_in: false });
   }
 
-  // handleEventClick = (event) => {
-  //   console.log('hi');
-  // }
   async getPlaylist() {
     if(this.state.logged_in) {
       this.addSpotifyAuthToken();
       const user = await spotify_API.get_current_user();
       if(user === 401 || user === 403) {
         this.loginUser();
-      } else {
-        console.log("-----USER------", user);
       }
       const playlists = await spotify_API.get_user_playlists(localStorage.getItem('user_id'));
       return playlists;
     }
   }
-  //   if(this.state.logged_in) {
-  //    this.addSpotifyAuthToken();
-  //    const user = await spotify_API.get_current_user();
-  //    if(user === 401 || user === 403) {
-  //      this.loginUser();
-  //    } else {
-  //      console.log("-----USER------", user);
-  //    }
-  //    const playlists = await spotify_API.get_user_playlists(localStorage.getItem('user_id'));
-  //    console.log("PLAYLISTS", playlists);
-  //   //  const playlist1 = await spotify_API.get_playlist('22kychmuozobpxyvt7upchy3q', '0Q8pydgbbdun0Iuvxq7BVH');
-  //   //  console.log("PLAYLIST1:", playlist1);
-  //  }
 
   render() {
     if (this.state.open == 'open') {

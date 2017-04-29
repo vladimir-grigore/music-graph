@@ -14,21 +14,21 @@ class Playlists extends Component {
   render() {
     const playlist = () => {
       const playlistName = [];
-      const playlistId = [];
       for (let i in this.state.playlists.items){
-        playlistName.push(this.state.playlists.items[i].name);
-        playlistId.push(this.state.playlists.items[i].id);
+        playlistName.push({id: this.state.playlists.items[i].id, name: this.state.playlists.items[i].name});
       }
-      return(
-        <li key={playlistId} id={playlistId} >
-          {playlistName}
-        </li>
-      );
+      return playlistName;
     }
     return (
-      <ul>
+      <ul className="playlists">
         <h1>PlayList Name</h1>
-        {playlist()}
+        {playlist().map(e => {
+          return (
+            <li key={e.id} id={e.id}>
+              {e.name}
+            </li>
+          )
+        })}
       </ul>
     )
   }

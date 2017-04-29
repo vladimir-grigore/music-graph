@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 
 class Events extends Component {
   render() {
-    console.log('hi from events!');
     return (
       <div className="events">
         <h1>Events</h1>
