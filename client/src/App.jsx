@@ -18,7 +18,6 @@ class App extends Component {
     this.state = {
       open: 'open',
       artists: {},
-      playlists: {},
       logged_in
     }
     visualizer.updateCallback = this.handleUpdate;
@@ -67,8 +66,8 @@ class App extends Component {
     //   }
     //   const playlists = await spotify_API.get_user_playlists(localStorage.getItem('user_id'));
     //   console.log("PLAYLISTS", playlists);
-    //   const playlist1 = await spotify_API.get_playlist('22kychmuozobpxyvt7upchy3q', '0Q8pydgbbdun0Iuvxq7BVH');
-    //   console.log("PLAYLIST1:", playlist1);
+      // const playlist1 = await spotify_API.get_playlist('22kychmuozobpxyvt7upchy3q', '0Q8pydgbbdun0Iuvxq7BVH');
+      // console.log("PLAYLIST1:", playlist1);
     // }
     ///////////////////////PLAYLISTS///////////////////////////
 
@@ -100,7 +99,6 @@ class App extends Component {
   // Used in getting user info and playlists details
   addSpotifyAuthToken = () => {
     const token = localStorage.getItem('access_token');
-    console.log('got token', token);
     spotify_API.set_api_token(token);
   }
 
@@ -129,26 +127,31 @@ class App extends Component {
   //   console.log('hi');
   // }
   async getPlaylist() {
-    console.log('in playlists getPlaylist');
     if(this.state.logged_in) {
-      console.log('logedin ?:', this.state.logged_in);
       this.addSpotifyAuthToken();
       const user = await spotify_API.get_current_user();
-      console.log('user: ', user);
       if(user === 401 || user === 403) {
         this.loginUser();
       } else {
         console.log("-----USER------", user);
       }
-      console.log('loged in with new token user', user);
       const playlists = await spotify_API.get_user_playlists(localStorage.getItem('user_id'));
-      console.log('------', playlists);
-      // const playlist1 = await spotify_API.get_playlist(localStorage.getItem('user_id'), '0Q8pydgbbdun0Iuvxq7BVH');
-      // console.log("PLAYLIST1:", playlist1);
-      this.setState({playlists})
+      return playlists;
     }
-    console.log("PLAYLISTS", this.state.playlists);
   }
+  //   if(this.state.logged_in) {
+  //    this.addSpotifyAuthToken();
+  //    const user = await spotify_API.get_current_user();
+  //    if(user === 401 || user === 403) {
+  //      this.loginUser();
+  //    } else {
+  //      console.log("-----USER------", user);
+  //    }
+  //    const playlists = await spotify_API.get_user_playlists(localStorage.getItem('user_id'));
+  //    console.log("PLAYLISTS", playlists);
+  //   //  const playlist1 = await spotify_API.get_playlist('22kychmuozobpxyvt7upchy3q', '0Q8pydgbbdun0Iuvxq7BVH');
+  //   //  console.log("PLAYLIST1:", playlist1);
+  //  }
 
   render() {
     if (this.state.open == 'open') {
@@ -160,7 +163,6 @@ class App extends Component {
                 />
           <SideMenu data={this.state.artists}
                     getPlaylist={this.getPlaylist.bind(this)}
-                    playlists={this.state.playlists}
                     artistMenuClick={this.artistMenuClick}
                     albumMenuClick={this.albumMenuClick}
                     trackMenuClick={this.trackMenuClick}

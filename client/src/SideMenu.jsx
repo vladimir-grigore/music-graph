@@ -11,11 +11,7 @@ class SideMenu extends Component {
     }
   }
   async handleTabClick (tab) {
-    if (tab === "Playlists"){
-      await this.props.getPlaylist();
-    }
     this.setState({tab})
-    console.log("state:", this.state.tab);
   }
   render() {
     return (
@@ -24,7 +20,7 @@ class SideMenu extends Component {
         <Tabs handleTabClick={this.handleTabClick.bind(this)} />
         <Content data={this.props.data}
                  currentTab={this.state.tab}
-                 playlists={this.props.playlists}
+                 getPlaylist={this.props.getPlaylist}
                  artistMenuClick={this.props.artistMenuClick}
                  albumMenuClick={this.props.albumMenuClick}
                  trackMenuClick={this.props.trackMenuClick}
