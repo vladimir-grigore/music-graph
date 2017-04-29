@@ -4,7 +4,11 @@ class Events extends Component {
   render() {
     console.log('hi from events!');
     return (
-      <div> <h1>Hello From Events</h1> </div>
+      <div className="events">
+        <h1>Events</h1>
+        <span className="events-btn" id="byArtist" onClick={this.handleClick}>By Artist</span>
+        <span className="events-btn" id="byVenue" onClick={this.handleClick}>By Venue</span>
+     </div>
     )
   }
 }

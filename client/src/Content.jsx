@@ -11,17 +11,18 @@ class Content extends Component {
   handleContent = (tab) => {
     if (tab === 'Artists') {
       return Object.keys(this.props.data)
-        .map(item => <Artist key={item} 
-                             artistMenuClick={this.props.artistMenuClick} 
-                             id={item} 
-                             value={this.props.data[item].name} 
-                             albums={this.props.data[item].albums} 
+        .map(item => <Artist key={item}
+                             artistMenuClick={this.props.artistMenuClick}
+                             id={item}
+                             value={this.props.data[item].name}
+                             albums={this.props.data[item].albums}
                              color={this.props.data[item].color}
                              />);
     } else if (tab == 'Playlists') {
       // const playlistEntry = Object.keys(this.props.playlists)
       // .map(item => <Playlists key={item} />);
-      return <Playlists />
+      // console.log('playlistEntry', playlistEntry);
+      // return <Playlists playlists={this.props.playlists} />
     } else {
       // const eventEntry = Object.keys(this.props.events)
       // .map(item => <Events key={item} />);

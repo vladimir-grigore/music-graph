@@ -18,6 +18,7 @@ class App extends Component {
     this.state = {
       open: 'open',
       artists: {},
+      playlists: {},
       logged_in
     }
     this.handleToggle = this.handleToggle.bind(this);
@@ -47,7 +48,6 @@ class App extends Component {
     console.log("You clicked a track", id);
   }
 
-
   // Search Spotify API for artist name and populte vis.js canvas
   async lookUpArtist(artistName){
     // Reset the folder structure
@@ -58,19 +58,7 @@ class App extends Component {
     const artists = await spotify_API.search_artists(artistName);
 
     ///////////////////////PLAYLISTS///////////////////////////
-    // if(this.state.logged_in) {
-    //   this.addSpotifyAuthToken();
-    //   const user = await spotify_API.get_current_user();
-    //   if(user === 401 || user === 403) {
-    //     this.loginUser();
-    //   } else {
-    //     console.log("-----USER------", user);
-    //   }
-    //   const playlists = await spotify_API.get_user_playlists('22kychmuozobpxyvt7upchy3q');
-    //   console.log("PLAYLISTS", playlists);
-    //   const playlist1 = await spotify_API.get_playlist('22kychmuozobpxyvt7upchy3q', '0Q8pydgbbdun0Iuvxq7BVH');
-    //   console.log("PLAYLIST1:", playlist1);
-    // }
+
     ///////////////////////PLAYLISTS///////////////////////////
 
     ///////////////////////EVENTS API//////////////////////////
@@ -101,11 +89,13 @@ class App extends Component {
   // Used in getting user info and playlists details
   addSpotifyAuthToken() {
     const token = localStorage.getItem('access_token');
+    console.log('got token', token);
     spotify_API.set_api_token(token);
   }
 
   // Spotify OAuth, setting user details in local storage
   loginUser(){
+    console.log('at login now');
     auth.login_user().then(() => {
       localStorage.setItem('logged-in', 'true');
       this.addSpotifyAuthToken();
@@ -127,18 +117,42 @@ class App extends Component {
   // handleEventClick = (event) => {
   //   console.log('hi');
   // }
+  async getPlaylist() {
+    console.log('in playlists getPlaylist');
+    if(this.state.logged_in) {
+      console.log('logedin ?:', this.state.logged_in);
+      this.addSpotifyAuthToken();
+      const user = await spotify_API.get_current_user();
+      console.log('user: ', user);
+      if(user === 401 || user === 403) {
+        this.loginUser();
+      } else {
+        console.log("-----USER------", user);
+      }
+      console.log('loged in with new token user', user);
+      const playlists = await spotify_API.get_user_playlists(localStorage.getItem('user_id'));
+      console.log('------', playlists);
+      // const playlist1 = await spotify_API.get_playlist(localStorage.getItem('user_id'), '0Q8pydgbbdun0Iuvxq7BVH');
+      // console.log("PLAYLIST1:", playlist1);
+      this.setState({playlists})
+    }
+    console.log("PLAYLISTS", this.state.playlists);
+  }
 
   render() {
     if (this.state.open == 'open') {
       return (
         <div id="wrapper">
-          <User logged_in={this.state.logged_in}
-                loginUser={this.loginUser}
+          <User loginUser={this.loginUser}
                 logoutUser={this.logoutUser}
+                logged_in={this.state.logged_in}
                 />
-          <SideMenu data={this.state.artists} 
-                    artistMenuClick={this.artistMenuClick} 
-                    lookUpArtist={this.lookUpArtist}/>
+          <SideMenu data={this.state.artists}
+                    getPlaylist={this.getPlaylist.bind(this)}
+                    playlists={this.state.playlists}
+                    lookUpArtist={this.lookUpArtist}
+                    artistMenuClick={this.artistMenuClick}
+                    />
           <Toggle className={this.state.open} handleToggle={this.handleToggle} />
         </div>
       )

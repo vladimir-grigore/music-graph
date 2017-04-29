@@ -91,7 +91,7 @@ export default class Visualizer {
 
     switch (node.group) {
       case 'artist':
-        let albums = await this.spotify_API.get_albums_for_artist(node.id);    
+        let albums = await this.spotify_API.get_albums_for_artist(node.id);
         this.toggleAlbums(node.id, albums);
         // When expanding an artist, clear the rest of the search results
         this.clearRemainingArtists(node);
