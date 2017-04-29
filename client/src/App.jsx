@@ -88,7 +88,7 @@ class App extends Component {
   }
 
   // Clear user info from local storage and refreh component state
-  logoutUser = () => {
+  logoutUser = async () => {
     localStorage.removeItem('logged-in');
     localStorage.removeItem('user_name');
     localStorage.removeItem('user_id');
@@ -104,6 +104,10 @@ class App extends Component {
       if(user === 401 || user === 403) {
         await this.loginUser();
       }
+      const playlists = await spotify_API.get_user_playlists(localStorage.getItem('user_id'));
+      return playlists;
+    } else {
+      await this.loginUser();
       const playlists = await spotify_API.get_user_playlists(localStorage.getItem('user_id'));
       return playlists;
     }
