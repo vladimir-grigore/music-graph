@@ -64,7 +64,7 @@ class App extends Component {
     //   } else {
     //     console.log("-----USER------", user);
     //   }
-    //   const playlists = await spotify_API.get_user_playlists('22kychmuozobpxyvt7upchy3q');
+    //   const playlists = await spotify_API.get_user_playlists(localStorage.getItem('user_id'));
     //   console.log("PLAYLISTS", playlists);
     //   const playlist1 = await spotify_API.get_playlist('22kychmuozobpxyvt7upchy3q', '0Q8pydgbbdun0Iuvxq7BVH');
     //   console.log("PLAYLIST1:", playlist1);
