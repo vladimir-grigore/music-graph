@@ -7,35 +7,16 @@ class Playlists extends Component {
       playlists: {}
     }
   }
-  // async componentWillMount(){
-  //   if(localStorage.getItem('logged-in')){
-  //     const playlists = await this.props.getPlaylist();
-  //     // console.log('playlists', playlists);
-  //     this.setState({playlists});
-  //   } else {
-  //     const playlists = await this.props.getPlaylist();
-  //   }
-  // }
   async componentWillMount(){
     if(localStorage.getItem('logged-in')){
       const playlists = await this.props.getPlaylist();
       this.setState({playlists});
-    } 
+    }
   }
-  // getPlaylists = async () => {
-  //   if(localStorage.getItem('logged-in')){
-  //     const playlists = await this.props.getPlaylist();
-  //     this.setState({playlists});
-  //   } else {
-  //     // this.this.state.({playlists: {}})
-  //     console.log('pls login');
-  //   }
-  // }
   render() {
     if(!localStorage.getItem('logged-in')){
-      return (<h1> login </h1>)
+      return (<h1> Please Log in </h1>)
     } else {
-      // this.getPlaylists();
       const playlist = () => {
         const playlistName = [];
         for (let i in this.state.playlists.items){
