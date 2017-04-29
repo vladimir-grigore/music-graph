@@ -20,12 +20,6 @@ class App extends Component {
       artists: {},
       logged_in
     }
-    this.handleToggle = this.handleToggle.bind(this);
-    this.lookUpArtist = this.lookUpArtist.bind(this);
-    this.handleUpdate = this.handleUpdate.bind(this);
-    this.addSpotifyAuthToken = this.addSpotifyAuthToken.bind(this);
-    this.logoutUser = this.logoutUser.bind(this);
-    this.loginUser = this.loginUser.bind(this);
     visualizer.updateCallback = this.handleUpdate;
   }
 
@@ -53,7 +47,7 @@ class App extends Component {
   }
 
   // Search Spotify API for artist name and populte vis.js canvas
-  async lookUpArtist(artistName){
+  lookUpArtist = async (artistName) => {
     // Reset the folder structure
     visualizer.artistStructure = {};
     // Update visualizer canvas
@@ -93,7 +87,7 @@ class App extends Component {
     await this.handleUpdate();
   }
 
-  handleToggle(parentNode){
+  handleToggle = (parentNode) => {
     if (parentNode == 'open'){
       this.setState({ open : 'closed'});
     } else {
@@ -103,13 +97,13 @@ class App extends Component {
 
   // Set Spotify API authentication token
   // Used in getting user info and playlists details
-  addSpotifyAuthToken() {
+  addSpotifyAuthToken = () => {
     const token = localStorage.getItem('access_token');
     spotify_API.set_api_token(token);
   }
 
   // Spotify OAuth, setting user details in local storage
-  loginUser(){
+  loginUser = () => {
     auth.login_user().then(() => {
       localStorage.setItem('logged-in', 'true');
       this.addSpotifyAuthToken();
@@ -120,7 +114,7 @@ class App extends Component {
   }
 
   // Clear user info from local storage and refreh component state
-  logoutUser(){
+  logoutUser = () => {
     localStorage.removeItem('logged-in');
     localStorage.removeItem('user_name');
     localStorage.removeItem('user_id');
