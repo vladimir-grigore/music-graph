@@ -26,6 +26,8 @@ class SideMenu extends Component {
                  currentTab={this.state.tab}
                  playlists={this.props.playlists}
                  artistMenuClick={this.props.artistMenuClick}
+                 albumMenuClick={this.props.albumMenuClick}
+                 trackMenuClick={this.props.trackMenuClick}
                  />
         <Footer />
       </div>

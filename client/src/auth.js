@@ -48,8 +48,8 @@ var login_user = function() {
           localStorage.setItem('user_image', response.images[0].url);
           localStorage.setItem('access_token', accessToken);
           resolve();
-        }).catch(() => {
-          reject();
+        }).catch((err) => {
+          reject(err);
         });
     });
   })

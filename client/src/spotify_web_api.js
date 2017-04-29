@@ -69,9 +69,9 @@ class SpotifyAPI {
     }
   }
   
-  get_user_playlists = async function(username) {
+  get_user_playlists = async function(userID) {
     try {
-      const data = await this.api.getUserPlaylists(username);
+      const data = await this.api.getUserPlaylists(userID);
       return data.body;
     } catch(err) {
       return err.statusCode;

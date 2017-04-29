@@ -21,35 +21,34 @@ class App extends Component {
       playlists: {},
       logged_in
     }
-    this.handleToggle = this.handleToggle.bind(this);
-    this.lookUpArtist = this.lookUpArtist.bind(this);
-    this.handleUpdate = this.handleUpdate.bind(this);
-    this.addSpotifyAuthToken = this.addSpotifyAuthToken.bind(this);
-    this.logoutUser = this.logoutUser.bind(this);
-    this.loginUser = this.loginUser.bind(this);
     visualizer.updateCallback = this.handleUpdate;
   }
 
   // Keep the artist/album/tracks strucutre as a component state
-  handleUpdate(event){
-    const folderStructure = visualizer.getFolderStructure();
+  handleUpdate = async (event) => {
+    const folderStructure = await visualizer.getFolderStructure();
     this.setState({ artists: folderStructure });
   }
 
-  artistMenuClick = (id) => {
-    console.log("You clicked an artist", id);
+  // Handles the artists clicks on the side bar
+  artistMenuClick = async (id) => {
+    await visualizer.handleArtistClick(id);
+    await this.handleUpdate();
   }
 
-  albumMenuClick = (id) => {
-    console.log("You clicked an album", id);
+  // Handles the albums clicks on the side bar
+  albumMenuClick = async (id) => {
+    await visualizer.handleAlbumClick(id);
+    await this.handleUpdate();
   }
 
+  // Handles the track clicks on the side bar
   trackMenuClick = (id) => {
     console.log("You clicked a track", id);
   }
 
   // Search Spotify API for artist name and populte vis.js canvas
-  async lookUpArtist(artistName){
+  lookUpArtist = async (artistName) => {
     // Reset the folder structure
     visualizer.artistStructure = {};
     // Update visualizer canvas
@@ -58,7 +57,19 @@ class App extends Component {
     const artists = await spotify_API.search_artists(artistName);
 
     ///////////////////////PLAYLISTS///////////////////////////
-
+    // if(this.state.logged_in) {
+    //   this.addSpotifyAuthToken();
+    //   const user = await spotify_API.get_current_user();
+    //   if(user === 401 || user === 403) {
+    //     this.loginUser();
+    //   } else {
+    //     console.log("-----USER------", user);
+    //   }
+    //   const playlists = await spotify_API.get_user_playlists(localStorage.getItem('user_id'));
+    //   console.log("PLAYLISTS", playlists);
+    //   const playlist1 = await spotify_API.get_playlist('22kychmuozobpxyvt7upchy3q', '0Q8pydgbbdun0Iuvxq7BVH');
+    //   console.log("PLAYLIST1:", playlist1);
+    // }
     ///////////////////////PLAYLISTS///////////////////////////
 
     ///////////////////////EVENTS API//////////////////////////
@@ -74,10 +85,10 @@ class App extends Component {
     for( {id, name, image, popularity } of artists) {
       visualizer.toggleArtistNode(id, name, image, popularity);
     }
-    this.handleUpdate();
+    await this.handleUpdate();
   }
 
-  handleToggle(parentNode){
+  handleToggle = (parentNode) => {
     if (parentNode == 'open'){
       this.setState({ open : 'closed'});
     } else {
@@ -87,15 +98,14 @@ class App extends Component {
 
   // Set Spotify API authentication token
   // Used in getting user info and playlists details
-  addSpotifyAuthToken() {
+  addSpotifyAuthToken = () => {
     const token = localStorage.getItem('access_token');
     console.log('got token', token);
     spotify_API.set_api_token(token);
   }
 
   // Spotify OAuth, setting user details in local storage
-  loginUser(){
-    console.log('at login now');
+  loginUser = () => {
     auth.login_user().then(() => {
       localStorage.setItem('logged-in', 'true');
       this.addSpotifyAuthToken();
@@ -105,7 +115,8 @@ class App extends Component {
     });
   }
 
-  logoutUser(){
+  // Clear user info from local storage and refreh component state
+  logoutUser = () => {
     localStorage.removeItem('logged-in');
     localStorage.removeItem('user_name');
     localStorage.removeItem('user_id');
@@ -150,9 +161,10 @@ class App extends Component {
           <SideMenu data={this.state.artists}
                     getPlaylist={this.getPlaylist.bind(this)}
                     playlists={this.state.playlists}
-                    lookUpArtist={this.lookUpArtist}
                     artistMenuClick={this.artistMenuClick}
-                    />
+                    albumMenuClick={this.albumMenuClick}
+                    trackMenuClick={this.trackMenuClick}
+                    lookUpArtist={this.lookUpArtist}/>
           <Toggle className={this.state.open} handleToggle={this.handleToggle} />
         </div>
       )

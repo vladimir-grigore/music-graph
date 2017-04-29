@@ -5,9 +5,14 @@ class Tracks extends Component {
     super(props);
   }
 
+  handleClick = (e) => {
+    e.stopPropagation();
+    this.props.trackMenuClick(this.props.id);
+  }
+
   render() {
     return (
-      <li>
+      <li onClick={this.handleClick}>
         {this.props.value}
       </li>
     )

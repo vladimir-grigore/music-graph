@@ -5,15 +5,24 @@ class Artist extends Component {
   constructor(props) {
     super(props);
   }
+
+  handleClick = (e) => {
+    e.stopPropagation();
+    this.props.artistMenuClick(this.props.id);
+  }
+  
   render() {
     const albums = Object.keys(this.props.albums)
     .map(item => <Albums key={item} 
                          id={item} 
                          value={this.props.albums[item].name} 
                          tracks={this.props.albums[item].tracks} 
-                         color={this.props.albums[item].color}/>);
+                         color={this.props.albums[item].color}
+                         albumMenuClick={this.props.albumMenuClick}
+                         trackMenuClick={this.props.trackMenuClick}
+                         />);
     return (
-      <li className="list__item" onClick={this.props.artistMenuClick(this.props.id)} >
+      <li className="list__item" onClick={this.handleClick} >
         {this.props.value}
         <ul>
           {albums}

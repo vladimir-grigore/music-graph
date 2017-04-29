@@ -91,14 +91,10 @@ export default class Visualizer {
 
     switch (node.group) {
       case 'artist':
-        let albums = await this.spotify_API.get_albums_for_artist(node.id);
-        this.toggleAlbums(node.id, albums);
-        // When expanding an artist, clear the rest of the search results
-        this.clearRemainingArtists(node);
+        await this.handleArtistClick(node.id);
         break;
       case 'album':
-        let tracks = await this.spotify_API.get_tracks_for_album(node.id);
-        this.toggleTracks(node.id, tracks);
+        await this.handleAlbumClick(node.id);
         break;
       case 'track':
         let track = await this.spotify_API.get_track(node.id);
@@ -112,32 +108,48 @@ export default class Visualizer {
   }
 
   // Clear all other artists, keep all ablums on the canvas
-  clearRemainingArtists(current_node) {
+  clearRemainingArtists(current_node_id) {
     let all_nodes = this.nodes.get();
     for(let node of all_nodes){
-      if (node.group === 'artist' && node.id != current_node.id) {
+      if (node.group === 'artist' && node.id != current_node_id) {
         this.nodes.remove(node.id);
         delete this.artistStructure[node.id];
       }
     }
   }
 
-  toggleAlbums(artistID, albums) {
-    albums.forEach(album => {
-      this.toggleAlbumNode(artistID, album.id, album.name, album.images[album.images.length - 1].url, album.popularity);
-      this.toggleAlbumEdge(artistID, album.id);
+  // Get albums for artist, display them on the canvas and side bar
+  handleArtistClick = async (artistID) => {
+    let albums = await this.spotify_API.get_albums_for_artist(artistID);
+    await this.toggleAlbums(artistID, albums);
+    // When expanding an artist, clear the rest of the search results
+    this.clearRemainingArtists(artistID);
+    this.updateCallback();
+  }
+
+  // Get tracks for an album, display them on the canvas and side bar
+  handleAlbumClick = async (albumID) => {
+    let tracks = await this.spotify_API.get_tracks_for_album(albumID);
+    await this.toggleTracks(albumID, tracks);
+    this.updateCallback();
+  }
+
+  toggleAlbums = async (artistID, albums) => {
+    albums.forEach(async (album) => {
+      await this.toggleAlbumNode(artistID, album.id, album.name, album.images[album.images.length - 1].url, album.popularity);
+      await this.toggleAlbumEdge(artistID, album.id);
     });
   };
 
-  toggleTracks(albumID, tracks){
+  toggleTracks = async (albumID, tracks) => {
     const color = this.randomColor();
-    tracks.forEach(track => {
-      this.toggleTrackNode(albumID, track.id, track.name, color);
-      this.toggleTrackEdge(albumID, track.id);
+    tracks.forEach(async (track) => {
+      await this.toggleTrackNode(albumID, track.id, track.name, color);
+      await this.toggleTrackEdge(albumID, track.id);
     });
   }
 
-  toggleArtistNode(id, label, image, popularity) {
+  toggleArtistNode = async (id, label, image, popularity) => {
     // Remove the artist node if it already exists
     if(this.nodes.get(id)){
       this.nodes.remove(id);
@@ -162,7 +174,7 @@ export default class Visualizer {
     }
   }
 
-  toggleArtistEdge(from, to, label) {
+  toggleArtistEdge = async (from, to, label) => {
     // Get the edge id and remove it if it exists
     let edge = this.edges.get({
       filter: function (item) {
@@ -181,20 +193,20 @@ export default class Visualizer {
     }
   }
 
-  async toggleAlbumNode(artistID, id, label, image, popularity) {
+  toggleAlbumNode = async (artistID, albumID, label, image, popularity) => {
     // Remove the album node if it already exists
-    let album = this.nodes.get(id);
+    let album = this.nodes.get(albumID);
     if(album){
       if(album.hasTracks){
-        let tracks = await this.spotify_API.get_tracks_for_album(id);
-        this.toggleTracks(id, tracks);
+        await this.handleAlbumClick(albumID);
+        this.updateCallback();
       }
-      this.nodes.remove(id);
       // Remove albums from the folder structure
-      delete this.artistStructure[artistID].albums[id]
+      delete this.artistStructure[artistID].albums[albumID];
+      this.nodes.remove(albumID);
     } else {
       this.nodes.add({
-        id,
+        id: albumID,
         label,
         shape: 'circularImage',
         image,
@@ -210,11 +222,12 @@ export default class Visualizer {
         font: {size: 8, color: FONT_GRAY, face: 'arial'}
       });
       // Add albums to the folder structure
-      this.artistStructure[artistID].albums[id] = { name: label, tracks: {}, color: '' };
+      this.artistStructure[artistID].albums[albumID] = { name: label, tracks: {}, color: '' };
     }
+    this.updateCallback();
   }
 
-  toggleAlbumEdge(from, to) {
+  toggleAlbumEdge = async (from, to) => {
     // Get the edge id and remove it if it exists
     let edge = this.edges.get({
       filter: function (item) {
@@ -232,19 +245,20 @@ export default class Visualizer {
     }
   }
 
-  toggleTrackNode(albumID, id, label, color) {
+  toggleTrackNode = async (albumID, trackId, label, color) => {
     // Get the artistID (used in the folder structure obj)
     for(var artistID in this.artistStructure) break;
     // Remove the track node if it already exists
     let album = this.nodes.get(albumID);
-    if(this.nodes.get(id)){
-      this.nodes.remove(id);
-      // Remove tracks from the folder structure
-      delete this.artistStructure[artistID].albums[albumID].tracks[id];
+    if(this.nodes.get(trackId)){
+      this.nodes.remove(trackId);
+      // Remove tracks from the folder structure and clear album title color
+      delete this.artistStructure[artistID].albums[albumID].tracks[trackId];
+      this.artistStructure[artistID].albums[albumID].color = "";
       this.nodes.update({id: albumID, hasTracks: false});
     } else {
       this.nodes.add({
-        id,
+        id: trackId,
         label,
         shape: 'dot',
         group: 'track',
@@ -252,14 +266,15 @@ export default class Visualizer {
         value: 3,
         font: {size: 8, color: FONT_GRAY, face: 'arial'}
       });
-      this.nodes.update({id: albumID, hasTracks: true});
-      // Add tracks to the folder structure
-      this.artistStructure[artistID].albums[albumID].tracks[id] = { name: label };
+      this.artistStructure[artistID].albums[albumID].tracks[trackId] = { name: label };
       this.artistStructure[artistID].albums[albumID].color = color;
+      // Add tracks to the folder structure
+      this.nodes.update({id: albumID, hasTracks: true});
     }
+    this.updateCallback();
   }
 
-  toggleTrackEdge(from, to) {
+  toggleTrackEdge = async (from, to) => {
     // Get the edge id and remove it if it exists
     let edge = this.edges.get({
       filter: function (item) {
