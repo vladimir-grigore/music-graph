@@ -10,6 +10,7 @@ class Tabs extends Component {
         <span className="tab-btn" id="Events" onClick={this.handleClick}>Events</span>
         <span className="tab-btn" id="Playlists" onClick={this.handleClick}>Playlists</span>
         <span className="tab-btn" id="Artists" onClick={this.handleClick}>Artists</span>
+        <span className="tab-btn" id="Say-to-Play" onClick={this.handleClick}>Say & Play</span>
       </div>
     )
   }

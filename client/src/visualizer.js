@@ -6,7 +6,8 @@ const WIDTH_SCALE = 2,
   // FONT_GRAY = '#F0F0F0',
   // EDGE_GRAY = '#A6A3A8'
   FONT_GRAY = 'black',
-  EDGE_GRAY = '#A6A3A8';
+  EDGE_GRAY = '#A6A3A8',
+  BORDER = '#777'
 
 import { DataSet, Network } from 'vis';
 
@@ -26,20 +27,38 @@ export default class Visualizer {
     };
 
     this.options = Object.assign({}, {
-      nodes: {
-        borderWidth: 4,
-      },
+      // nodes: {
+      //   borderWidth: 4,
+      // },
       edges: {
-        color: FONT_GRAY,
-        smooth: true
+        // color: FONT_GRAY,
+        color: { inherit: true },
+        // smooth: true
+        smooth: {
+          enabled: true,
+          type: 'curvedCCW',
+          // forceDirection: 'none',
+          roundness: .05,
+        }
       },
       physics: {
-        barnesHut: {
-          gravitationalConstant: -300000
+        hierarchicalRepulsion: {
+          centralGravity: 0,
+          springLength: 10,
+          springConstant: .01,
+          nodeDistance: 10,
+          damping: .19,
         },
-        stabilization: {
-          iterations: 5000
-        }
+        startStabilizing: true,
+        maxVelocity: 19,
+        minVelocity: .75,
+        timestep: .5,
+        // barnesHut: {
+        //   gravitationalConstant: -3000
+        // },
+        // stabilization: {
+        //   iterations: 5000
+        // }
       },
       groups: {
         artist: {
@@ -161,6 +180,19 @@ export default class Visualizer {
         id,
         label,
         shape: 'circularImage',
+        shapeProperties: {
+          interpolation: false,  // only for image and circularImage shapes
+        },
+        borderWidth: 3,
+        borderWidthSelected: 6,
+        size: 50,
+        shadow:{
+          enabled: true,
+          color: 'rgba(0,0,0,0.5)',
+          size:5,
+          x:4,
+          y:4
+        },
         image,
         group: 'artist',
         value: popularity,
@@ -211,11 +243,24 @@ export default class Visualizer {
         id: albumID,
         label,
         shape: 'circularImage',
+        shapeProperties: {
+          interpolation: false,  // only for image and circularImage shapes
+        },
+        borderWidth: 3,
+        borderWidthSelected: 6,
+        size: 50,
+        shadow:{
+          enabled: true,
+          color: 'rgba(0,0,0,0.5)',
+          size:5,
+          x:2,
+          y:2
+        },
         image,
         group: 'album',
         value: popularity,
         color: {
-          border: EDGE_GRAY,
+          border: BORDER,
           highlight: {
             border: FONT_GRAY
           }
@@ -263,6 +308,16 @@ export default class Visualizer {
         id: trackId,
         label,
         shape: 'dot',
+        borderWidth: 1,
+        borderWidthSelected: 4,
+        size: 20,
+        shadow:{
+          enabled: true,
+          color: 'rgba(0,0,0,0.8)',
+          size:5,
+          x:1,
+          y:1
+        },
         group: 'track',
         color,
         value: 3,

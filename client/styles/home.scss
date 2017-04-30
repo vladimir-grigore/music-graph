@@ -125,7 +125,8 @@ body {
           position: absolute;
           z-index: 2;
         }
-
+        // .action,
+        // .recognized,
         .list__item,
         .playlists {
           cursor: pointer;
@@ -136,36 +137,39 @@ body {
           margin: 0;
           padding: 0;
           font-size: 2em;
-          &:hover {
-            color: black;
-          }
           ul {
             position: inherit;
             padding: inherit;
             list-style: none;
             line-height: 1.55em;
             font-size: .75em;
-          }&:hover {
-            color: black;
+            color: #555;
           }
+          // .recognized ul li,
           ul li{
             padding: inherit;
             padding-bottom: .2em;
             font-weight: 400;
+            color: #555;
             ul {
               color: #555;
               li {
                 font-size: .8em;
                 line-height: 1.35em;
-              }&:hover {
-                color: black;
+                color: #555;
               }
-            }&:hover {
-              color: black;
             }
-          }&:hover {
-            color: black;
           }
+        }
+
+        .list__item:hover {
+          color: blue;
+        }
+        .list__item ul li:hover{
+          color: red;
+        }
+        .playlists ul li:hover{
+          color: #ffd72d;
         }
         // .playlists {
         //   padding: 0;
