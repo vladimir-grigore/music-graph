@@ -10,19 +10,31 @@ class Playlists extends Component {
     }
   }
 
+  addPlaylistsToMenu = async () => {
+    const playlistResults = await this.getPlaylist();
+    // Check to see if the session is still alive
+    if(playlistResults === 'token_expired') {
+      this.setState({ playlists: playlistResults });
+    } else {
+      let playlists = {};
+      playlistResults.items.map(playlist => {
+        playlists[playlist.id] = { name: playlist.name, tracks: {} };
+      });
+      this.setState({ playlists });
+    }
+  }
+
   // Try to populate the playlists panel
   componentWillMount = async () => {
     if(localStorage.getItem('logged-in')){
-      const playlists = await this.getPlaylist();
-      this.setState({ playlists });
+      this.addPlaylistsToMenu();
     }
   }
 
   // Used when a user with an expired token logs back in
   componentWillReceiveProps = async () => {
     if(localStorage.getItem('logged-in')){
-      const playlists = await this.getPlaylist();
-      this.setState({ playlists });
+      this.addPlaylistsToMenu();
     }
   }
 
@@ -46,6 +58,27 @@ class Playlists extends Component {
     }
   }
 
+  // Expand the tracks for a certain playlist
+  playlistMenuClick = async (id) => {
+    let playlists = this.state.playlists;
+    // Toggle tracks on and off when clicking on a playlist
+    if(Object.keys(playlists[id].tracks).length === 0) {
+      const playlistTracks = await spotify_API.get_playlist(localStorage.getItem('user_id'), id);
+      playlistTracks.tracks.items.map(trackEntry => {
+        playlists[id].tracks[trackEntry.track.id] = { name: trackEntry.track.name, url: trackEntry.track.preview_url };
+      })
+      this.setState({ playlists });
+    } else {
+      playlists[id].tracks = {};
+      this.setState({ playlists });
+    }
+  }
+
+  // Handle clicks on each track
+  trackMenuClick = async (id) => {
+    console.log('You clicked a track', id);
+  }
+
   render() {
     // Display message for visitors
     if(!localStorage.getItem('logged-in')){
@@ -63,16 +96,15 @@ class Playlists extends Component {
       )
     } else {
       // Wait for the API call to resolve before displaying data
-      if(Object.keys(this.state.playlists).length !== 0){
-        const playlist = this.state.playlists.items.map(playlistItem => {
-          return (
-            <ul key={playlistItem.id} id={playlistItem.id}>
-              <li>
-                {playlistItem.name}
-              </li>
-            </ul>
-          )
-        });
+      if(this.state.playlists.length !== 0){
+        const playlist = Object.keys(this.state.playlists).map(playlistItem =>
+          <Playlist key={playlistItem}
+                    id={playlistItem} 
+                    name={this.state.playlists[playlistItem].name} 
+                    playlistMenuClick={this.playlistMenuClick}
+                    trackMenuClick={this.trackMenuClick}
+                    tracks={this.state.playlists[playlistItem].tracks} 
+                    />);
         return (
           <li className="playlists">
             Playlists:
@@ -84,6 +116,55 @@ class Playlists extends Component {
         return null;
       }
     }
+  }
+}
+
+class Playlist extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  playlistMenuClick = (e) => {
+    e.stopPropagation();
+    this.props.playlistMenuClick(this.props.id);
+  }
+
+  render() {
+    const playlistTrack = Object.keys(this.props.tracks).map(item => 
+      <PlaylistTrack key={item} 
+                     id={item}
+                     value={this.props.tracks[item].name}
+                     trackMenuClick={this.props.trackMenuClick}
+                     />);
+    return (
+      <ul>
+        <li onClick={this.playlistMenuClick}>
+          {this.props.name}
+          <ul>
+            {playlistTrack}
+          </ul>
+        </li>
+      </ul>
+    )
+  }
+}
+
+class PlaylistTrack extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  handleClick = (e) => {
+    e.stopPropagation();
+    this.props.trackMenuClick(this.props.id);
+  }
+
+  render() {
+    return (
+      <li onClick={this.handleClick}>
+        {this.props.value}
+      </li>
+    )
   }
 }
 

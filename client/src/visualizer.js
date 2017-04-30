@@ -118,11 +118,11 @@ export default class Visualizer {
         await this.handleAlbumClick(node.id);
         break;
       case 'track':
-        let track = await this.spotify_API.get_track(node.id);
-        // console.log("_-_", track.tracks[0]['preview_url']);
+        // let track = await this.spotify_API.get_track(node.id);
+        // console.log("You clicked a track", track);
         break;
       default:
-        console.log('sorry');
+        console.log('Sorry, something went wrong');
     }
     // Handle the asynchronous nature of onClick
     this.updateCallback();
@@ -165,7 +165,7 @@ export default class Visualizer {
   toggleTracks = async (albumID, tracks) => {
     const color = this.randomColor();
     tracks.forEach(async (track) => {
-      await this.toggleTrackNode(albumID, track.id, track.name, color);
+      await this.toggleTrackNode(albumID, track.id, track.name, track.preview_url, color);
       await this.toggleTrackEdge(albumID, track.id);
     });
   }
@@ -292,7 +292,7 @@ export default class Visualizer {
     }
   }
 
-  toggleTrackNode = async (albumID, trackId, label, color) => {
+  toggleTrackNode = async (albumID, trackId, label, preview_url, color) => {
     // Get the artistID (used in the folder structure obj)
     for(var artistID in this.artistStructure) break;
     // Remove the track node if it already exists
@@ -323,7 +323,7 @@ export default class Visualizer {
         value: 3,
         font: {size: 8, color: FONT_GRAY, face: 'arial'}
       });
-      this.artistStructure[artistID].albums[albumID].tracks[trackId] = { name: label };
+      this.artistStructure[artistID].albums[albumID].tracks[trackId] = { name: label , url: preview_url};
       this.artistStructure[artistID].albums[albumID].color = color;
       // Add tracks to the folder structure
       this.nodes.update({id: albumID, hasTracks: true});
