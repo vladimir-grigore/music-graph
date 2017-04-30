@@ -35,7 +35,7 @@ class Playlists extends Component {
       }
       return (
         <ul className="playlists">
-          <h1>PlayList Name</h1>
+          <h1>Playlists: </h1>
           {playlist().map(e => {
             return (
               <li key={e.id} id={e.id}>

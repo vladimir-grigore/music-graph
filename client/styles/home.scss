@@ -1,13 +1,11 @@
 $gray: hsla(197, 13%, 19%, 0.8);
 $sideW: 22%;
-$trans: -60.7%;
-$trans-dist: -152.5px;
+$trans: -56.6%;
+$trans-dist: -695%;
 $rot: -90deg;
-$tab-dist: -7.8%;
-$transitions: linear, ease, ease-in, ease-out, ease-in-out;
-$fontH: #111;
-$fontC: #bbb;
-
+$fontC: white;
+$btn_Bg: #C4C4C7;
+$btn_HoverBg: #7a7a7f;
 
 html,
 body {
@@ -36,57 +34,48 @@ body {
 
   .btn-primary {
     position: absolute;
+    cursor: pointer;
     z-index: 2;
-    top: 6px;
-    left: 6px;
+    top: .3em;
+    left: .3em;
     color: white;
-    padding: 12px;
+    padding: 1em;
     text-decoration: none;
-    background-color: #D7D7DC;
-    // border: 1px solid;
-    // border-color: #bbb;
+    background-color: $btn_Bg;
     border: none;
-
+    letter-spacing: .12em;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: .9em;
     &:hover {
-      color: #515158;
-      // border-color: black;
-      background-color: #C4C4C7;
+      color: $btn_HoverBg;
     }
   } // End of Login Button
 
   .collapse-button {
     position: absolute;
     width: 3.4em;
-    height: 3.4em;
+    height: 3.45em;
     right: $sideW;
     z-index: 2;
     top: 0;
     transition: transform 1s;
-    cursor: pointer;
     padding: 0;
     margin: 0;
-    background-color: #D7D7DC;
-    // border: 1px solid;
-    // border-color: #bbb;
-    // font-size: 1.7em;
+    background-color: $btn_Bg;
     &.closed {
       right: 56px;
-      background-color: #C4C4C7;
       transform: translate(100%);
       i {
         transform: rotate(180deg);
         transition: transform 5s;
       }
     }
-    &:hover {
-      cursor: pointer;
-      background-color: #C4C4C7;
-      // border-color: black;
-    }
-
     i {
       position: absolute;
-      padding: 19px;
+      cursor: pointer;
+      padding: 1.19em;
+      padding-bottom: 1.25em;
       color: white;
       transition: transform .5s;
       width: 1em;
@@ -95,9 +84,11 @@ body {
       fill: currentColor;
 
       &:hover {
-        color: #515158;
-        // border-color: black;
+        color: $btn_HoverBg;
       }
+    }
+    .fa {
+      text-align: center;
     }
   } // End of Collapse Button
 
@@ -116,11 +107,20 @@ body {
       background-color: #FFFFFF;
       top:0;
       right:0;
-      padding: 3em 0 0;
+      margin: 0;
+      padding-top: 5.3em;
+      padding-bottom: 1.7em;
+      padding-left: 2em;
+      padding-right: 1em;
+      max-height: 84%;
+      max-width: 90%;
+
       #scroll-area{
-        margin: 0 0 2em;
-        padding: 1em;
+        position: initial;
+        margin: 0;
+        padding: 0;
         list-style: none;
+        max-height: 100%; //test
 
         .artistEntry a{
           position: absolute;
@@ -130,41 +130,33 @@ body {
         .list__item {
           cursor: pointer;
           position: relative;
-          // text-align: left;
-          line-height: 40px;
-          // font-size: 1.5em;
-          margin-top: .6em;
-          margin-left: 1em;
-          // text-size-adjust: 100%;
-          font-weight: 500;
-          font-size: medium;
+          line-height: 1.5em;
+          font-weight: 400;
+          max-height: 50%;
+          margin: 0;
+          padding: 0;
+          font-size: 2em;
           &:hover {
             color: black;
           }
           ul {
+            position: inherit;
             padding: inherit;
             list-style: none;
+            line-height: 1.55em;
+            font-size: .75em;
           }&:hover {
             color: black;
           }
           ul li{
-            padding-bottom: .8em;
+            padding: inherit;
+            padding-bottom: .2em;
+            font-weight: 400;
             ul {
               color: #555;
-              // display: block;
-              // font-size: .9em;
-              // line-height: 28px;
-              // outline-color: gray;
-              // outline-width: 0px;
-              // padding: .1em .5em .1em 0;
-              // text-align: left;
-              // text-decoration-color: gray;
-              // text-decoration-style: solid;
-              // text-size-adjust: 100%;
               li {
                 font-size: .8em;
-                line-height: 19px;
-                padding: 0px;
+                line-height: 1.35em;
               }&:hover {
                 color: black;
               }
@@ -176,33 +168,27 @@ body {
           }
         }
         .playlists {
-          // margin: 0 0 2em;
-          // padding: 1em;
-          padding-left: 1em;
+          padding: 0;
           list-style: none;
           cursor: pointer;
-          line-height: 40px;
 
           h1{
+            cursor: pointer;
             position: relative;
-            text-align: left;
-            font-size: 1.5em;
+            line-height: 1.5em;
+            font-weight: 400;
+            max-height: 50%;
             margin: 0;
-            margin-top: 5px;
-            text-size-adjust: 100%;
+            padding: 0;
+            font-size: 2em;
           }
           li{
             color: #555;
             display: block;
             font-size: 1.3em;
             line-height: 28px;
-            outline-color: gray;
-            outline-width: 0px;
             padding: .1em .5em .1em 0;
-            text-align: left;
-            text-decoration-color: gray;
-            text-decoration-style: solid;
-            text-size-adjust: 100%;
+            font-weight: 400;
           }
         }&:hover {
           color: black;
@@ -214,15 +200,9 @@ body {
       z-index: 2;
       top: 0;
       margin: 0;
-        // position: fixed;
-        // z-index: 3;
-        // top: 0;
-        // right: 0;
-        // left: calc(97.25vw - 371px);
       .artist-lookup {
-        // width: 100%;
-        width: 358px;
-        padding: 1.15em 2em;
+        width: 22.4em;
+        padding: 1.17em 2em;
         color: #fff;
         border: 0;
         background: #515158;
@@ -231,27 +211,22 @@ body {
     .content-tabs {
       position: absolute;
       z-index: 2;
+      right: 0;
       transform: rotate($rot) translate($trans, $trans-dist);
     }
 
     .tab-btn {
       cursor: pointer;
-      margin: 0;
-      margin-right: 1px;
-      display: inline-block;
-      height: 29px;
-      padding: .9em .99em .7em 1em;
-      // border: 1px solid;
-      background-color: #D7D7DC;
-      // border-color: #bbb;
+      margin-right: .2em;
+      padding: 1em 3.99em 1.08em 4em;
       color: white;
-      text-decoration: none;
+      background-color: $btn_Bg;
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      font-weight: 700;
       &:hover {
-        color: #515158;
-        // border-color: #000;
-        background-color: #C4C4C7;
+        color: $btn_HoverBg;
       }
-
     } // End of Content Tabs
 
     .artistEntry {

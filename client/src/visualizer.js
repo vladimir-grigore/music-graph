@@ -3,7 +3,9 @@ const WIDTH_SCALE = 2,
   BLUE = '#6584C7',
   RED = '#DC4B7C',
   PURPLE = '#8D65E0',
-  FONT_GRAY = '#F0F0F0',
+  // FONT_GRAY = '#F0F0F0',
+  // EDGE_GRAY = '#A6A3A8'
+  FONT_GRAY = 'black',
   EDGE_GRAY = '#A6A3A8';
 
 import { DataSet, Network } from 'vis';
