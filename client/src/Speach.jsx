@@ -8,10 +8,6 @@ class Speach extends Component {
   constructor(props){
     super(props);
   }
-  // communicateAction = (text) => {
-  //   const rec = document.getElementById('conversation');
-  //   return rec.innerHTML += '<li class="action">' + text + '</li>';
-  // }
   recognized = (text) => {
     const rec = document.getElementById('conversation');
     return rec.innerHTML += '<ul class="recognized"><li>' + text + '</li></ul>';
@@ -50,16 +46,23 @@ class Speach extends Component {
           this.recognized('Hello ' + word + '!');
         }),
         'how are you': () => {
-          // console.log('I am well. How are you ?');
           this.recognized('I am well. How are you ? :)');
         },
         'log commands': () => {
           console.log(commands);
         },
+        //  'show me *tag': ((tag) => {
+        //    console.log('tag @ speach is :', tag);
+        //    anny.searchFlickr(tag);
+        //  }),
         ':nomatch': ((message) => {
           this.recognized(message);
           anny.communicateAction('Sorry, I don\'t understand this action!');
         })
+        // '*message': ((message) => {
+        //   console.log('message @ speach is : ' , message);
+        //   anny.searchWord(message);
+        // })
       };
       // Add our commands to annyang
       annyang.addCommands(commands);

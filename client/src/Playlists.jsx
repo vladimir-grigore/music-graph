@@ -10,19 +10,22 @@ class Playlists extends Component {
     }
   }
 
-  async componentWillMount(){
+  // Try to populate the playlists panel
+  componentWillMount = async () => {
     if(localStorage.getItem('logged-in')){
       const playlists = await this.getPlaylist();
       this.setState({ playlists });
     }
   }
 
-  async componentWillReceiveProps(){
+  // Used when a user with an expired token logs back in
+  componentWillReceiveProps = async () => {
     if(localStorage.getItem('logged-in')){
       const playlists = await this.getPlaylist();
       this.setState({ playlists });
     }
   }
+
   // Set Spotify API authentication token
   // Used in getting user info and playlists details
   addSpotifyAuthToken = () => {
@@ -30,6 +33,7 @@ class Playlists extends Component {
     spotify_API.set_api_token(token);
   }
 
+  // Try to authenticat with existing token
   getPlaylist = async () => {
     if(localStorage.getItem('logged-in')) {
       this.addSpotifyAuthToken();
@@ -43,40 +47,42 @@ class Playlists extends Component {
   }
 
   render() {
+    // Display message for visitors
     if(!localStorage.getItem('logged-in')){
       return (
         <li className="playlists">
           Please Log in
         </li>
       )
-    } else if(this.state.playlists === 'token_expired') {
+    } else if(this.state.playlists === 'token_expired') { 
+      // Auth tokens expire after 60 min, users remain logged in
       return (
         <li className="playlists">
           Your session has expired
         </li>
       )
     } else {
-      const playlist = () => {
-        const playlistName = [];
-        for (let i in this.state.playlists.items){
-          playlistName.push({id: this.state.playlists.items[i].id, name: this.state.playlists.items[i].name});
-        }
-        return playlistName;
+      // Wait for the API call to resolve before displaying data
+      if(Object.keys(this.state.playlists).length !== 0){
+        const playlist = this.state.playlists.items.map(playlistItem => {
+          return (
+            <ul key={playlistItem.id} id={playlistItem.id}>
+              <li>
+                {playlistItem.name}
+              </li>
+            </ul>
+          )
+        });
+        return (
+          <li className="playlists">
+            Playlists:
+            {playlist}
+          </li>
+        )
+      } else {
+        // Will be triggered while API calls are still running
+        return null;
       }
-      return (
-        <li className="playlists">
-          Playlists:
-          {playlist().map(e => {
-            return (
-              <ul key={e.id} id={e.id}>
-                <li>
-                  {e.name}
-                </li>
-              </ul>
-            )
-          })}
-        </li>
-      )
     }
   }
 }
