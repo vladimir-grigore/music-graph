@@ -194,6 +194,7 @@ body {
           left: inherit;
           right: inherit;
           bottom: inherit;
+
           ul {  // second tear down the chain, container for > "Albums" names
             // position: inherit;
             padding: inherit;
@@ -217,15 +218,9 @@ body {
             }
           }
         }
-
-        .list__item:hover {  // on Artist names hover
-          color: blue;
-        }
-        .list__item ul li:hover{  // on Albums || Tracks hover
-          color: red;
-        }
+        .list__item ul li:hover,  // on Albums || Tracks hover
         .playlists ul li:hover{  // on Playlists hover
-          color: #ffd72d;
+          color: #ff9900;
         }
       }
     }
