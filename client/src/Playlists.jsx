@@ -1,28 +1,43 @@
 import React, {Component} from 'react';
 import SpotifyAPI from './spotify_web_api.js';
+import PlaylistTrack from './PlaylistTrack.jsx';
 const spotify_API = new SpotifyAPI();
 
 class Playlists extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      playlists: {}
+      playlists: []
+    }
+  }
+
+  addPlaylistsToState = async () => {
+    let playlistsArray = [];
+    const playlists = await this.getPlaylist();
+    // Check to see if the session is still alive
+    if(playlists !== 'token_expired') {
+      playlists.items.map(playlist => {
+        let playlistObject = {};
+        playlistObject = {id: playlist.id, name: playlist.name, tracks: {}}
+        playlistsArray.push(playlistObject);
+      })
+      this.setState({ playlists: playlistsArray });
+    } else {
+      this.setState({ playlists });
     }
   }
 
   // Try to populate the playlists panel
   componentWillMount = async () => {
     if(localStorage.getItem('logged-in')){
-      const playlists = await this.getPlaylist();
-      this.setState({ playlists });
+      this.addPlaylistsToState();
     }
   }
 
   // Used when a user with an expired token logs back in
   componentWillReceiveProps = async () => {
     if(localStorage.getItem('logged-in')){
-      const playlists = await this.getPlaylist();
-      this.setState({ playlists });
+      this.addPlaylistsToState();
     }
   }
 
@@ -46,6 +61,10 @@ class Playlists extends Component {
     }
   }
 
+  clickPlaylist = async (id) => {
+    console.log("You clicked a playlist", id);
+  }
+
   render() {
     // Display message for visitors
     if(!localStorage.getItem('logged-in')){
@@ -63,16 +82,10 @@ class Playlists extends Component {
       )
     } else {
       // Wait for the API call to resolve before displaying data
-      if(Object.keys(this.state.playlists).length !== 0){
-        const playlist = this.state.playlists.items.map(playlistItem => {
-          return (
-            <ul key={playlistItem.id} id={playlistItem.id}>
-              <li>
-                {playlistItem.name}
-              </li>
-            </ul>
-          )
-        });
+      if(this.state.playlists.length !== 0){
+        const playlist = this.state.playlists.map(playlistItem => 
+          <Playlist key={playlistItem.id} id={playlistItem.id} name={playlistItem.name} handleClick={this.clickPlaylist} />
+        );
         return (
           <li className="playlists">
             Playlists:
@@ -84,6 +97,30 @@ class Playlists extends Component {
         return null;
       }
     }
+  }
+}
+
+class Playlist extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  handleClick = (e) => {
+    e.stopPropagation();
+    this.props.handleClick(this.props.id);
+  }
+
+  render() {
+    return (
+      <ul>
+        <li onClick={this.handleClick}>
+          {this.props.name}
+          <ul>
+            {/*{playlistTrack}*/}
+          </ul>
+        </li>
+      </ul>
+    )
   }
 }
 
