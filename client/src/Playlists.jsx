@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import SpotifyAPI from './spotify_web_api.js';
+const spotify_API = new SpotifyAPI();
 
 class Playlists extends Component {
   constructor(props) {
@@ -7,15 +9,45 @@ class Playlists extends Component {
       playlists: {}
     }
   }
+
   async componentWillMount(){
     if(localStorage.getItem('logged-in')){
-      const playlists = await this.props.getPlaylist();
-      this.setState({playlists});
+      const playlists = await this.getPlaylist();
+      this.setState({ playlists });
     }
   }
+
+  async componentWillReceiveProps(){
+    if(localStorage.getItem('logged-in')){
+      const playlists = await this.getPlaylist();
+      this.setState({ playlists });
+    }
+  }
+
+  // Set Spotify API authentication token
+  // Used in getting user info and playlists details
+  addSpotifyAuthToken = () => {
+    const token = localStorage.getItem('access_token');
+    spotify_API.set_api_token(token);
+  }
+
+  getPlaylist = async () => {
+    if(localStorage.getItem('logged-in')) {
+      this.addSpotifyAuthToken();
+      const user = await spotify_API.get_current_user();
+      if(user === 401 || user === 403) {
+        return 'token_expired';
+      }
+      const playlists = await spotify_API.get_user_playlists(localStorage.getItem('user_id'));
+      return playlists;
+    } 
+  }
+
   render() {
     if(!localStorage.getItem('logged-in')){
-      return (<h1> Please Log in </h1>)
+      return <h2> Please Log in </h2>
+    } else if(this.state.playlists === 'token_expired') {
+      return <h2> Your session has expired </h2>
     } else {
       const playlist = () => {
         const playlistName = [];

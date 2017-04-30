@@ -21,7 +21,7 @@ class Content extends Component {
                              trackMenuClick={this.props.trackMenuClick}
                              />);
     } else if (tab == 'Playlists') {
-      return <Playlists getPlaylist={this.props.getPlaylist} />;
+      return <Playlists />;
     } else {
       // const eventEntry = Object.keys(this.props.events)
       // .map(item => <Events key={item} />);

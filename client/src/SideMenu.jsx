@@ -20,7 +20,6 @@ class SideMenu extends Component {
         <Tabs handleTabClick={this.handleTabClick.bind(this)} />
         <Content data={this.props.data}
                  currentTab={this.state.tab}
-                 getPlaylist={this.props.getPlaylist}
                  artistMenuClick={this.props.artistMenuClick}
                  albumMenuClick={this.props.albumMenuClick}
                  trackMenuClick={this.props.trackMenuClick}
