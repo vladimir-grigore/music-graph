@@ -61,6 +61,7 @@ class Playlists extends Component {
   // Expand the tracks for a certain playlist
   playlistMenuClick = async (id) => {
     let playlists = this.state.playlists;
+    // Toggle tracks on and off when clicking on a playlist
     if(Object.keys(playlists[id].tracks).length === 0) {
       const playlistTracks = await spotify_API.get_playlist(localStorage.getItem('user_id'), id);
       playlistTracks.tracks.items.map(trackEntry => {
