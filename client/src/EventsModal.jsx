@@ -36,8 +36,6 @@ class EventsModal extends Component {
         background: 'rgba(0, 0, 0, 0.3)'
       }
     const eventResults = this.props.events;
-    console.log(eventResults);
-
     const eventDetails = eventResults.map(event => {
       let event_id, date, ticket_url, venue_name, city_name, country_code, state_code;
       for ({ Date, TicketUrl, Venue } in event) {
