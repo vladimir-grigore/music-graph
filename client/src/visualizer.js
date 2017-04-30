@@ -268,7 +268,7 @@ export default class Visualizer {
         value: 3,
         font: {size: 8, color: FONT_GRAY, face: 'arial'}
       });
-      this.artistStructure[artistID].albums[albumID].tracks[trackId] = { name: label };
+      this.artistStructure[artistID].albums[albumID].tracks[trackId] = { name: label , url: ''};
       this.artistStructure[artistID].albums[albumID].color = color;
       // Add tracks to the folder structure
       this.nodes.update({id: albumID, hasTracks: true});

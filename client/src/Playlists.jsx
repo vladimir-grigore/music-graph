@@ -7,22 +7,20 @@ class Playlists extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      playlists: []
+      playlists: {}
     }
   }
 
   addPlaylistsToState = async () => {
-    let playlistsArray = [];
-    const playlists = await this.getPlaylist();
+    const playlistResults = await this.getPlaylist();
     // Check to see if the session is still alive
-    if(playlists !== 'token_expired') {
-      playlists.items.map(playlist => {
-        let playlistObject = {};
-        playlistObject = {id: playlist.id, name: playlist.name, tracks: {}}
-        playlistsArray.push(playlistObject);
-      })
-      this.setState({ playlists: playlistsArray });
+    if(playlistResults === 'token_expired') {
+      this.setState({ playlists: playlistResults });
     } else {
+      let playlists = {};
+      playlistResults.items.map(playlist => {
+        playlists[playlist.id] = { name: playlist.name, tracks: {} };
+      });
       this.setState({ playlists });
     }
   }
@@ -61,8 +59,14 @@ class Playlists extends Component {
     }
   }
 
+  // Expand the tracks for a certain playlist
   clickPlaylist = async (id) => {
-    console.log("You clicked a playlist", id);
+    const playlistTracks = await spotify_API.get_playlist(localStorage.getItem('user_id'), id);
+    let playlists = this.state.playlists;
+    playlistTracks.tracks.items.map(trackEntry => {
+      playlists[id].tracks[trackEntry.track.id] = { name: trackEntry.track.name, url: trackEntry.track.preview_url };
+    })
+    this.setState({ playlists });
   }
 
   render() {
@@ -83,8 +87,13 @@ class Playlists extends Component {
     } else {
       // Wait for the API call to resolve before displaying data
       if(this.state.playlists.length !== 0){
-        const playlist = this.state.playlists.map(playlistItem => 
-          <Playlist key={playlistItem.id} id={playlistItem.id} name={playlistItem.name} handleClick={this.clickPlaylist} />
+        const playlist = Object.keys(this.state.playlists).map(playlistItem =>
+          <Playlist key={playlistItem}
+                    id={playlistItem} 
+                    name={this.state.playlists[playlistItem].name} 
+                    handleClick={this.clickPlaylist}
+                    tracks={this.state.playlists[playlistItem].tracks} 
+                    />
         );
         return (
           <li className="playlists">
@@ -108,6 +117,7 @@ class Playlist extends Component {
   handleClick = (e) => {
     e.stopPropagation();
     this.props.handleClick(this.props.id);
+    // console.log("*", this.props.tracks)
   }
 
   render() {

@@ -87,6 +87,13 @@ class SpotifyAPI {
     }
   }
 
+  // spotifyApi.getPlaylist('thelinmichael', '5ieJqeLJjjI8iJWaxeBLuK')
+  // .then(function(data) {
+  //   console.log('Some information about this playlist', data.body);
+  // }, function(err) {
+  //   console.log('Something went wrong!', err);
+  // });
+
 }
 
 module.exports = SpotifyAPI;
