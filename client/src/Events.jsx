@@ -10,7 +10,7 @@ class Events extends Component {
       eventResults: []
       //////////////////Fake Events////////////////////
       // fakeEnvents: [
-      //   { 
+      //   {
       //   Id: 2927622,
       //   Date: "2017-05-10T00:00:00",
       //   TicketUrl: "http://ticketmaster.evyy.net/c/252938/264167/4272?u=http%3A%2F%2Fticketmaster.com%2Fevent%2F15005242EECB475C",
@@ -150,7 +150,7 @@ class EventsModal extends Component {
     });
 
     return (
-      <div> 
+      <div>
         <div style={backdropStyle} onClick={this.close}></div>
         <div style={modalStyle} className="events-modal">
           <ul>Events Modal title
