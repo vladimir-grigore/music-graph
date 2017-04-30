@@ -60,12 +60,17 @@ class Playlists extends Component {
 
   // Expand the tracks for a certain playlist
   playlistMenuClick = async (id) => {
-    const playlistTracks = await spotify_API.get_playlist(localStorage.getItem('user_id'), id);
     let playlists = this.state.playlists;
-    playlistTracks.tracks.items.map(trackEntry => {
-      playlists[id].tracks[trackEntry.track.id] = { name: trackEntry.track.name, url: trackEntry.track.preview_url };
-    })
-    this.setState({ playlists });
+    if(Object.keys(playlists[id].tracks).length === 0) {
+      const playlistTracks = await spotify_API.get_playlist(localStorage.getItem('user_id'), id);
+      playlistTracks.tracks.items.map(trackEntry => {
+        playlists[id].tracks[trackEntry.track.id] = { name: trackEntry.track.name, url: trackEntry.track.preview_url };
+      })
+      this.setState({ playlists });
+    } else {
+      playlists[id].tracks = {};
+      this.setState({ playlists });
+    }
   }
 
   // Handle clicks on each track
