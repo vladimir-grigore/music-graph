@@ -45,15 +45,15 @@ class Playlists extends Component {
   render() {
     if(!localStorage.getItem('logged-in')){
       return (
-        <ul className="playlists">
-          <h1> Please Log in </h1>
-        </ul>
+        <li className="playlists">
+          Please Log in
+        </li>
       )
     } else if(this.state.playlists === 'token_expired') {
       return (
-        <ul className="playlists">
-          <h1> Your session has expired </h1>
-        </ul>
+        <li className="playlists">
+          Your session has expired
+        </li>
       )
     } else {
       const playlist = () => {
@@ -64,16 +64,18 @@ class Playlists extends Component {
         return playlistName;
       }
       return (
-        <ul className="playlists">
-          <h1>Playlists: </h1>
+        <li className="playlists">
+          Playlists:
           {playlist().map(e => {
             return (
-              <li key={e.id} id={e.id}>
-                {e.name}
-              </li>
+              <ul key={e.id} id={e.id}>
+                <li>
+                  {e.name}
+                </li>
+              </ul>
             )
           })}
-        </ul>
+        </li>
       )
     }
   }

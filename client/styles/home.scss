@@ -40,7 +40,6 @@ body {
     left: .3em;
     color: white;
     padding: 1em;
-    text-decoration: none;
     background-color: $btn_Bg;
     border: none;
     letter-spacing: .12em;
@@ -114,7 +113,7 @@ body {
       padding-right: 1em;
       max-height: 84%;
       max-width: 90%;
-      
+
       #scroll-area{
         position: initial;
         margin: 0;
@@ -127,7 +126,8 @@ body {
           z-index: 2;
         }
 
-        .list__item {
+        .list__item,
+        .playlists {
           cursor: pointer;
           position: relative;
           line-height: 1.5em;
@@ -167,32 +167,32 @@ body {
             color: black;
           }
         }
-        .playlists {
-          padding: 0;
-          list-style: none;
-          cursor: pointer;
-
-          h1{
-            cursor: pointer;
-            position: relative;
-            line-height: 1.5em;
-            font-weight: 400;
-            max-height: 50%;
-            margin: 0;
-            padding: 0;
-            font-size: 2em;
-          }
-          li{
-            color: #555;
-            display: block;
-            font-size: 1.3em;
-            line-height: 28px;
-            padding: .1em .5em .1em 0;
-            font-weight: 400;
-          }
-        }&:hover {
-          color: black;
-        }
+        // .playlists {
+        //   padding: 0;
+        //   list-style: none;
+        //   cursor: pointer;
+        //
+        //   h1{
+        //     cursor: pointer;
+        //     position: relative;
+        //     line-height: 1.5em;
+        //     font-weight: 400;
+        //     max-height: 50%;
+        //     margin: 0;
+        //     padding: 0;
+        //     font-size: 2em;
+        //   }
+        //   li{
+        //     color: #555;
+        //     display: block;
+        //     font-size: 1.3em;
+        //     line-height: 28px;
+        //     padding: .1em .5em .1em 0;
+        //     font-weight: 400;
+        //   }
+        // }&:hover {
+        //   color: black;
+        // }
       }
     }
     .header-div {
@@ -204,6 +204,7 @@ body {
         width: 22.4em;
         padding: 1.17em 2em;
         color: #fff;
+        font-weight: 400;
         border: 0;
         background: #515158;
       }
