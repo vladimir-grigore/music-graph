@@ -6,6 +6,7 @@ $rot: -90deg;
 $fontC: white;
 $btn_Bg: #C4C4C7;
 $btn_HoverBg: #7a7a7f;
+$dropShadow: #999;
 
 html,
 body {
@@ -32,7 +33,7 @@ body {
   bottom: 0;
   right: 0;
 
-  .btn-primary {  // login button
+  .login {  // login button
     position: absolute;
     cursor: pointer;
     z-index: 2;
@@ -46,12 +47,53 @@ body {
     font-weight: 600;
     text-transform: uppercase;
     font-size: .9em;
+    box-shadow: .1em .2em .7em -0.2em $dropShadow;
     &:hover {
       color: $btn_HoverBg;
     }
+  } // End of Login || Logout Button
 
-  } // End of Login Button
+  .logout {  // logout button
+    position: absolute;
+    cursor: pointer;
+    z-index: 2;
+    top: .3em;
+    left: 9.85em;
+    color: white;
+    padding: 1em;
+    background-color: $btn_Bg;
+    border: none;
+    letter-spacing: .12em;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: .9em;
+    box-shadow: .1em .2em .7em -0.2em $dropShadow;
+    &:hover {
+      color: $btn_HoverBg;
+    }
+  } // End of Login || Logout Button
 
+  .userImage {  // User Image
+    position: absolute;
+    z-index: 2;
+    top: .2em;
+    left: .2em;
+    padding: .1em;
+    width: 8.1em;
+    border: solid .1em #ccc;
+    box-shadow: .1em .2em .7em -0.2em $dropShadow;
+  }
+  .userName {  // User Name text
+    position: absolute;
+    z-index: 2;
+    top: .2em;
+    color: #515158;
+    left: 35%;
+    letter-spacing: .12em;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: .9em;
+  }
   .collapse-button {  // toggle side menu button
     position: absolute;
     width: 3.4em;
@@ -83,6 +125,7 @@ body {
       height: 1em;
       margin: 0;
       fill: currentColor;
+      box-shadow: -.15em -.1em 0.7em -.2em $dropShadow;
       &:hover {  // icon on hover
         color: $btn_HoverBg;
       }
@@ -95,11 +138,11 @@ body {
   } // End of Collapse Button
 
   .nav-side-menu {  // side menu div parent - holds all components in the side menu
-    width: $sideW;
+    // width: $sideW;
     position: absolute;
     top: 0;
     bottom: 0;
-    right: 0;
+    right: 22%;
     background: #666;
     transition: transform 1s;
     z-index: 2;
@@ -196,55 +239,35 @@ body {
     .content-tabs {  // Sidebar tab buttons parent
       position: absolute;
       z-index: 2;
-      right: 0;
-      width: 40em;
-      transform: rotate($rot) translate($trans, $trans-dist);
+      top: 22.8em;
+      right: -18.25em;
+      width: 39.9em;
+      transform: rotate($rot);// translate($trans, $trans-dist);
     }
 
     .tab-btn {  // Sidebar tab buttons
       cursor: pointer;
       margin-right: .2em;
-      padding: 1em 2em 1.08em 2em;
+      padding: 1em 2em 1em 2em;
       color: white;
       background-color: $btn_Bg;
       text-transform: uppercase;
       letter-spacing: .14em;
       font-weight: 700;
+      box-shadow: -.15em -.1em 0.7em -.2em $dropShadow;
       &:hover {  // Sidebar tab hover color
         color: $btn_HoverBg;
       }
     } // End of Content Tabs
 
-    .artistEntry {  // same as content-wrapper !? needs fixing
-      position: relative;
-      display: inherit;
-      overflow-x: auto;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      max-height: 90%;
-      margin: 0;
-      border-left: none;
-      border-right: none;
-      border-radius: 0;
-      box-shadow: none;
-      text-decoration: none;
-      flex-wrap: wrap;
-      padding-left: 10px;
-      padding-right: 10px;
-      padding-top: 5px;
-
-    } // Artist Entry SideBar
-
     .footer-div {  // Footer container
-      background-color: $gray;
-      position: inherit;
+      background-color: #515158;
+      position: fixed;
       bottom: 0;
       right: 0;
       margin: 0;
-      width: 100%;
-      height: 60px;
+      width: 26.45em;
+      height: 9.5em;
     }
 
   } // End of Side Menu
