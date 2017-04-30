@@ -98,7 +98,7 @@ body {
     position: absolute;
     width: 3.4em;
     height: 3.45em;
-    right: $sideW;
+    right: 22.35em;
     z-index: 2;
     top: 0;
     transition: transform 1s;
@@ -142,7 +142,8 @@ body {
     position: absolute;
     top: 0;
     bottom: 0;
-    right: 22%;
+    // right: 22%;
+    right: 22.4em;
     background: #666;
     transition: transform 1s;
     z-index: 2;
@@ -150,42 +151,51 @@ body {
     #content-wrapper {  // side menu div wrapper parent for all tabs components
       position: absolute;
       background-color: #FFFFFF;
-      top:0;
-      right:0;
+      height: 77.5%;
+      width: 20.4em;
+      top: 3.45em;
+      right: -22.4em;
       margin: 0;
-      padding-top: 5.3em;
-      padding-bottom: 1.7em;
-      padding-left: 2em;
-      padding-right: 1em;
-      max-height: 84%;
-      max-width: 90%;
+      padding: 1em 1em 2em 1em;
+      // max-height: 52.592em;
+      // max-height: 78.5%;
+      // max-height: 44.592em;
+      max-height: 100%;
 
       #scroll-area{  // ul container for all text
-        position: initial;
+        // position: initial;
         margin: 0;
         padding: 0;
-        list-style: none;
+        // list-style: none;
         max-height: 100%; //test
-
-        .artistEntry a{  // needed ?
-          position: absolute;
-          z-index: 2;
-        }
+        overflow-x: auto;
+        top: initial;
+        right: initial;
+        height: initial;
+        max-height: 100%;
+        // .artistEntry a{  // needed ?
+        //   position: absolute;
+        //   z-index: 2;
+        // }
         // .action,
         // .recognized,
         .list__item,
         .playlists {  // for artist and playlists's components text styling
           //  first tear down the chain > "Artists" || "Playlists" names
           cursor: pointer;
-          position: relative;
+          // position: relative;
           line-height: 1.5em;
           font-weight: 400;
-          max-height: 50%;
-          margin: 0;
-          padding: 0;
+          // max-height: 50%;
+          // margin: 0;
+          // padding: 0;
           font-size: 2em;
+          top: inherit;
+          left: inherit;
+          right: inherit;
+          bottom: inherit;
           ul {  // second tear down the chain, container for > "Albums" names
-            position: inherit;
+            // position: inherit;
             padding: inherit;
             list-style: none;
             line-height: 1.55em;
@@ -227,7 +237,7 @@ body {
       margin: 0;
 
       .artist-lookup {  // searchbar
-        width: 22.4em;
+        width: 18.4em;
         padding: 1.17em 2em;
         color: #fff;
         font-weight: 400;
@@ -262,12 +272,12 @@ body {
 
     .footer-div {  // Footer container
       background-color: #515158;
-      position: fixed;
+      position: absolute;
       bottom: 0;
-      right: 0;
-      margin: 0;
-      width: 26.45em;
+      right: -22.4em;
       height: 9.5em;
+      width: 22.45em;
+      margin: 0;
     }
 
   } // End of Side Menu
