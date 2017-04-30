@@ -80,7 +80,7 @@ export default class Visualizer {
   // Returns a random color to be used for track nodes
   randomColor() {
     const colorArray = [ GREEN, BLUE, RED, PURPLE ];
-    if (this.nextAlbumColor == colorArray.length) {
+    if (this.nextAlbumColor === colorArray.length) {
       this.nextAlbumColor = 0;
     }
     let color =  colorArray[this.nextAlbumColor];

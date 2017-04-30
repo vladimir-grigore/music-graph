@@ -13,14 +13,14 @@ class Playlists extends Component {
 
   // Returns a random color to be used for track nodes
   randomColor = () => {
-    let nextPlaylistColor = this.state.nextPlaylistColor;
+    let playlistColor = this.state.nextPlaylistColor;
     const colorArray = [ '#7CBF7F', '#6584C7', '#DC4B7C', '#8D65E0' ];
-    if (nextPlaylistColor === colorArray.length) {
-      nextPlaylistColor = 0;
+    if (playlistColor === colorArray.length) {
+      playlistColor = 0;
     }
-    let color =  colorArray[this.state.nextPlaylistColor];
-    nextPlaylistColor += 1;
-    this.setState({ nextPlaylistColor });
+    let color =  colorArray[playlistColor];
+    playlistColor += 1;
+    this.setState({ nextPlaylistColor: playlistColor });
     return color;
   }
 
@@ -75,10 +75,10 @@ class Playlists extends Component {
 
   // Expand the tracks for a certain playlist
   playlistMenuClick = async (id) => {
-    let color = this.randomColor();
     let playlists = this.state.playlists;
     // Toggle tracks on and off when clicking on a playlist
     if(Object.keys(playlists[id].tracks).length === 0) {
+      let color = this.randomColor();
       const playlistTracks = await spotify_API.get_playlist(localStorage.getItem('user_id'), id);
       playlistTracks.tracks.items.map(trackEntry => {
         playlists[id].tracks[trackEntry.track.id] = { name: trackEntry.track.name, url: trackEntry.track.preview_url };
