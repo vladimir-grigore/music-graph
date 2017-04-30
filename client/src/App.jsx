@@ -69,18 +69,10 @@ class App extends Component {
     }
   }
 
-  // Set Spotify API authentication token
-  // Used in getting user info and playlists details
-  addSpotifyAuthToken = () => {
-    const token = localStorage.getItem('access_token');
-    spotify_API.set_api_token(token);
-  }
-
   // Spotify OAuth, setting user details in local storage
   loginUser = async () => {
     auth.login_user().then(() => {
       localStorage.setItem('logged-in', 'true');
-      this.addSpotifyAuthToken();
       this.setState({ logged_in: true });
     }).catch((err) => {
       console.error();
@@ -97,22 +89,6 @@ class App extends Component {
     this.setState({ logged_in: false });
   }
 
-  async getPlaylist() {
-    if(this.state.logged_in) {
-      this.addSpotifyAuthToken();
-      const user = await spotify_API.get_current_user();
-      if(user === 401 || user === 403) {
-        await this.loginUser();
-      }
-      const playlists = await spotify_API.get_user_playlists(localStorage.getItem('user_id'));
-      return playlists;
-    } else {
-      await this.loginUser();
-      const playlists = await spotify_API.get_user_playlists(localStorage.getItem('user_id'));
-      return playlists;
-    }
-  }
-
   render() {
     if (this.state.open == 'open') {
       return (
@@ -122,7 +98,6 @@ class App extends Component {
                 logged_in={this.state.logged_in}
                 />
           <SideMenu data={this.state.artists}
-                    getPlaylist={this.getPlaylist.bind(this)}
                     artistMenuClick={this.artistMenuClick}
                     albumMenuClick={this.albumMenuClick}
                     trackMenuClick={this.trackMenuClick}
