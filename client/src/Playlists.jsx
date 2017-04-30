@@ -44,9 +44,17 @@ class Playlists extends Component {
 
   render() {
     if(!localStorage.getItem('logged-in')){
-      return <h2> Please Log in </h2>
+      return (
+        <ul className="playlists">
+          <h1> Please Log in </h1>
+        </ul>
+      )
     } else if(this.state.playlists === 'token_expired') {
-      return <h2> Your session has expired </h2>
+      return (
+        <ul className="playlists">
+          <h1> Your session has expired </h1>
+        </ul>
+      )
     } else {
       const playlist = () => {
         const playlistName = [];
