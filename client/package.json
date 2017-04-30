@@ -16,6 +16,7 @@
     "webpack-dev-server": "^2.4.2"
   },
   "dependencies": {
+    "annyang": "^2.6.0",
     "babel-core": "^6.24.1",
     "babel-loader": "^7.0.0",
     "babel-plugin-transform-class-properties": "^6.24.1",

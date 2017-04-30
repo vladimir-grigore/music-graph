@@ -1,7 +1,7 @@
 $gray: hsla(197, 13%, 19%, 0.8);
 $sideW: 22%;
-$trans: -56.6%;
-$trans-dist: -695%;
+$trans: -57.1%;
+$trans-dist: -75%;
 $rot: -90deg;
 $fontC: white;
 $btn_Bg: #C4C4C7;
@@ -24,7 +24,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-#react-root {
+#react-root {  // main parent for everything other than vis's canvas
   background-color: $gray;
   position: relavent;
   top: 0;
@@ -32,7 +32,7 @@ body {
   bottom: 0;
   right: 0;
 
-  .btn-primary {
+  .btn-primary {  // login button
     position: absolute;
     cursor: pointer;
     z-index: 2;
@@ -49,9 +49,10 @@ body {
     &:hover {
       color: $btn_HoverBg;
     }
+
   } // End of Login Button
 
-  .collapse-button {
+  .collapse-button {  // toggle side menu button
     position: absolute;
     width: 3.4em;
     height: 3.45em;
@@ -62,15 +63,16 @@ body {
     padding: 0;
     margin: 0;
     background-color: $btn_Bg;
-    &.closed {
+    &.closed {  // on closed side menu
       right: 56px;
       transform: translate(100%);
-      i {
+      i {  // rotate icon opositely
         transform: rotate(180deg);
         transition: transform 5s;
       }
     }
-    i {
+
+    i {  // toggle side menu button font-awesome icon
       position: absolute;
       cursor: pointer;
       padding: 1.19em;
@@ -81,17 +83,18 @@ body {
       height: 1em;
       margin: 0;
       fill: currentColor;
-
-      &:hover {
+      &:hover {  // icon on hover
         color: $btn_HoverBg;
       }
     }
-    .fa {
+
+    .fa {  // center icon text
       text-align: center;
     }
+
   } // End of Collapse Button
 
-  .nav-side-menu {
+  .nav-side-menu {  // side menu div parent - holds all components in the side menu
     width: $sideW;
     position: absolute;
     top: 0;
@@ -101,7 +104,7 @@ body {
     transition: transform 1s;
     z-index: 2;
 
-    #content-wrapper {
+    #content-wrapper {  // side menu div wrapper parent for all tabs components
       position: absolute;
       background-color: #FFFFFF;
       top:0;
@@ -114,20 +117,22 @@ body {
       max-height: 84%;
       max-width: 90%;
 
-      #scroll-area{
+      #scroll-area{  // ul container for all text
         position: initial;
         margin: 0;
         padding: 0;
         list-style: none;
         max-height: 100%; //test
 
-        .artistEntry a{
+        .artistEntry a{  // needed ?
           position: absolute;
           z-index: 2;
         }
-
+        // .action,
+        // .recognized,
         .list__item,
-        .playlists {
+        .playlists {  // for artist and playlists's components text styling
+          //  first tear down the chain > "Artists" || "Playlists" names
           cursor: pointer;
           position: relative;
           line-height: 1.5em;
@@ -136,71 +141,49 @@ body {
           margin: 0;
           padding: 0;
           font-size: 2em;
-          &:hover {
-            color: black;
-          }
-          ul {
+          ul {  // second tear down the chain, container for > "Albums" names
             position: inherit;
             padding: inherit;
             list-style: none;
             line-height: 1.55em;
             font-size: .75em;
-          }&:hover {
-            color: black;
+            color: #555;
           }
-          ul li{
+          ul li{  // styling for the album names
             padding: inherit;
             padding-bottom: .2em;
             font-weight: 400;
-            ul {
+            color: #555;
+            ul {  // third tear down the chain, container for > "Tracks" names
               color: #555;
-              li {
+              li {  // styling for the track names
                 font-size: .8em;
                 line-height: 1.35em;
-              }&:hover {
-                color: black;
+                color: #555;
               }
-            }&:hover {
-              color: black;
             }
-          }&:hover {
-            color: black;
           }
         }
-        // .playlists {
-        //   padding: 0;
-        //   list-style: none;
-        //   cursor: pointer;
-        //
-        //   h1{
-        //     cursor: pointer;
-        //     position: relative;
-        //     line-height: 1.5em;
-        //     font-weight: 400;
-        //     max-height: 50%;
-        //     margin: 0;
-        //     padding: 0;
-        //     font-size: 2em;
-        //   }
-        //   li{
-        //     color: #555;
-        //     display: block;
-        //     font-size: 1.3em;
-        //     line-height: 28px;
-        //     padding: .1em .5em .1em 0;
-        //     font-weight: 400;
-        //   }
-        // }&:hover {
-        //   color: black;
-        // }
+
+        .list__item:hover {  // on Artist names hover
+          color: blue;
+        }
+        .list__item ul li:hover{  // on Albums || Tracks hover
+          color: red;
+        }
+        .playlists ul li:hover{  // on Playlists hover
+          color: #ffd72d;
+        }
       }
     }
-    .header-div {
+
+    .header-div {  // searchbar parent
       position: absolute;
       z-index: 2;
       top: 0;
       margin: 0;
-      .artist-lookup {
+
+      .artist-lookup {  // searchbar
         width: 22.4em;
         padding: 1.17em 2em;
         color: #fff;
@@ -209,28 +192,30 @@ body {
         background: #515158;
       }
     }
-    .content-tabs {
+
+    .content-tabs {  // Sidebar tab buttons parent
       position: absolute;
       z-index: 2;
       right: 0;
+      width: 40em;
       transform: rotate($rot) translate($trans, $trans-dist);
     }
 
-    .tab-btn {
+    .tab-btn {  // Sidebar tab buttons
       cursor: pointer;
       margin-right: .2em;
-      padding: 1em 3.99em 1.08em 4em;
+      padding: 1em 2em 1.08em 2em;
       color: white;
       background-color: $btn_Bg;
       text-transform: uppercase;
       letter-spacing: .14em;
       font-weight: 700;
-      &:hover {
+      &:hover {  // Sidebar tab hover color
         color: $btn_HoverBg;
       }
     } // End of Content Tabs
 
-    .artistEntry {
+    .artistEntry {  // same as content-wrapper !? needs fixing
       position: relative;
       display: inherit;
       overflow-x: auto;
@@ -252,7 +237,7 @@ body {
 
     } // Artist Entry SideBar
 
-    .footer-div {
+    .footer-div {  // Footer container
       background-color: $gray;
       position: inherit;
       bottom: 0;
@@ -264,7 +249,8 @@ body {
 
   } // End of Side Menu
 } // End of React Root
-#network {
+
+#network {  // Vis Container for the canvas
   background-color: #F0F0F0;
   position: absolute;
   top: 0;
