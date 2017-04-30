@@ -80,7 +80,7 @@ export default class Visualizer {
   // Returns a random color to be used for track nodes
   randomColor() {
     const colorArray = [ GREEN, BLUE, RED, PURPLE ];
-    if (this.nextAlbumColor == colorArray.length) {
+    if (this.nextAlbumColor === colorArray.length) {
       this.nextAlbumColor = 0;
     }
     let color =  colorArray[this.nextAlbumColor];
@@ -301,7 +301,7 @@ export default class Visualizer {
       this.nodes.remove(trackId);
       // Remove tracks from the folder structure and clear album title color
       delete this.artistStructure[artistID].albums[albumID].tracks[trackId];
-      this.artistStructure[artistID].albums[albumID].color = "";
+      this.artistStructure[artistID].albums[albumID].color = '';
       this.nodes.update({id: albumID, hasTracks: false});
     } else {
       this.nodes.add({

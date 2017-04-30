@@ -1,4 +1,5 @@
 import SpotifyWebApi from 'spotify-web-api-node';
+const path = require('path');
 
 class SpotifyAPI {
   constructor(){
@@ -10,6 +11,7 @@ class SpotifyAPI {
   }
 
   search_artists = async function(name) {
+    const MissingArtistImage = path.resolve(__dirname, '/img/MissingCover.png');
     try {
       const data = await this.api.searchArtists(name);
       const artists = [];
@@ -23,7 +25,7 @@ class SpotifyAPI {
       return artists.map(item => ({ 
         id: item.id, 
         name: item.name, 
-        image: item.images.length > 0 ? item.images[item.images.length - 1].url : 'nothing.jpg',
+        image: item.images.length > 0 ? item.images[item.images.length - 1].url : MissingArtistImage,
         popularity: item.popularity
       }));
     } catch(err) {
