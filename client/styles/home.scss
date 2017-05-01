@@ -8,6 +8,27 @@ $btn_Bg: #C4C4C7;
 $btn_HoverBg: #7a7a7f;
 $dropShadow: #999;
 
+@keyframes appear {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+$disappeared: translateY(500%) rotate(30deg);
+@keyframes rise-up {
+  0% {
+    transform: translateY(-500%) rotate(-30deg);
+  }
+}
+@keyframes sink-down {
+  100% {
+    transform: $disappeared;
+  }
+}
+
+
 html,
 body {
   position: absolute;
@@ -48,6 +69,7 @@ body {
     text-transform: uppercase;
     font-size: .9em;
     box-shadow: .1em .2em .7em -0.2em $dropShadow;
+    outline: none;
     &:hover {
       color: $btn_HoverBg;
     }
@@ -68,6 +90,7 @@ body {
     text-transform: uppercase;
     font-size: .9em;
     box-shadow: .1em .2em .7em -0.2em $dropShadow;
+    outline: none;
     &:hover {
       color: $btn_HoverBg;
     }
@@ -93,6 +116,7 @@ body {
     font-weight: 600;
     text-transform: uppercase;
     font-size: .9em;
+    font-style: oblique;
   }
   .collapse-button {  // toggle side menu button
     position: absolute;
@@ -223,6 +247,85 @@ body {
           color: #ff9900;
         }
       }
+
+      .events-modal {  // Events Modal pop-up
+        position: fixed;
+        top: 50.18%;
+        left: 40%;
+        height: 75%;
+        width: 65%;
+        transform: translate(-50%, -50%);
+        z-index: 3;
+        // background: #fff;
+
+        // h2 {  // Modal's title
+        //   position: relative;
+        //   left: 35%;
+        //   margin: 0;
+        //   padding: 1em 0em .5em 0em;
+        //   color: #555;
+        //   letter-spacing: .11em;
+        //   font-weight: 500;
+        //   font-style: oblique;
+        // }
+        // table {  // Modal's data
+        //   position: relative;
+        //   list-style: none;
+        //   line-height: 1.55em;
+        //   font-size: 1.13em;
+        //   color: #555;
+        //   font-weight: 400;
+        // }
+        #gradient-style {  // Table container
+        	width: 100%;
+          font-size: 1.13em;
+          font-weight: 500;
+        	text-align: left;
+          letter-spacing: .1em;
+        	border-collapse: collapse;
+          box-shadow: 0.15em 0.15em 1.15em 0.1em #828282;
+        }
+        #gradient-style th {  // Table Header
+          font-size: 1.13em;
+        	font-weight: normal;
+        	padding: 8px;
+        	background: $btn_Bg;
+        	border-top: 2px solid #8a8a8a;
+        	border-bottom: 1px solid #313131;
+          font-style: oblique;
+          font-weight: 700;
+        	color: black;
+        }
+
+        #gradient-style td {  // Table Content
+        	padding: 8px;
+        	color: rgb(66, 66, 66);
+        	background: $btn_Bg;
+          border-top: 1px solid #8a8a8a;
+          border-bottom: 1px solid #313131;
+        }
+        #gradient-style tfoot {  // Table footer
+           tr td{
+            font-size: 1.13em;
+            font-style: oblique;
+            color: rgb(66, 66, 66);
+          }
+        }
+        #gradient-style tbody tr:hover td {  // On Hover
+        	background: #a7a7a7;
+        	color: $fontC;
+        }
+      }
+
+      .events-backdrop {  // Backdrop shadow when Modal is active
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0px;
+        left: 0px;
+        z-index: 3;
+        background: rgba(0, 0, 0, 0.3);
+      }
     }
 
     .header-div {  // searchbar parent
@@ -260,6 +363,7 @@ body {
       letter-spacing: .14em;
       font-weight: 700;
       box-shadow: -.15em -.1em 0.7em -.2em $dropShadow;
+      outline: none;
       &:hover {  // Sidebar tab hover color
         color: $btn_HoverBg;
       }
