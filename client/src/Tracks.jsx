@@ -7,7 +7,7 @@ class Tracks extends Component {
 
   handleClick = (e) => {
     e.stopPropagation();
-    this.props.trackMenuClick(this.props.id);
+    this.props.trackMenuClick(this.props.artistID, this.props.albumID, this.props.id);
   }
 
   render() {

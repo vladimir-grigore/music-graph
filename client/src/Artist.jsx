@@ -14,7 +14,8 @@ class Artist extends Component {
   render() {
     const albums = Object.keys(this.props.albums)
     .map(item => <Albums key={item} 
-                         id={item} 
+                         id={item}
+                         artistID={this.props.id} 
                          value={this.props.albums[item].name} 
                          tracks={this.props.albums[item].tracks} 
                          color={this.props.albums[item].color}

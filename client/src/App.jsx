@@ -42,8 +42,10 @@ class App extends Component {
   }
 
   // Handles the track clicks on the side bar
-  trackMenuClick = (id) => {
-    console.log("You clicked a track", id);
+  trackMenuClick = (artistID, albumID, trackId) => {
+    console.log("You clicked a track", trackId);
+    const albumCover = this.state.artists[artistID].albums[albumID].image;
+    this.footerContent(albumCover);
   }
 
   // Search Spotify API for artist name and populte vis.js canvas
@@ -90,6 +92,11 @@ class App extends Component {
     this.setState({ logged_in: false });
   }
 
+  // Change the footer content on the fly
+  footerContent = (content) => {
+    return <img src={content} />
+  } 
+
   render() {
     if (this.state.open == 'open') {
       return (
@@ -104,6 +111,7 @@ class App extends Component {
                     trackMenuClick={this.trackMenuClick}
                     lookUpArtist={this.lookUpArtist}/>
           <Toggle className={this.state.open} handleToggle={this.handleToggle} />
+          <Footer content={this.footerContent}/>
         </div>
       )
     } else {

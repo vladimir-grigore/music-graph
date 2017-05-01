@@ -15,6 +15,8 @@ class Albums extends Component {
     const tracks = Object.keys(this.props.tracks)
       .map(item => <Tracks key={item} 
                            id={item} 
+                           artistID={this.props.artistID}
+                           albumID={this.props.id}
                            value={this.props.tracks[item].name}
                            trackMenuClick={this.props.trackMenuClick}
                            />);

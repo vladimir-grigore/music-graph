@@ -8,7 +8,7 @@ class Footer extends Component {
   render() {
     return (
       <div className="footer-div">
-        
+        {this.props.content}
       </div>
     )
   }
