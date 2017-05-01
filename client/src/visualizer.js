@@ -157,7 +157,7 @@ export default class Visualizer {
 
   toggleAlbums = async (artistID, albums) => {
     albums.forEach(async (album) => {
-      await this.toggleAlbumNode(artistID, album.id, album.name, album.images[album.images.length - 1].url, album.popularity);
+      await this.toggleAlbumNode(artistID, album.id, album.name, album.images, album.popularity);
       await this.toggleAlbumEdge(artistID, album.id);
     });
   };
@@ -227,7 +227,9 @@ export default class Visualizer {
     }
   }
 
-  toggleAlbumNode = async (artistID, albumID, label, image, popularity) => {
+  toggleAlbumNode = async (artistID, albumID, label, images, popularity) => {
+    let albumCoverSmall = images[images.length - 1].url;
+    let albumCoverLarge = images[0].url;
     // Remove the album node if it already exists
     let album = this.nodes.get(albumID);
     if(album){
@@ -256,7 +258,7 @@ export default class Visualizer {
           x:2,
           y:2
         },
-        image,
+        image: albumCoverSmall,
         group: 'album',
         value: popularity,
         color: {
@@ -269,7 +271,7 @@ export default class Visualizer {
         font: {size: 8, color: FONT_GRAY, face: 'arial'}
       });
       // Add albums to the folder structure
-      this.artistStructure[artistID].albums[albumID] = { name: label, tracks: {}, color: '' };
+      this.artistStructure[artistID].albums[albumID] = { name: label, tracks: {}, color: '', image: albumCoverLarge };
     }
     this.updateCallback();
   }

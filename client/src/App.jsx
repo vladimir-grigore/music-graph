@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import SideMenu from './SideMenu.jsx';
 import SpotifyAPI from './spotify_web_api.js';
 import Visualizer from './visualizer.js';
+import Footer from './Footer.jsx'
 import User from './User.jsx';
 import Toggle from './Toggle.jsx';
 import auth from './auth.js';
