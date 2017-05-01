@@ -10,7 +10,7 @@ class Artist extends Component {
     e.stopPropagation();
     this.props.artistMenuClick(this.props.id);
   }
-  
+
   render() {
     const albums = Object.keys(this.props.albums)
     .map(item => <Albums key={item} 
