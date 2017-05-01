@@ -6,21 +6,19 @@ class Playlists extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      playlists: {},
-      nextPlaylistColor: 0
+      playlists: {}
     }
+    this.playlistColor = 0;
   }
 
   // Returns a random color to be used for track nodes
   randomColor = () => {
-    let playlistColor = this.state.nextPlaylistColor;
     const colorArray = [ '#7CBF7F', '#6584C7', '#DC4B7C', '#8D65E0' ];
-    if (playlistColor === colorArray.length) {
-      playlistColor = 0;
+    if (this.playlistColor === colorArray.length) {
+      this.playlistColor = 0;
     }
-    let color =  colorArray[playlistColor];
-    playlistColor += 1;
-    this.setState({ nextPlaylistColor: playlistColor });
+    let color =  colorArray[this.playlistColor];
+    this.playlistColor += 1;
     return color;
   }
 
@@ -149,7 +147,6 @@ class Playlist extends Component {
   }
 
   render() {
-    console.log("Playlist color is", this.props.color)
     const playlistTrack = Object.keys(this.props.tracks).map(item => 
       <PlaylistTrack key={item} 
                      id={item}
