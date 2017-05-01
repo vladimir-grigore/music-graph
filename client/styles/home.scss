@@ -8,27 +8,6 @@ $btn_Bg: #C4C4C7;
 $btn_HoverBg: #7a7a7f;
 $dropShadow: #999;
 
-@keyframes appear {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-$disappeared: translateY(500%) rotate(30deg);
-@keyframes rise-up {
-  0% {
-    transform: translateY(-500%) rotate(-30deg);
-  }
-}
-@keyframes sink-down {
-  100% {
-    transform: $disappeared;
-  }
-}
-
-
 html,
 body {
   position: absolute;
@@ -60,7 +39,7 @@ body {
     z-index: 2;
     top: .3em;
     left: .3em;
-    color: white;
+    color: $fontC;
     padding: 1em;
     background-color: $btn_Bg;
     border: none;
@@ -81,7 +60,7 @@ body {
     z-index: 2;
     top: .3em;
     left: 9.85em;
-    color: white;
+    color: $fontC;
     padding: 1em;
     background-color: $btn_Bg;
     border: none;
@@ -130,7 +109,7 @@ body {
     margin: 0;
     background-color: $btn_Bg;
     &.closed {  // on closed side menu
-      right: 56px;
+      right: 3.45em;
       transform: translate(100%);
       i {  // rotate icon opositely
         transform: rotate(180deg);
@@ -143,7 +122,7 @@ body {
       cursor: pointer;
       padding: 1.19em;
       padding-bottom: 1.25em;
-      color: white;
+      color: $fontC;
       transition: transform .5s;
       width: 1em;
       height: 1em;
@@ -154,7 +133,6 @@ body {
         color: $btn_HoverBg;
       }
     }
-
     .fa {  // center icon text
       text-align: center;
     }
@@ -162,11 +140,9 @@ body {
   } // End of Collapse Button
 
   .nav-side-menu {  // side menu div parent - holds all components in the side menu
-    // width: $sideW;
     position: absolute;
     top: 0;
     bottom: 0;
-    // right: 22%;
     right: 22.4em;
     background: #666;
     transition: transform 1s;
@@ -181,38 +157,25 @@ body {
       right: -22.4em;
       margin: 0;
       padding: 1em 1em 2em 1em;
-      // max-height: 52.592em;
-      // max-height: 78.5%;
-      // max-height: 44.592em;
       max-height: 100%;
 
       #scroll-area{  // ul container for all text
-        // position: initial;
         margin: 0;
         padding: 0;
-        // list-style: none;
         max-height: 100%; //test
         overflow-x: auto;
         top: initial;
         right: initial;
         height: initial;
         max-height: 100%;
-        // .artistEntry a{  // needed ?
-        //   position: absolute;
-        //   z-index: 2;
-        // }
         // .action,
         // .recognized,
         .list__item,
         .playlists {  // for artist and playlists's components text styling
           //  first tear down the chain > "Artists" || "Playlists" names
           cursor: pointer;
-          // position: relative;
-          line-height: 1.5em;
+          line-height: 1;
           font-weight: 400;
-          // max-height: 50%;
-          // margin: 0;
-          // padding: 0;
           font-size: 2em;
           top: inherit;
           left: inherit;
@@ -220,16 +183,15 @@ body {
           bottom: inherit;
 
           ul {  // second tear down the chain, container for > "Albums" names
-            // position: inherit;
             padding: inherit;
             list-style: none;
-            line-height: 1.55em;
+            line-height: 1;
             font-size: .75em;
             color: #555;
           }
           ul li{  // styling for the album names
             padding: inherit;
-            padding-bottom: .2em;
+            padding-bottom: .5em;
             font-weight: 400;
             color: #555;
             ul {  // third tear down the chain, container for > "Tracks" names
@@ -247,6 +209,58 @@ body {
           color: #ff9900;
         }
       }
+      .events {  // Events Tab
+        position: absolute;
+        top: 0;
+        padding-top: 1em;
+
+        h1 {  // Events tab header
+          padding: 1em;
+          margin: 0;
+          width: 16.04em;
+          background: $btn_Bg;
+          color: $fontC;
+          box-shadow: 0em 0em 0.7em -0.2em #999;
+          font-size: 1.13em;
+          font-weight: 700;
+          text-align: center;
+          font-style: oblique;
+        }
+
+        .form-venueBtn,
+        .form-artistBtn {  // Buttons to toggle between quering by venue || artist
+          cursor: pointer;
+          padding: .7em 2em 1em 2em;
+          color: $fontC;
+          background-color: $btn_Bg;
+          text-transform: uppercase;
+          letter-spacing: .14em;
+          font-weight: 700;
+          box-shadow: 0em 0em 0.666em -.2em $dropShadow;
+          outline: none;
+          &:hover {  // Sidebar tab hover color
+            color: $btn_HoverBg;
+          }
+        }
+
+        .form-search {
+          position: absolute;
+          top: 6.7em;
+          width: 20.4em;
+          box-sizing: border-box;
+          font-size: 1em;
+          background-color: #515158;
+          outline: none;
+          color: $fontC;
+          font-weight: 400;
+          border: 1px solid #dedede;
+          padding: 1em;
+          &:focus {
+            transition: all 1.4s ease;
+            background-color: #3c3c3c;
+          }
+        }
+      }  // End of events tab
 
       .events-modal {  // Events Modal pop-up
         position: fixed;
@@ -256,66 +270,51 @@ body {
         width: 65%;
         transform: translate(-50%, -50%);
         z-index: 3;
-        // background: #fff;
+        overflow-y: auto;
+        box-shadow: 0.15em 0.15em 1.15em 0.1em #828282;
 
-        // h2 {  // Modal's title
-        //   position: relative;
-        //   left: 35%;
-        //   margin: 0;
-        //   padding: 1em 0em .5em 0em;
-        //   color: #555;
-        //   letter-spacing: .11em;
-        //   font-weight: 500;
-        //   font-style: oblique;
-        // }
-        // table {  // Modal's data
-        //   position: relative;
-        //   list-style: none;
-        //   line-height: 1.55em;
-        //   font-size: 1.13em;
-        //   color: #555;
-        //   font-weight: 400;
-        // }
         #gradient-style {  // Table container
-        	width: 100%;
+          width: 100%;
           font-size: 1.13em;
           font-weight: 500;
-        	text-align: left;
+          text-align: left;
           letter-spacing: .1em;
-        	border-collapse: collapse;
-          box-shadow: 0.15em 0.15em 1.15em 0.1em #828282;
+          border-collapse: collapse;
         }
+
         #gradient-style th {  // Table Header
           font-size: 1.13em;
-        	font-weight: normal;
-        	padding: 8px;
-        	background: $btn_Bg;
-        	border-top: 2px solid #8a8a8a;
-        	border-bottom: 1px solid #313131;
+          font-weight: normal;
+          padding: 8px;
+          background: $btn_Bg;
+          border-top: 2px solid #8a8a8a;
+          border-bottom: 1px solid #313131;
           font-style: oblique;
           font-weight: 700;
-        	color: black;
+          color: black;
         }
 
         #gradient-style td {  // Table Content
-        	padding: 8px;
-        	color: rgb(66, 66, 66);
-        	background: $btn_Bg;
+          padding: 8px;
+          color: rgb(66, 66, 66);
+          background: $btn_Bg;
           border-top: 1px solid #8a8a8a;
           border-bottom: 1px solid #313131;
         }
+
         #gradient-style tfoot {  // Table footer
-           tr td{
+          tr td{
             font-size: 1.13em;
             font-style: oblique;
             color: rgb(66, 66, 66);
           }
         }
+
         #gradient-style tbody tr:hover td {  // On Hover
-        	background: #a7a7a7;
-        	color: $fontC;
+          background: #a7a7a7;
+          color: $fontC;
         }
-      }
+      }  // End of events modal
 
       .events-backdrop {  // Backdrop shadow when Modal is active
         position: fixed;
@@ -326,24 +325,28 @@ body {
         z-index: 3;
         background: rgba(0, 0, 0, 0.3);
       }
-    }
+    } // End of content-wrapper
 
-    .header-div {  // searchbar parent
-      position: absolute;
+    .artist-lookup {  // searchbar
+      position: fixed;
       z-index: 2;
       top: 0;
       margin: 0;
-
-      .artist-lookup {  // searchbar
-        width: 18.4em;
-        padding: 1.17em 2em;
-        color: #fff;
-        font-weight: 400;
-        border: 0;
-        outline: none;
-        background: #515158;
+      height: 1.1em;
+      width: 18.4em;
+      right: 0;
+      padding: 1.17em 2em;
+      color: #fff;
+      font-weight: 400;
+      font-size: initial;
+      border: 0;
+      outline: none;
+      background: #515158;
+      &:focus {
+        transition: all 1.4s ease;
+        background-color: #3c3c3c;
       }
-    }
+    }  // End of SearchBar
 
     .content-tabs {  // Sidebar tab buttons parent
       position: absolute;
@@ -352,13 +355,14 @@ body {
       right: -18.25em;
       width: 39.9em;
       transform: rotate($rot);// translate($trans, $trans-dist);
-    }
+
+    }  // End of Content Tabs
 
     .tab-btn {  // Sidebar tab buttons
       cursor: pointer;
       margin-right: .2em;
       padding: 1em 2em 1em 2em;
-      color: white;
+      color: $fontC;
       background-color: $btn_Bg;
       text-transform: uppercase;
       letter-spacing: .14em;
@@ -368,7 +372,8 @@ body {
       &:hover {  // Sidebar tab hover color
         color: $btn_HoverBg;
       }
-    } // End of Content Tabs
+
+    }  // End of Tab Buttons
 
     .footer-div {  // Footer container
       background-color: #515158;
@@ -378,9 +383,10 @@ body {
       height: 9.5em;
       width: 22.45em;
       margin: 0;
-    }
 
+    }  // End of Footer
   } // End of Side Menu
+
 } // End of React Root
 
 #network {  // Vis Container for the canvas
@@ -390,4 +396,5 @@ body {
   left: 0;
   bottom: 0;
   right: 0;
-}
+
+}  // End of Network

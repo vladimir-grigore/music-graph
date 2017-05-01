@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import SpotifyAPI from './spotify_web_api.js';
+import SearchBar from './SearchBar.jsx';
 const spotify_API = new SpotifyAPI();
 
 class Playlists extends Component {
@@ -95,6 +96,10 @@ class Playlists extends Component {
     console.log('You clicked a track', id);
   }
 
+  handleSearch = (input) => {
+    console.log('@P - Received search input is: ', input);
+  }
+
   render() {
     // Display message for visitors
     if(!localStorage.getItem('logged-in')){
@@ -103,7 +108,7 @@ class Playlists extends Component {
           Please Log in
         </li>
       )
-    } else if(this.state.playlists === 'token_expired') { 
+    } else if(this.state.playlists === 'token_expired') {
       // Auth tokens expire after 60 min, users remain logged in
       return (
         <li className="playlists">
@@ -115,8 +120,8 @@ class Playlists extends Component {
       if(this.state.playlists.length !== 0){
         const playlist = Object.keys(this.state.playlists).map(playlistItem =>
           <Playlist key={playlistItem}
-                    id={playlistItem} 
-                    name={this.state.playlists[playlistItem].name} 
+                    id={playlistItem}
+                    name={this.state.playlists[playlistItem].name}
                     playlistMenuClick={this.playlistMenuClick}
                     trackMenuClick={this.trackMenuClick}
                     tracks={this.state.playlists[playlistItem].tracks}
@@ -124,6 +129,7 @@ class Playlists extends Component {
                     />);
         return (
           <li className="playlists">
+            <SearchBar handleSearch={this.handleSearch} />
             Playlists:
             {playlist}
           </li>
@@ -147,8 +153,8 @@ class Playlist extends Component {
   }
 
   render() {
-    const playlistTrack = Object.keys(this.props.tracks).map(item => 
-      <PlaylistTrack key={item} 
+    const playlistTrack = Object.keys(this.props.tracks).map(item =>
+      <PlaylistTrack key={item}
                      id={item}
                      value={this.props.tracks[item].name}
                      trackMenuClick={this.props.trackMenuClick}
