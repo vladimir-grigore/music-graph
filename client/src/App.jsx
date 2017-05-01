@@ -22,6 +22,7 @@ class App extends Component {
       song: {}
     }
     visualizer.updateCallback = this.handleUpdate;
+    visualizer.clickTrack = this.trackMenuClick;
   }
 
   // Keep the artist/album/tracks strucutre as a component state
@@ -43,11 +44,11 @@ class App extends Component {
   }
 
   // Handles the track clicks on the side bar
-  trackMenuClick = (artistID, albumID, trackId) => {
+  trackMenuClick = (artistID, albumID, trackID) => {
     const albumCover = this.state.artists[artistID].albums[albumID].image;
     const artistName = this.state.artists[artistID].name;
-    const trackUrl = this.state.artists[artistID].albums[albumID].tracks[trackId].url;
-    const trackName = this.state.artists[artistID].albums[albumID].tracks[trackId].name;
+    const trackUrl = this.state.artists[artistID].albums[albumID].tracks[trackID].url;
+    const trackName = this.state.artists[artistID].albums[albumID].tracks[trackID].name;
     this.setState({ song: {artistName, trackName, albumCover, trackUrl} });
   }
 
@@ -70,9 +71,9 @@ class App extends Component {
   // Open or close the sidebar
   handleToggle = (parentNode) => {
     if (parentNode == 'open'){
-      this.setState({ open : 'closed'});
+      this.setState({ open: 'closed' });
     } else {
-      this.setState({ open : 'open'});
+      this.setState({ open: 'open' });
     }
   }
 
