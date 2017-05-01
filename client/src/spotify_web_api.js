@@ -1,9 +1,12 @@
 import SpotifyWebApi from 'spotify-web-api-node';
+import 'whatwg-fetch';
+import restful, { fetchBackend } from 'restful.js';
 const path = require('path');
 
 class SpotifyAPI {
   constructor(){
     this.api = new SpotifyWebApi({});
+    this.apiFallback = restful('https://api.spotify.com/v1', fetchBackend(fetch));
   }
 
   set_api_token(token) {
@@ -85,16 +88,24 @@ class SpotifyAPI {
       const data = await this.api.getPlaylist(userID, playlistID);
       return data.body;
     } catch(err) {
-      return err.statusCode;
+      const spotifyPlaylist = await this.get_spotify_playlist(playlistID);
+      return spotifyPlaylist;
     }
   }
 
-  // spotifyApi.getPlaylist('thelinmichael', '5ieJqeLJjjI8iJWaxeBLuK')
-  // .then(function(data) {
-  //   console.log('Some information about this playlist', data.body);
-  // }, function(err) {
-  //   console.log('Something went wrong!', err);
-  // });
+  // If user has added public playlists, a separate call need to be done
+  get_spotify_playlist = async function(playlistID) {
+    let auth_token = localStorage.getItem('access_token');
+    this.apiFallback.header('Accept', 'application/json');
+    this.apiFallback.header('Authorization', `Bearer ${auth_token}`);
+    const url = this.apiFallback.custom(`users/spotify/playlists/${playlistID}`);
+    try{
+      const data = await url.get();
+      return data.body().data();
+    } catch(err) {
+      return err.statusCode;
+    }
+  }
 
 }
 

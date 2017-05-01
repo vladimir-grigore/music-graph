@@ -77,11 +77,11 @@ class Playlists extends Component {
     // Toggle tracks on and off when clicking on a playlist
     if(Object.keys(playlists[id].tracks).length === 0) {
       let color = this.randomColor();
-      const playlistTracks = await spotify_API.get_playlist(localStorage.getItem('user_id'), id);
+      let playlistTracks = await spotify_API.get_playlist(localStorage.getItem('user_id'), id);
       playlistTracks.tracks.items.map(trackEntry => {
         playlists[id].tracks[trackEntry.track.id] = { name: trackEntry.track.name, url: trackEntry.track.preview_url };
         playlists[id].color = color;
-      })
+      });
       this.setState({ playlists });
     } else {
       playlists[id].tracks = {};
