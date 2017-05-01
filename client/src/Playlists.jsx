@@ -6,21 +6,19 @@ class Playlists extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      playlists: {},
-      nextPlaylistColor: 0
+      playlists: {}
     }
+    this.playlistColor = 0;
   }
 
   // Returns a random color to be used for track nodes
   randomColor = () => {
-    let playlistColor = this.state.nextPlaylistColor;
     const colorArray = [ '#7CBF7F', '#6584C7', '#DC4B7C', '#8D65E0' ];
-    if (playlistColor === colorArray.length) {
-      playlistColor = 0;
+    if (this.playlistColor === colorArray.length) {
+      this.playlistColor = 0;
     }
-    let color =  colorArray[playlistColor];
-    playlistColor += 1;
-    this.setState({ nextPlaylistColor: playlistColor });
+    let color =  colorArray[this.playlistColor];
+    this.playlistColor += 1;
     return color;
   }
 
@@ -79,11 +77,11 @@ class Playlists extends Component {
     // Toggle tracks on and off when clicking on a playlist
     if(Object.keys(playlists[id].tracks).length === 0) {
       let color = this.randomColor();
-      const playlistTracks = await spotify_API.get_playlist(localStorage.getItem('user_id'), id);
+      let playlistTracks = await spotify_API.get_playlist(localStorage.getItem('user_id'), id);
       playlistTracks.tracks.items.map(trackEntry => {
         playlists[id].tracks[trackEntry.track.id] = { name: trackEntry.track.name, url: trackEntry.track.preview_url };
         playlists[id].color = color;
-      })
+      });
       this.setState({ playlists });
     } else {
       playlists[id].tracks = {};
@@ -149,7 +147,6 @@ class Playlist extends Component {
   }
 
   render() {
-    console.log("Playlist color is", this.props.color)
     const playlistTrack = Object.keys(this.props.tracks).map(item => 
       <PlaylistTrack key={item} 
                      id={item}
