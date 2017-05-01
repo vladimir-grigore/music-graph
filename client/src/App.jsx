@@ -18,7 +18,8 @@ class App extends Component {
     this.state = {
       open: 'open',
       artists: {},
-      logged_in
+      logged_in,
+      song: {}
     }
     visualizer.updateCallback = this.handleUpdate;
   }
@@ -26,7 +27,7 @@ class App extends Component {
   // Keep the artist/album/tracks strucutre as a component state
   handleUpdate = async () => {
     const folderStructure = await visualizer.getFolderStructure();
-    this.setState({ artists: folderStructure });
+    this.setState({ artists: folderStructure, song: {} });
   }
 
   // Handles the artists clicks on the side bar
@@ -43,9 +44,11 @@ class App extends Component {
 
   // Handles the track clicks on the side bar
   trackMenuClick = (artistID, albumID, trackId) => {
-    console.log("You clicked a track", trackId);
     const albumCover = this.state.artists[artistID].albums[albumID].image;
-    this.footerContent(albumCover);
+    const artistName = this.state.artists[artistID].name;
+    const trackUrl = this.state.artists[artistID].albums[albumID].tracks[trackId].url;
+    const trackName = this.state.artists[artistID].albums[albumID].tracks[trackId].name;
+    this.setState({ song: {artistName, trackName, albumCover, trackUrl} });
   }
 
   // Search Spotify API for artist name and populte vis.js canvas
@@ -64,6 +67,7 @@ class App extends Component {
     await this.handleUpdate();
   }
 
+  // Open or close the sidebar
   handleToggle = (parentNode) => {
     if (parentNode == 'open'){
       this.setState({ open : 'closed'});
@@ -92,11 +96,6 @@ class App extends Component {
     this.setState({ logged_in: false });
   }
 
-  // Change the footer content on the fly
-  footerContent = (content) => {
-    return <img src={content} />
-  } 
-
   render() {
     if (this.state.open == 'open') {
       return (
@@ -109,9 +108,9 @@ class App extends Component {
                     artistMenuClick={this.artistMenuClick}
                     albumMenuClick={this.albumMenuClick}
                     trackMenuClick={this.trackMenuClick}
+                    song={this.state.song}
                     lookUpArtist={this.lookUpArtist}/>
           <Toggle className={this.state.open} handleToggle={this.handleToggle} />
-          <Footer content={this.footerContent}/>
         </div>
       )
     } else {

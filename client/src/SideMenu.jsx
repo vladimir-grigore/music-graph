@@ -3,6 +3,7 @@ import Content from './Content.jsx';
 import Footer from './Footer.jsx';
 import Header from './Header.jsx';
 import Tabs from './Tabs.jsx';
+
 class SideMenu extends Component {
   constructor(props) {
     super(props);
@@ -24,7 +25,7 @@ class SideMenu extends Component {
                  albumMenuClick={this.props.albumMenuClick}
                  trackMenuClick={this.props.trackMenuClick}
                  />
-        <Footer />
+        <Footer song={this.props.song} />
       </div>
     )
   }

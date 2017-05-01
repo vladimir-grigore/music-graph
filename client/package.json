@@ -32,6 +32,7 @@
     "jquery": "^3.2.1",
     "node-sass": "^4.5.2",
     "react": "^15.5.4",
+    "react-audio-player": "^0.4.0",
     "react-bootstrap": "^0.30.10",
     "react-dom": "^15.5.4",
     "restful.js": "^0.9.6",
