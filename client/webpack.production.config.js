@@ -36,7 +36,7 @@ module.exports = {
   },
   plugins: [
     new Dotenv({
-      path: '../.env', // if not simply .env 
+      path: '../.env', // if not simply .env
       safe: false, // does not load the .env.example
       systemvars: true
     }),
