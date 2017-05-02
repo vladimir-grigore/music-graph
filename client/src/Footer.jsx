@@ -7,11 +7,12 @@ class Footer extends Component {
   }
 
   render() {
+    const albumIMG = this.props.song.albumCover;
     if(Object.keys(this.props.song).length !== 0){
       return (
-        <div className="footer-div">
-          <div className="artistName">{this.props.song.artistName}</div>
-          <div className="trackName">{this.props.song.trackName}</div>
+        <div className="footer-div footer-playing">
+          <h3 className="artistName">{this.props.song.artistName}</h3>
+          {/*<h4 className="trackName">{this.props.song.trackName}</h4>*/}
           <img className="albumImage" src={this.props.song.albumCover} alt="album-cover" />
           <ReactAudioPlayer className="audioPlayer" src={this.props.song.trackUrl} autoPlay />
         </div>

@@ -162,12 +162,11 @@ body {
       #scroll-area{  // ul container for all text
         margin: 0;
         padding: 0;
-        max-height: 100%; //test
         overflow-x: auto;
         top: initial;
         right: initial;
         height: initial;
-        max-height: 100%;
+        max-height: 85%;
         // .action,
         // .recognized,
         .list__item,
@@ -388,7 +387,46 @@ body {
   height: 9.5em;
   width: 22.4em;
   margin: 0;
+  overflow: hidden;
+  z-index: 1;
+  box-shadow: -0.15em -0.1em 0.7em -0.2em #999;
 }  // End of Footer
+
+.artistName{
+  font-size: 1.1em;
+  position: absolute;
+  padding: 1em;
+  z-index: 1;
+  margin: 0;
+  color: black;
+  text-shadow: 1px 1px 2px white, 0 0 25px #eee, 0 0 5px #999;
+}
+
+.trackName{
+  font-size: 0.9em;
+  position: absolute;
+  padding: 2em;
+  z-index: 1;
+  margin: 0;
+  color: black;
+  text-shadow: 1px 1px 2px white, 0 0 25px #eee, 0 0 5px #999;
+}
+
+.albumImage{
+  z-index: 0;
+  width: inherit;
+  box-shadow: -0.15em -0.1em 0.7em -0.2em #999;
+  position: absolute;
+  top: 0;
+}
+
+.audioPlayer{
+  position: absolute;
+  width: inherit;
+  opacity: 0.3;
+  bottom: 0;
+  right: 0;
+}
 
 #network {  // Vis Container for the canvas
   background-color: #F0F0F0;
