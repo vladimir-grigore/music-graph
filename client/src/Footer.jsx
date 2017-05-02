@@ -8,11 +8,11 @@ class Footer extends Component {
   }
 
   render() {
-    const albumIMG = this.props.song.albumCover;
     const SpotifyLogo = path.resolve(__dirname, '/img/SpotifyLogo_t.png');
     const JamBaseLogo = path.resolve(__dirname, '/img/JamBaseLogo_t.png');
     const VisJsLogo = path.resolve(__dirname, '/img/VisJsLogo_t.png');
     if(Object.keys(this.props.song).length !== 0){
+      const albumIMG = this.props.song.albumCover;
       return (
         <div className="footer-div footer-playing">
           <h3 className="artistName">{this.props.song.artistName}</h3>
