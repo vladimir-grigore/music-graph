@@ -103,8 +103,22 @@ class Playlists extends Component {
     this.setState({ song: {artistName, trackName, albumCover, trackUrl} });
   }
 
+  // Filter playlists by name. An empty search will return all playlists
   handleSearch = (input) => {
-    console.log('@P - Received search input is: ', input);
+    if(input === ''){
+      this.addPlaylistsToMenu();
+    }
+
+    let playlists = this.state.playlists;
+    Object.keys(playlists).map(item => {
+      let playlistName = Object.values(playlists[item])[0].toLowerCase();
+      if(!playlistName.includes(input.toLowerCase())) {
+        // Remove playlusts if they are not found in the search
+        delete playlists[item];
+      }
+    });
+
+    this.setState({ playlists });
   }
 
   render() {
