@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import Artist from './Artist.jsx';
 import Playlists from './Playlists.jsx';
 import Events from './Events.jsx';
-import Speach from './Speach.jsx';
 import SearchBar from './SearchBar.jsx';
 import Footer from './Footer.jsx';
 
@@ -31,12 +30,8 @@ class Content extends Component {
       )
     } else if (tab === 'Playlists') {
       return <Playlists />;
-    } else if (tab === 'Say-to-Play') {
-      return <Speach />;
     } else {
-      // const eventEntry = Object.keys(this.props.events)
-      // .map(item => <Events key={item} />);
-      return <Events />
+      return <Events song={this.props.song} />
     }
   }
   render() {

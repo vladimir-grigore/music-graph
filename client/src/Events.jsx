@@ -7,6 +7,7 @@
 import React, {Component} from 'react';
 import EventsAPI from './events.js';
 import SearchBar from './SearchBar.jsx';
+import Footer from './Footer.jsx';
 const events = new EventsAPI();
 
 class Events extends Component {
@@ -72,9 +73,12 @@ class Events extends Component {
     // Initial State
     if ( this.state.queryResults === null ) {
       return (
-        <div className='events'>
-          <SearchBar handleSearch={this.handleSearch} />
-          <EventTypeButtons handleEventTypeButtons={this.handleEventTypeButtons} />
+        <div>
+          <div className='events'>
+            <SearchBar handleSearch={this.handleSearch} />
+            <EventTypeButtons handleEventTypeButtons={this.handleEventTypeButtons} />
+          </div>
+          <Footer song={this.props.song} />
         </div>
       )
     } else if (this.state.queryResults.length !== 0 && (this.state.eventResults.length === 0)) {
@@ -89,19 +93,25 @@ class Events extends Component {
         />);
       // Render the list of results from first query
       return (
-        <div className='events'>
-          <SearchBar handleSearch={this.handleSearch} />
-          <EventTypeButtons handleEventTypeButtons={this.handleEventTypeButtons} />
-          {queryResultsList}
+        <div>
+          <div className='events'>
+            <SearchBar handleSearch={this.handleSearch} />
+            <EventTypeButtons handleEventTypeButtons={this.handleEventTypeButtons} />
+            {queryResultsList}
+          </div>
+          <Footer song={this.props.song} />
         </div>
       )
     } else {
       // Open Modal when user clicks on name
       return (
-        <div className='events'>
-          <SearchBar handleSearch={this.handleSearch} />
-          <EventTypeButtons handleEventTypeButtons={this.handleEventTypeButtons} />
-          <EventsModal isOpen={this.state.isModalOpen} onClose={this.closeModal} events={this.state.eventResults.Events} currentEvent={this.state.eventTypeSearch} />
+        <div>
+          <div className='events'>
+            <SearchBar handleSearch={this.handleSearch} />
+            <EventTypeButtons handleEventTypeButtons={this.handleEventTypeButtons} />
+            <EventsModal isOpen={this.state.isModalOpen} onClose={this.closeModal} events={this.state.eventResults.Events} currentEvent={this.state.eventTypeSearch} />
+          </div>
+          <Footer song={this.props.song} />
         </div>
       )
     } // End of if
