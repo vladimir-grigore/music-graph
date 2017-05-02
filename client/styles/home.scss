@@ -372,20 +372,20 @@ body {
       &:hover {  // Sidebar tab hover color
         color: $btn_HoverBg;
       }
-
     }  // End of Tab Buttons
 
     .footer-div {  // Footer container
       background-color: #515158;
       position: absolute;
       bottom: 0;
-      right: -22.4em;
+      // right: -22.4em;
       height: 9.5em;
       width: 22.45em;
       margin: 0;
-
     }  // End of Footer
+
   } // End of Side Menu
+
 
 } // End of React Root
 

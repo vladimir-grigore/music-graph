@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import SideMenu from './SideMenu.jsx';
 import SpotifyAPI from './spotify_web_api.js';
 import Visualizer from './visualizer.js';
+import Footer from './Footer.jsx'
 import User from './User.jsx';
 import Toggle from './Toggle.jsx';
 import auth from './auth.js';
@@ -17,15 +18,17 @@ class App extends Component {
     this.state = {
       open: 'open',
       artists: {},
-      logged_in
+      logged_in,
+      song: {}
     }
     visualizer.updateCallback = this.handleUpdate;
+    visualizer.clickTrack = this.trackMenuClick;
   }
 
   // Keep the artist/album/tracks strucutre as a component state
   handleUpdate = async () => {
     const folderStructure = await visualizer.getFolderStructure();
-    this.setState({ artists: folderStructure });
+    this.setState({ artists: folderStructure, song: {} });
   }
 
   // Handles the artists clicks on the side bar
@@ -41,8 +44,12 @@ class App extends Component {
   }
 
   // Handles the track clicks on the side bar
-  trackMenuClick = (id) => {
-    console.log("You clicked a track", id);
+  trackMenuClick = (artistID, albumID, trackID) => {
+    const albumCover = this.state.artists[artistID].albums[albumID].image;
+    const artistName = this.state.artists[artistID].name;
+    const trackUrl = this.state.artists[artistID].albums[albumID].tracks[trackID].url;
+    const trackName = this.state.artists[artistID].albums[albumID].tracks[trackID].name;
+    this.setState({ song: {artistName, trackName, albumCover, trackUrl} });
   }
 
   // Search Spotify API for artist name and populte vis.js canvas
@@ -62,11 +69,12 @@ class App extends Component {
     await this.handleUpdate();
   }
 
+  // Open or close the sidebar
   handleToggle = (parentNode) => {
     if (parentNode == 'open'){
-      this.setState({ open : 'closed'});
+      this.setState({ open: 'closed' });
     } else {
-      this.setState({ open : 'open'});
+      this.setState({ open: 'open' });
     }
   }
 
@@ -102,6 +110,7 @@ class App extends Component {
                     artistMenuClick={this.artistMenuClick}
                     albumMenuClick={this.albumMenuClick}
                     trackMenuClick={this.trackMenuClick}
+                    song={this.state.song}
                     lookUpArtist={this.lookUpArtist}/>
           <Toggle className={this.state.open} handleToggle={this.handleToggle} />
         </div>

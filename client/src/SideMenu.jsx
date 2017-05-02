@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import Content from './Content.jsx';
-import Footer from './Footer.jsx';
+
 // import Header from './Header.jsx';
 import Tabs from './Tabs.jsx';
+
 class SideMenu extends Component {
   constructor(props) {
     super(props);
@@ -24,8 +25,8 @@ class SideMenu extends Component {
                  artistMenuClick={this.props.artistMenuClick}
                  albumMenuClick={this.props.albumMenuClick}
                  trackMenuClick={this.props.trackMenuClick}
+                 song={this.props.song}
                  />
-        <Footer />
       </div>
     )
   }

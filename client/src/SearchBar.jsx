@@ -3,16 +3,15 @@ import React, {Component} from 'react';
 class SearchBar extends Component {
   constructor(props) {
     super(props);
-    this.handleKeyDown = this.handleKeyDown.bind(this);
     this.state = {
       value: ''
     }
   }
   // Text from the input field is stored in this.state.value
-  handleKeyDown(event){
+  handleKeyDown = (event) => {
     this.setState({value: event.target.value});
   }
-  handleEnterKey(event){
+  handleEnterKey = (event) => {
     if (!(event.key === 'Enter')) {
       return;
     }
@@ -28,7 +27,7 @@ class SearchBar extends Component {
           className='artist-lookup'
           placeholder="Search for artist.."
           value={this.state.value}
-          onKeyPress={this.handleEnterKey.bind(this)}
+          onKeyPress={this.handleEnterKey}
           onChange={this.handleKeyDown}
         />
       </div>

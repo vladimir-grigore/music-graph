@@ -19,6 +19,7 @@ export default class Visualizer {
     this.artistStructure = {};
     this.spotify_API = spotify_API;
     this.updateCallback = null;
+    this.clickTrack = null;
     this.nextAlbumColor = 0;
 
     const data = {
@@ -113,19 +114,28 @@ export default class Visualizer {
     switch (node.group) {
       case 'artist':
         await this.handleArtistClick(node.id);
+        this.updateCallback();
         break;
       case 'album':
         await this.handleAlbumClick(node.id);
+        this.updateCallback();
         break;
       case 'track':
-        // let track = await this.spotify_API.get_track(node.id);
-        // console.log("You clicked a track", track);
+        // let data = await this.spotify_API.get_track(node.id);
+        let trackID = node.id;
+        let artistID = '';
+        let albumID = '';
+        Object.keys(this.artistStructure).map(key => artistID = key);
+        Object.keys(this.artistStructure[artistID].albums).map(ID => {
+          if(trackID in this.artistStructure[artistID].albums[ID].tracks){
+            albumID = ID;
+          }
+        });
+        this.clickTrack(artistID, albumID, trackID);
         break;
       default:
         console.log('Sorry, something went wrong');
     }
-    // Handle the asynchronous nature of onClick
-    this.updateCallback();
   }
 
   // Clear all other artists, keep all ablums on the canvas
@@ -157,7 +167,7 @@ export default class Visualizer {
 
   toggleAlbums = async (artistID, albums) => {
     albums.forEach(async (album) => {
-      await this.toggleAlbumNode(artistID, album.id, album.name, album.images[album.images.length - 1].url, album.popularity);
+      await this.toggleAlbumNode(artistID, album.id, album.name, album.images, album.popularity);
       await this.toggleAlbumEdge(artistID, album.id);
     });
   };
@@ -227,7 +237,9 @@ export default class Visualizer {
     }
   }
 
-  toggleAlbumNode = async (artistID, albumID, label, image, popularity) => {
+  toggleAlbumNode = async (artistID, albumID, label, images, popularity) => {
+    let albumCoverSmall = images[images.length - 1].url;
+    let albumCoverLarge = images[0].url;
     // Remove the album node if it already exists
     let album = this.nodes.get(albumID);
     if(album){
@@ -256,7 +268,7 @@ export default class Visualizer {
           x:2,
           y:2
         },
-        image,
+        image: albumCoverSmall,
         group: 'album',
         value: popularity,
         color: {
@@ -269,7 +281,7 @@ export default class Visualizer {
         font: {size: 8, color: FONT_GRAY, face: 'arial'}
       });
       // Add albums to the folder structure
-      this.artistStructure[artistID].albums[albumID] = { name: label, tracks: {}, color: '' };
+      this.artistStructure[artistID].albums[albumID] = { name: label, tracks: {}, color: '', image: albumCoverLarge };
     }
     this.updateCallback();
   }
