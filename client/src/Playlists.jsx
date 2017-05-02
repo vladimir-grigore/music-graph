@@ -1,13 +1,15 @@
 import React, {Component} from 'react';
 import SpotifyAPI from './spotify_web_api.js';
 import SearchBar from './SearchBar.jsx';
+import Footer from './Footer.jsx';
 const spotify_API = new SpotifyAPI();
 
 class Playlists extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      playlists: {}
+      playlists: {},
+      song: {}
     }
     this.playlistColor = 0;
   }
@@ -92,8 +94,13 @@ class Playlists extends Component {
   }
 
   // Handle clicks on each track
-  trackMenuClick = async (id) => {
-    console.log('You clicked a track', id);
+  trackMenuClick = async (trackId) => {
+    let data = await spotify_API.get_track(trackId);
+    const albumCover = data.tracks[0].album.images[0].url;
+    const artistName = data.tracks[0].artists[0].name;
+    const trackUrl = data.tracks[0].preview_url;
+    const trackName = data.tracks[0].name;
+    this.setState({ song: {artistName, trackName, albumCover, trackUrl} });
   }
 
   handleSearch = (input) => {
@@ -128,11 +135,14 @@ class Playlists extends Component {
                     color={this.state.playlists[playlistItem].color}
                     />);
         return (
-          <li className="playlists">
-            <SearchBar handleSearch={this.handleSearch} />
-            Playlists:
-            {playlist}
-          </li>
+          <div>
+            <li className="playlists">
+              <SearchBar handleSearch={this.handleSearch} />
+              Playlists:
+              {playlist}
+            </li>
+            <Footer song={this.state.song} />
+          </div>
         )
       } else {
         // Will be triggered while API calls are still running
