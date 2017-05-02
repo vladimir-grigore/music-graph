@@ -59,7 +59,7 @@ body {
     cursor: pointer;
     z-index: 2;
     top: .3em;
-    left: 9.85em;
+    left: 8em;
     color: $fontC;
     padding: 1em;
     background-color: $btn_Bg;
@@ -81,8 +81,8 @@ body {
     top: .2em;
     left: .2em;
     padding: .1em;
-    width: 8.1em;
-    border: solid .1em #ccc;
+    width: 6.5em;
+    // border: solid .1em #ccc;
     box-shadow: .1em .2em .7em -0.2em $dropShadow;
   }
   .userName {  // User Name text
@@ -389,7 +389,7 @@ body {
   margin: 0;
   overflow: hidden;
   z-index: 1;
-  box-shadow: -0.15em -0.1em 0.7em -0.2em #999;
+  box-shadow: 0em -0.1em 0.8em 0 #999;
 }  // End of Footer
 
 .artistName{
@@ -415,7 +415,6 @@ body {
 .albumImage{
   z-index: 0;
   width: inherit;
-  box-shadow: -0.15em -0.1em 0.7em -0.2em #999;
   position: absolute;
   top: 0;
 }

@@ -19,7 +19,7 @@ class User extends Component {
         <div className="userBtn">
           <button className="logout" id="btn-login" onClick={this.props.logoutUser}>Logout</button>
           <img className="userImage" src={user_image} alt={user_name} />
-          <h2 className="userName">Welcome {user_name}!</h2>
+          {/*<h2 className="userName">Welcome {user_name}!</h2>*/}
         </div>
       )
     }
