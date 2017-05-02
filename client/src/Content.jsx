@@ -4,6 +4,7 @@ import Playlists from './Playlists.jsx';
 import Events from './Events.jsx';
 import Speach from './Speach.jsx';
 import SearchBar from './SearchBar.jsx';
+import Footer from './Footer.jsx';
 
 class Content extends Component {
   constructor(props) {
@@ -25,6 +26,7 @@ class Content extends Component {
                                  albumMenuClick={this.props.albumMenuClick}
                                  trackMenuClick={this.props.trackMenuClick}
                                  />)}
+          <Footer song={this.props.song} />
         </div>
       )
     } else if (tab === 'Playlists') {
