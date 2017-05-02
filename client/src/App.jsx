@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import SideMenu from './SideMenu.jsx';
 import SpotifyAPI from './spotify_web_api.js';
 import Visualizer from './visualizer.js';
-import Footer from './Footer.jsx'
 import User from './User.jsx';
 import Toggle from './Toggle.jsx';
 import auth from './auth.js';
@@ -54,7 +53,6 @@ class App extends Component {
 
   // Search Spotify API for artist name and populte vis.js canvas
   lookUpArtist = async (artistName) => {
-    console.log('@A - Received search input is: ', artistName);
     // Reset the folder structure
     visualizer.artistStructure = {};
     // Update visualizer canvas
@@ -101,7 +99,7 @@ class App extends Component {
   render() {
     if (this.state.open == 'open') {
       return (
-        <div id="wrapper">
+        <div>
           <User loginUser={this.loginUser}
                 logoutUser={this.logoutUser}
                 logged_in={this.state.logged_in}

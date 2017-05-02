@@ -13,22 +13,22 @@ class Artist extends Component {
 
   render() {
     const albums = Object.keys(this.props.albums)
-    .map(item => <Albums key={item} 
+    .map(item => <Albums key={item}
                          id={item}
-                         artistID={this.props.id} 
-                         value={this.props.albums[item].name} 
-                         tracks={this.props.albums[item].tracks} 
+                         artistID={this.props.id}
+                         value={this.props.albums[item].name}
+                         tracks={this.props.albums[item].tracks}
                          color={this.props.albums[item].color}
                          albumMenuClick={this.props.albumMenuClick}
                          trackMenuClick={this.props.trackMenuClick}
                          />);
     return (
-        <li className="list__item" onClick={this.handleClick} >
-          {this.props.value}
-          <ul>
-            {albums}
-          </ul>
-        </li>
+      <li className="list__item" onClick={this.handleClick} >
+        {this.props.value}
+        <ul>
+          {albums}
+        </ul>
+      </li>
     )
   }
 }
