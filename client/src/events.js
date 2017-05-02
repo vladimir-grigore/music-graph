@@ -8,75 +8,66 @@ export default class EventsAPI {
     this.updateCallback = null;
   }
 
-  get_artist_by_name(name) {
+  // Queries to jamBase for artists and venues by names and ids //
+
+  get_artist_by_name = async (name) => {
     const url = this.api.custom(`artists?name=${name}&api_key=${this.API_KEY}`);
-    url.get().then((response) => {
-      const results = response.body();
-      console.log("RESULTS:", results);
-      console.log("RESULTS DATA", results.data());
-      this.updateCallback(results.data());
-    }).catch((err) => {
-      console.error(err);
-    });
+    try{
+      const data = await url.get();
+      return data.body().data();
+    } catch(err) {
+      return err.statusCode;
+    }
   }
 
-  get_venue_by_name(name) {
+  get_venue_by_name = async (name) => {
     const url = this.api.custom(`venues?name=${name}&api_key=${this.API_KEY}`);
-    url.get().then((response) => {
-      const results = response.body();
-      console.log("RESULTS:", results);
-      console.log("RESULTS DATA", results.data());
-      this.updateCallback(results.data());
-    }).catch((err) => {
-      console.error(err);
-    });
+    try{
+      const data = await url.get();
+      return data.body().data();
+    } catch(err) {
+      return err.statusCode;
+    }
   }
 
-  get_events_by_artist_id(artistID) {
+  get_events_by_artist_id = async (artistID) => {
     const url = this.api.custom(`events?artistId=${artistID}&api_key=${this.API_KEY}`);
-    url.get().then((response) => {
-      const results = response.body();
-      console.log("RESULTS:", results);
-      console.log("RESULTS DATA", results.data().Events);
-      this.updateCallback(results.data());
-    }).catch((err) => {
-      console.error(err);
-    });
+    try{
+      const data = await url.get();
+      return data.body().data();
+    } catch(err) {
+      return err.statusCode;
+    }
   }
 
-  get_events_by_venue_id(venueID) {
+  get_events_by_venue_id = async (venueID) => {
     const url = this.api.custom(`events?venueId=${venueID}&api_key=${this.API_KEY}`);
-    url.get().then((response) => {
-      const results = response.body();
-      console.log("RESULTS:", results);
-      console.log("RESULTS DATA", results.data());
-      this.updateCallback(results.data());
-    }).catch((err) => {
-      console.error(err);
-    });
+    try{
+      const data = await url.get();
+      return data.body().data();
+    } catch(err) {
+      return err.statusCode;
+    }
   }
 
-  get_events_by_artist_id_start_end_date(artistID, startDate, endDate) {
+  get_events_by_artist_id_start_end_date = async (artistID, startDate, endDate) => {
     const url = this.api.custom(`events?artistId=${artistID}&startDate=${startDate}&endDate=${endDate}&api_key=${this.API_KEY}`);
-    url.get().then((response) => {
-      const results = response.body();
-      console.log("RESULTS:", results);
-      console.log("RESULTS DATA", results.data());
-      this.updateCallback(results.data());
-    }).catch((err) => {
-      console.error(err);
-    });
+    try{
+      const data = await url.get();
+      return data.body().data();
+    } catch(err) {
+      return err.statusCode;
+    }
   }
 
-  get_events_by_venue_id_start_end_date(venueID, startDate, endDate) {
+  get_events_by_venue_id_start_end_date = async (venueID, startDate, endDate) => {
     const url = this.api.custom(`events?venueId=${venueID}&startDate=${startDate}&endDate=${endDate}&api_key=${this.API_KEY}`);
-    url.get().then((response) => {
-      const results = response.body();
-      console.log("RESULTS:", results);
-      console.log("RESULTS DATA", results.data());
-      this.updateCallback(results.data());
-    }).catch((err) => {
-      console.error(err);
-    });
+    try{
+      const data = await url.get();
+      return data.body().data();
+    } catch(err) {
+      return err.statusCode;
+    }
   }
+
 }
