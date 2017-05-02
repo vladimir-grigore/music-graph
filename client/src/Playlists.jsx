@@ -89,7 +89,7 @@ class Playlists extends Component {
     } else {
       playlists[id].tracks = {};
       playlists[id].color = '';
-      this.setState({ playlists });
+      this.setState({ playlists, song: {} });
     }
   }
 
