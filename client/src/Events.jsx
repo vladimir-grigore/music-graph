@@ -66,19 +66,31 @@ class Events extends Component {
   // }
   // AFTER CHANGES -->
 
+  ///////////////////////EVENTS API//////////////////////////
+  // events.get_artist_by_name(artistName);
+  // events.get_venue_by_name('Commodore');
+  // events.get_events_by_venue_id(3816);
+  // events.get_events_by_artist_id_start_end_date(31754, '2017-05-01', '2017-08-30');
+  // events.get_events_by_venue_id_start_end_date(3816, '2017-05-01', '2017-08-30');
+  ///////////////////////EVENTS API//////////////////////////
+
   /*
   TODO
   0)  Get input √
   1)  Check for Type of Query √
   2)  Query with the input √
   3)  Store input √
-  4)  Display input
+  4)  Display input in render
   5)  Handle Event Listener to get selected name for the next Query
   6)  Query 2nd time to get data for that name
   7)  Open Modal with data
   */
 
-  handleSearch = (input) => { // Get first query to jamBase to get list of names & ids
+  handleEventTypeButtons = (eventType) => {
+    this.setState({eventTypeSearch: eventType})
+  }
+
+  handleSearch = (input) => { // Get first query jamBase to get list of names & ids
     console.log('@E - Received input is: ', input);
     this.setState({eventTypeSearch: input});
     console.log('@E - State of eventTypeSearch is set to :', this.state.eventTypeSearch);
@@ -86,8 +98,8 @@ class Events extends Component {
     console.log('@E - Received search input is: ', input);
   }
 
-  queryEvents = async (name) => { // Gets a name as input and queries for a list of matching names and their ids
-    let queryResults = {};  // return from query is an object { Info: {}, Artists: [{}] }
+  queryEvents = async (name) => { // Get a name as input and queries for a list of matching names and their ids
+    let queryResults = {};  // return from query is an object { Info: {}, Artists: [{}] } || { Info: {}, Venues: [{}] }
     if ( input === 'Venue' ){
       queryResults = await events.get_venue_by_name(name);
       console.log('@E - The list of venues with events :', queryResults);
@@ -99,8 +111,31 @@ class Events extends Component {
     }
   }
 
+  findId = (name, arr) => {
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i].name === name) {
+          return arr[i];
+      }
+    }
+  }
+
+  queryById = async (id, type) => { // Get a name as input and queries for a list of matching names and their ids
+    if ( type === 'Venue' ){
+      eventResults = await events.get_events_by_venue_id(id);
+      console.log('@E - The list of venue events with events :', eventResults);
+      this.setState( { eventResults } );
+    } else {
+      eventResults = await events.get_events_by_artist_id(id);
+      console.log('@E - The list of artist events with events :', eventResults);
+      this.setState( { eventResults } );
+    }
+  }
+
   openModal = async (name) => { // 2nd query  -> name is name that is clicked
-    await this.queryEvents(name);
+    const queryType = this.state.eventTypeSearch;
+    const queryTarget = this.state.queryResults.queryType;  // name here is either Venues or Artists
+    const resultID = this.findId(name, queryTarget);
+    await this.queryById(resultID, queryType);
     this.setState({ isModalOpen: true });
   }
 
@@ -108,48 +143,100 @@ class Events extends Component {
     this.setState({ isModalOpen: false })
   }
 
-  ///////////////////////EVENTS API//////////////////////////
-  // events.get_artist_by_name(artistName);
-  // events.get_venue_by_name('Commodore');
-  // events.get_events_by_venue_id(3816);
-  // events.get_events_by_artist_id_start_end_date(31754, '2017-05-01', '2017-08-30');
-  // events.get_events_by_venue_id_start_end_date(3816, '2017-05-01', '2017-08-30');
-  ///////////////////////EVENTS API//////////////////////////
-  handleEventTypeButtons = (eventType) => {
-    this.setState({eventTypeSearch: eventType})
-  }
-
   render() {
-    // <EventsModal isOpen={this.state.isModalOpen} onClose={this.closeModal} events={this.state.eventResults.Events} /> // comment out when testing with fakeEnvents
-    if(this.state.eventResults.length === 0){ // comment out when testing with fakeEnvents
-      // if(this.state.fakeEnvents.length === 0){
+
+    // TODO
+    //  render -> without list of events
+    //  else render -> with list of events to select from
+    //  check if event is being clicked -> render modal
+    if ( this.state.queryResults === null ) {
       return (
         <div className='events'>
           <SearchBar handleSearch={this.handleSearch} />
           <EventTypeButtons handleEventTypeButtons={this.handleEventTypeButtons} />
-
-          {/*displayList of outputs from first query*/}
-
-          {/*<CustomForm hi={this.state.eventTypeSearch} />*/}
-          {/*<button onClick={this.openModal}>Open Modal</button>*/}
         </div>
       )
-    } else {
+    } else if (this.state.queryResults !== null && (this.state.eventResults.length === 0)) {
+      const queryResultsList = Object.keys(this.state.queryResults).map(event =>
+        <div>
+          {event.name}
+        </div>
+      );
       return (
         <div className='events'>
           <SearchBar handleSearch={this.handleSearch} />
           <EventTypeButtons handleEventTypeButtons={this.handleEventTypeButtons} />
-
-          {/*displayList of outputs from first query*/}
-
-          {/*<CustomForm hi={this.state.eventTypeSearch} />*/}
-          {/*<EventsModal isOpen={this.state.isModalOpen} onClose={this.closeModal} events={this.state.eventResults.Events} />
-          <button onClick={this.openModal}>Open Modal</button>*/}
+          {this.queryResultsList}
         </div>
       )
+    } else {  // Add modal open here
+      <div className='events'>
+        <SearchBar handleSearch={this.handleSearch} />
+        <EventTypeButtons handleEventTypeButtons={this.handleEventTypeButtons} />
+      </div>
     }
   }
 }
+
+// // <EventsModal isOpen={this.state.isModalOpen} onClose={this.closeModal} events={this.state.eventResults.Events} /> // comment out when testing with fakeEnvents
+// if (this.state.queryResults !== null){
+//   const queryResultsList = Object.keys(this.state.queryResults).map(d =>
+//     <div>
+//       {d.name}
+//     </div>
+//   ); // comment out when testing with fakeEnvents
+//   // if(this.state.fakeEnvents.length === 0){
+//   return (
+//     <div className='events'>
+//       <SearchBar handleSearch={this.handleSearch} />
+//       <EventTypeButtons handleEventTypeButtons={this.handleEventTypeButtons} />
+//       {queryResultsList}
+//       {/*displayList of outputs from first query*/}
+//
+//       {/*<CustomForm hi={this.state.eventTypeSearch} />*/}
+//       {/*<button onClick={this.openModal}>Open Modal</button>*/}
+//     </div>
+//   )
+// } else if(this.state.eventResults.length === 0){ // comment out when testing with fakeEnvents
+//   // if(this.state.fakeEnvents.length === 0){
+//   return (
+//     <div className='events'>
+//       <SearchBar handleSearch={this.handleSearch} />
+//       <EventTypeButtons handleEventTypeButtons={this.handleEventTypeButtons} />
+//
+//       {/*displayList of outputs from first query*/}
+//
+//       {/*<CustomForm hi={this.state.eventTypeSearch} />*/}
+//       {/*<button onClick={this.openModal}>Open Modal</button>*/}
+//     </div>
+//   );
+//   return (
+//     <div className='events'>
+//       <SearchBar handleSearch={this.handleSearch} />
+//       <EventTypeButtons handleEventTypeButtons={this.handleEventTypeButtons} />
+//
+//       <div className='events-firstQuery'>
+//         {this.state.queryResults}
+//       </div>
+//
+//       {/*<CustomForm hi={this.state.eventTypeSearch} />*/}
+//       {/*<button onClick={this.openModal}>Open Modal</button>*/}
+//     </div>
+//   )
+// } else {
+//   return (
+//     <div className='events'>
+//       <SearchBar handleSearch={this.handleSearch} />
+//       <EventTypeButtons handleEventTypeButtons={this.handleEventTypeButtons} />
+//
+//       {/*displayList of outputs from first query*/}
+//
+//       {/*<CustomForm hi={this.state.eventTypeSearch} />*/}
+//       {/*<EventsModal isOpen={this.state.isModalOpen} onClose={this.closeModal} events={this.state.eventResults.Events} />
+//       <button onClick={this.openModal}>Open Modal</button>*/}
+//     </div>
+//   )
+// }
 
 class EventsModal extends Component {
   constructor(props) {
