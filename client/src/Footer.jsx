@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import ReactAudioPlayer from 'react-audio-player';
+const path = require('path');
 
 class Footer extends Component {
   constructor(props){
@@ -8,6 +9,9 @@ class Footer extends Component {
 
   render() {
     const albumIMG = this.props.song.albumCover;
+    const SpotifyLogo = path.resolve(__dirname, '/img/SpotifyLogo_t.png');
+    const JamBaseLogo = path.resolve(__dirname, '/img/JamBaseLogo_t.png');
+    const VisJsLogo = path.resolve(__dirname, '/img/VisJsLogo_t.png');
     if(Object.keys(this.props.song).length !== 0){
       return (
         <div className="footer-div footer-playing">
@@ -19,8 +23,11 @@ class Footer extends Component {
       )
     } else {
       return (
-        <div className="footer-div">
-          {/*Used when no track is playing*/}
+        <div className="footer-div logos">
+          <div className="powered-by">Powered by</div>
+          <img src={SpotifyLogo} className="spotify-logo" alt="spotify-logo"/>
+          <img src={JamBaseLogo} className="jambase-logo" alt="jambase-logo"/>
+          <img src={VisJsLogo} className="visjs-logo" alt="visjs-logo"/>
         </div>
       )
     }
