@@ -125,16 +125,24 @@ class Playlists extends Component {
     // Display message for visitors
     if(!localStorage.getItem('logged-in')){
       return (
-        <li className="playlists">
-          Please Log in
-        </li>
+        <div>
+          <li className="playlists">
+            <SearchBar handleSearch={this.handleSearch} />
+            Please log in
+          </li>
+          <Footer song={this.state.song} />
+        </div>
       )
     } else if(this.state.playlists === 'token_expired') {
       // Auth tokens expire after 60 min, users remain logged in
       return (
-        <li className="playlists">
-          Your session has expired
-        </li>
+        <div>
+          <li className="playlists">
+            <SearchBar handleSearch={this.handleSearch} />
+            Your session has expired
+          </li>
+          <Footer song={this.state.song} />
+        </div>
       )
     } else {
       // Wait for the API call to resolve before displaying data
@@ -160,7 +168,13 @@ class Playlists extends Component {
         )
       } else {
         // Will be triggered while API calls are still running
-        return null;
+        <div>
+          <li className="playlists">
+            <SearchBar />
+            Playlists:
+          </li>
+          <Footer song={this.state.song} />
+        </div>
       }
     }
   }

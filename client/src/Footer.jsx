@@ -13,7 +13,7 @@ class Footer extends Component {
           <div className="artistName">{this.props.song.artistName}</div>
           <div className="trackName">{this.props.song.trackName}</div>
           <img className="albumImage" src={this.props.song.albumCover} alt="album-cover" />
-          <ReactAudioPlayer src={this.props.song.trackUrl} autoPlay />
+          <ReactAudioPlayer className="audioPlayer" src={this.props.song.trackUrl} autoPlay />
         </div>
       )
     } else {
