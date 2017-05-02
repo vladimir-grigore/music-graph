@@ -7,6 +7,7 @@
 import React, {Component} from 'react';
 import EventsAPI from './events.js';
 import SearchBar from './SearchBar.jsx';
+import Footer from './Footer.jsx';
 const events = new EventsAPI();
 
 class Events extends Component {
@@ -75,6 +76,7 @@ class Events extends Component {
         <div className='events'>
           <SearchBar handleSearch={this.handleSearch} />
           <EventTypeButtons handleEventTypeButtons={this.handleEventTypeButtons} />
+          <Footer song={this.state.song} />
         </div>
       )
     } else if (this.state.queryResults.length !== 0 && (this.state.eventResults.length === 0)) {
@@ -93,6 +95,7 @@ class Events extends Component {
           <SearchBar handleSearch={this.handleSearch} />
           <EventTypeButtons handleEventTypeButtons={this.handleEventTypeButtons} />
           {queryResultsList}
+          <Footer song={this.state.song} />
         </div>
       )
     } else {
@@ -102,6 +105,7 @@ class Events extends Component {
           <SearchBar handleSearch={this.handleSearch} />
           <EventTypeButtons handleEventTypeButtons={this.handleEventTypeButtons} />
           <EventsModal isOpen={this.state.isModalOpen} onClose={this.closeModal} events={this.state.eventResults.Events} currentEvent={this.state.eventTypeSearch} />
+          <Footer song={this.state.song} />
         </div>
       )
     } // End of if

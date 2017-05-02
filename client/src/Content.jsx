@@ -31,8 +31,6 @@ class Content extends Component {
       )
     } else if (tab === 'Playlists') {
       return <Playlists />;
-    } else if (tab === 'Say-to-Play') {
-      return <Speach />;
     } else {
       // const eventEntry = Object.keys(this.props.events)
       // .map(item => <Events key={item} />);

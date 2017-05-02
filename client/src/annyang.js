@@ -12,7 +12,7 @@ const searchTracks = (sound, query) => {
         const track = response.tracks.items[0];
         sound.src = track.preview_url;
         sound.play();
-        communicateAction('<div>Playing ' + track.name + ' by ' + track.artists[0].name + '</div><img width="150" src="' + track.album.images[1].url + '">');
+        communicateAction('<div>Playing ' + track.name + ' by ' + track.artists[0].name + '</div><img width="150" src="' + track.album.images[0].url + '">');
       }
     }
   });
