@@ -23,8 +23,10 @@ class Artist extends Component {
                          trackMenuClick={this.props.trackMenuClick}
                          />);
     return (
-      <div className="list__artists" onClick={this.handleClick} >
-        {this.props.value}
+      <div className="list__artists" onClick={this.handleClick}>
+        <h1>
+          {this.props.value}
+        </h1>
         <div className="list__albums">
           {albums}
         </div>

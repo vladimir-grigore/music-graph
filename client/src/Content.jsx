@@ -13,7 +13,7 @@ class Content extends Component {
   handleContent = (tab) => {
     if (tab === 'Artists') {
       return (
-        <div>
+        <div className="artists">
           <SearchBar handleSearch={this.props.lookUpArtist} />
           {Object.keys(this.props.data)
             .map(item => <Artist key={item}
