@@ -1,0 +1,28 @@
+.playlists {
+
+  // ul {
+    padding: inherit;
+    list-style: none;
+    line-height: 2;
+    font-size: .75em;
+    color: $sideMenu_text;
+  // }
+
+  ul li{
+    font-weight: 400;
+    color: $sideMenu_text;
+    ul {
+      color: $sideMenu_text;
+      li {
+        font-size: .8em;
+        line-height: 1.35em;
+        color: $sideMenu_text;
+      }
+    }
+  }
+
+  .playlists ul li:hover{
+    transition: all .16s cubic-bezier(0.4, -0.4, 0.57, 1.46);
+    color: #222;
+  }
+}

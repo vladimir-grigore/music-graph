@@ -12,7 +12,7 @@ class Tracks extends Component {
 
   render() {
     return (
-      <li onClick={this.handleClick}>
+      <li className="list__tracks" onClick={this.handleClick}>
         {this.props.value}
       </li>
     )

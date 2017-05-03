@@ -1,13 +1,9 @@
-///////////////////////EVENTS API//////////////////////////
-// events.get_artist_by_name('Metallica');
-// events.get_venue_by_name('Commodore');
-// events.get_events_by_venue_id(3816);
-///////////////////////EVENTS API//////////////////////////
-
 import React, {Component} from 'react';
 import EventsAPI from './events.js';
 import SearchBar from './SearchBar.jsx';
 import Footer from './Footer.jsx';
+import DatePicker from 'react-datepicker';
+import moment from 'moment';
 const events = new EventsAPI();
 
 class Events extends Component {
@@ -15,35 +11,56 @@ class Events extends Component {
     super(props);
     this.state = {
       isModalOpen: false,
-      eventTypeSearch: '',
-      queryResults: [],
-      eventResults: []
+      eventTypeSearch: 'Venues',
+      queryResults: [
+         {Id: 1, Name: 'Commodore Ballroom', City: 'Vancouver', State: 'British Columbia', Country: 'CA'},
+         {Id: 2, Name: 'Commodore Barry Club', City: 'Philadelphia', State: 'Pennsylvannia', Country: 'US'},
+         {Id: 3, Name: 'Commodore Plaza', City: 'Coconut Grove', State: 'Florida', Country: 'US'},
+         {Id: 4, Name: 'Commodore Barry Park', City: 'Brooklyn', State: 'New York', Country: 'US'}
+      ],
+      eventResults: [],
+      selectionId: '',
+      startDate: '',
+      endDate: ''
     }
+  }
+
+  //Datepicked
+  setStartDate = (date) => {
+    this.setState({startDate: date});
+  }
+  //Datepicked
+  setEndDate = (date) => {
+    this.setState({endDate: date});
+  }
+
+  getEvents = (e) => {
+    e.stopPropagation();
+    if (this.state.selectionId && this.state.startDate && this.state.endDate) {
+      this.queryByDate(this.state.selectionId);  
+    } else if(this.state.selectionId) {
+      this.queryById(this.state.selectionId);
+    }
+  }
+
+  addIdToState = (id) => {
+    this.setState({selectionId: id});
   }
 
   // Once event button is clicked set its type to state {either Artist or Venue}
   handleEventTypeButtons = (eventType) => {
-    this.setState({eventTypeSearch: eventType})
+    this.setState({ eventTypeSearch: eventType, queryResults: [], eventResults: [], startDate: '', endDate: '', selectionId: '' })
   }
 
-  // Take search input and store in state {name of either Artist or Venue}
-  handleSearch = (input) => { // Get first query jamBase to get list of names & ids
+  // Use the name of either artist or venue and get its ID
+  searchByName = async (name) => { // Get first query jamBase to get list of names & ids
     if ( this.state.eventTypeSearch === 'Venues' ){
-      this.queryVenues(input);
+      const queryResults = await events.get_venue_by_name(name);
+      this.setState( { queryResults: queryResults.Venues, startDate: '', endDate: '', selectionId: '' } );
     } else {
-      this.queryArtists(input);
+      const queryResults = await events.get_artist_by_name(name);
+      this.setState( { queryResults: queryResults.Artists, startDate: '', endDate: '', selectionId: '' } );
     }
-  }
-
-  // First query for selecting a list of venues or artists to select from
-  queryVenues = async (name) => {
-    const queryResults = await events.get_venue_by_name(name);
-    this.setState( { queryResults: queryResults.Venues } );
-  }
-
-  queryArtists = async (name) => {
-    const queryResults = await events.get_artist_by_name(name);
-    this.setState( { queryResults: queryResults.Artists } );
   }
 
   // Second query for displaying information in the Modal
@@ -53,15 +70,32 @@ class Events extends Component {
     if ( type === 'Venues' ){
       eventResults = await events.get_events_by_venue_id(id);
       this.setState( { eventResults } );
+      this.openModal();
     } else {
       eventResults = await events.get_events_by_artist_id(id);
       this.setState( { eventResults } );
+      this.openModal();
     }
   }
 
-  // 2nd query  -> id is name that is clicked
-  openModal = async (id) => {
-    await this.queryById(id);
+  // Get events by either venue or artist id, start date and end date
+  queryByDate = async (id) => { // Get a name as input and queries for a list of matching names and their ids
+    const type = this.state.eventTypeSearch;
+    let start = moment(this.state.startDate).format('YYYY-MM-DD');
+    let end = moment(this.state.endDate).format('YYYY-MM-DD');
+    let eventResults = {};
+    if (type === 'Venues'){
+      eventResults = await events.get_events_by_venue_id_start_end_date (id, start, end);
+      this.setState( { eventResults } );
+      this.openModal();
+    } else {
+      eventResults = await events.get_events_by_artist_id_start_end_date (id, start, end);
+      this.setState( { eventResults } );
+      this.openModal();
+    }
+  }
+
+  openModal = () => {
     this.setState({ isModalOpen: true });
   }
 
@@ -71,45 +105,71 @@ class Events extends Component {
 
   render() {
     // Initial State
-    if ( this.state.queryResults === null ) {
+    if ( this.state.queryResults.length === 0 ) {
       return (
         <div>
           <div className='events'>
-            <SearchBar handleSearch={this.handleSearch} />
+            <SearchBar handleSearch={this.searchByName} />
             <EventTypeButtons handleEventTypeButtons={this.handleEventTypeButtons} />
           </div>
           <Footer song={this.props.song} />
         </div>
       )
-    } else if (this.state.queryResults.length !== 0 && (this.state.eventResults.length === 0)) {
+    } else if (this.state.eventResults.length === 0) {
       // When Search result is received and first query is complete save data
       const queryResultsList = (this.state.queryResults).map(item =>
-        <EventsListClick
-          key={item.Id}
-          id={item.Id}
-          item={item}
-          currentEvent={this.state.eventTypeSearch}
-          openModal={this.openModal}
-        />);
+        <SearchResultsList key={item.Id} id={item.Id}
+                           item={item} eventTypeSearch={this.state.eventTypeSearch}
+                           addIdToState={this.addIdToState}
+                           />);                           
       // Render the list of results from first query
       return (
         <div>
           <div className='events'>
-            <SearchBar handleSearch={this.handleSearch} />
+            <SearchBar handleSearch={this.searchByName} />
             <EventTypeButtons handleEventTypeButtons={this.handleEventTypeButtons} />
-            {queryResultsList}
+            <div className="date-picker">
+              <div className="start-date">
+                <div className="start-date-label">Start Date</div>
+                <DatePicker selected={this.state.startDate} dateFormat="YYYY-MM-DD" onChange={this.setStartDate} className="start-date-picker" />
+              </div>
+              <div className="end-date">
+                <div className="end-date-label">End Date</div>
+                <DatePicker selected={this.state.endDate} dateFormat="YYYY-MM-DD" onChange={this.setEndDate} className="end-date-picker" />
+              </div>
+            </div>
+            <div>
+              {queryResultsList}
+            </div>
+            <button className="search-button" onClick={this.getEvents}>Search</button>
           </div>
           <Footer song={this.props.song} />
         </div>
       )
     } else {
-      // Open Modal when user clicks on name
+      const queryResultsList = (this.state.queryResults).map(item =>
+        <SearchResultsList key={item.Id} id={item.Id}
+                           item={item} eventTypeSearch={this.state.eventTypeSearch}
+                           addIdToState={this.addIdToState}
+                           />);  
       return (
         <div>
           <div className='events'>
-            <SearchBar handleSearch={this.handleSearch} />
+            <EventsModal isOpen={this.state.isModalOpen} onClose={this.closeModal} events={this.state.eventResults.Events} 
+                         eventTypeSearch={this.state.eventTypeSearch} />
+  
+            <SearchBar handleSearch={this.searchByName} />
             <EventTypeButtons handleEventTypeButtons={this.handleEventTypeButtons} />
-            <EventsModal isOpen={this.state.isModalOpen} onClose={this.closeModal} events={this.state.eventResults.Events} currentEvent={this.state.eventTypeSearch} />
+            <div className="date-picker">
+              <div className="start-date-label">Start Date</div>
+              <DatePicker selected={this.state.startDate} dateFormat="YYYY-MM-DD" onChange={this.setStartDate} className="start-date-picker" />
+              <div className="end-date-label">End Date</div>
+              <DatePicker selected={this.state.endDate} dateFormat="YYYY-MM-DD" onChange={this.setEndDate} className="end-date-picker" />
+            </div>
+            <div>
+              {queryResultsList}
+            </div>
+            <button className="search-button" onClick={this.getEvents}>Search</button>
           </div>
           <Footer song={this.props.song} />
         </div>
@@ -119,18 +179,18 @@ class Events extends Component {
 }
 
 // Wait for user to select Artist or Venue
-class EventsListClick extends Component {
+class SearchResultsList extends Component {
   constructor(props) {
     super(props);
   }
 
   handleClick = (e) => {
     e.stopPropagation();
-    this.props.openModal(this.props.id);
+    this.props.addIdToState(this.props.id);
   }
 
   render() {
-    if (this.props.currentEvent === 'Venues') {
+    if (this.props.eventTypeSearch === 'Venues') {
       return (
         <div className='events-venues'>
           <ul onClick={this.handleClick}>
@@ -153,7 +213,7 @@ class EventsListClick extends Component {
       )
     } // End of if
   } // End of Render
-} // End of EventsListClick
+} // End of SearchResultsList
 
 // Modal to display information from second query
 class EventsModal extends Component {
@@ -162,18 +222,18 @@ class EventsModal extends Component {
   }
 
   close = (e) => {
-    e.preventDefault()
-
+    e.stopPropagation();
+    e.preventDefault();
     if (this.props.onClose) {
-      this.props.onClose()
+      this.props.onClose();
     }
   }
 
   render() {
     if (this.props.isOpen === false) return null;
     const eventResults = this.props.events; // [{}] -> events={this.state.eventResults.Events} -> [{Artists}, {Venues}]
-    if (this.props.currentEvent === 'Venues') {
-      const eventDetails = eventResults.map(event => {  // loop through each object
+    if (this.props.eventTypeSearch === 'Venues') {
+      const eventDetails = eventResults.map(event => {
         let event_id, date, ticket_url;
         let artist_name = [];
         event_id = event.Id;
@@ -188,10 +248,10 @@ class EventsModal extends Component {
           <tr key={event_id}>
             <td>{date}</td>
             <td>{artist_name}</td>
-            <td><a href={this.props.ticket_url}>Buy</a></td>
+            <td><a href={this.props.ticket_url} className="buy-tickets">Buy</a></td>
           </tr>
         )
-      }); // End of eventDetails map
+      });
       // Create table
       return (
         <div>

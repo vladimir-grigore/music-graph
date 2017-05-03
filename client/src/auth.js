@@ -1,7 +1,7 @@
 import $ from 'jquery';
 
 function login(callback) {
-  var REDIRECT_URI = process.env.NODE_ENV === 'production' ? 'https://musicgraph.herokuapp.com/callback': 'http://localhost:3000/callback'
+  var REDIRECT_URI = process.env.NODE_ENV === 'production' ? 'http://musicgraph.herokuapp.com/callback': 'http://localhost:3000/callback'
   function getLoginURL(scopes) {
     return 'https://accounts.spotify.com/authorize?client_id=' + process.env.CLIENT_ID +
       '&redirect_uri=' + encodeURIComponent(REDIRECT_URI) +

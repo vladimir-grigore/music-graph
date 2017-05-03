@@ -13,20 +13,20 @@ class Albums extends Component {
 
   render() {
     const tracks = Object.keys(this.props.tracks)
-      .map(item => <Tracks key={item} 
-                           id={item} 
+      .map(item => <Tracks key={item}
+                           id={item}
                            artistID={this.props.artistID}
                            albumID={this.props.id}
                            value={this.props.tracks[item].name}
                            trackMenuClick={this.props.trackMenuClick}
                            />);
     return (
-      <li style={{color: this.props.color}} onClick={this.handleClick}>
+      <div style={{color: this.props.color}} onClick={this.handleClick}>
         {this.props.value}
         <ul>
           {tracks}
         </ul>
-      </li>
+      </div>
     )
   }
 }

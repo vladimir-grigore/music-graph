@@ -37,9 +37,7 @@ class Content extends Component {
   render() {
     return (
       <div className='content-wrapper'>
-        <ul className='scroll-area'>
-          {this.handleContent(this.props.currentTab)}
-        </ul>
+        {this.handleContent(this.props.currentTab)}
       </div>
     )
   }

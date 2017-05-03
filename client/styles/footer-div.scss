@@ -1,0 +1,77 @@
+.footer-div {  // Footer container
+  background-color: #515158;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  height: 9.5em;
+  width: 22.4em;
+  margin: 0;
+  overflow: hidden;
+  z-index: 1;
+  box-shadow: 0em -0.1em 0.8em 0 #999;
+  position: fixed;
+}  // End of Footer
+
+.artistName{
+  font-size: 1.1em;
+  position: absolute;
+  padding: 1em;
+  z-index: 1;
+  margin: 0;
+  color: black;
+  text-shadow: 1px 1px 2px white, 0 0 25px #eee, 0 0 5px #999;
+}
+
+.trackName{
+  font-size: 0.9em;
+  position: absolute;
+  padding: 2em;
+  z-index: 1;
+  margin: 0;
+  color: black;
+  text-shadow: 1px 1px 2px white, 0 0 25px #eee, 0 0 5px #999;
+}
+
+.albumImage{
+  z-index: 0;
+  width: inherit;
+  position: absolute;
+  top: 0;
+}
+
+.audioPlayer{
+  position: absolute;
+  width: inherit;
+  opacity: 0.3;
+  bottom: 0;
+  right: 0;
+}
+
+.logos {
+  background: white;
+  .spotify-logo {
+    width: 50%;
+    padding-left: 2em;
+    padding-top: .3em;
+  }
+  div {
+    font-weight: bolder;
+    padding: 0.3em;
+    color: #999;
+    font-size: 1.2em;
+  }
+  .jambase-logo {
+    width: 50%;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 0 0.4em 0.4em 0;
+  }
+  .visjs-logo {
+    width: 15%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: 0 0 0.4em 5em;
+  }
+}

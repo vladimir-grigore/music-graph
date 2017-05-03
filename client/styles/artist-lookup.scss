@@ -1,0 +1,18 @@
+.artist-lookup {  // searchbar
+  z-index: 2;
+  top: 0;
+  width: 18.4em;
+  right: 0;
+  padding: 1.17em 2em;
+  color: #fff;
+  font-weight: 400;
+  font-size: initial;
+  border: 0;
+  outline: none;
+  background: #515158;
+  position: fixed;
+  &:focus {
+    transition: all 1.4s ease;
+    background-color: #3c3c3c;
+  }
+}  // End of SearchBar

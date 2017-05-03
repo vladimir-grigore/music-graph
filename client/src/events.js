@@ -4,11 +4,9 @@ import restful, { fetchBackend } from 'restful.js';
 export default class EventsAPI {
   constructor(){
     this.API_KEY = process.env.API_KEY;
-    this.api = restful('http://api.jambase.com', fetchBackend(fetch));
+    this.api = restful('//api.jambase.com', fetchBackend(fetch));
     this.updateCallback = null;
   }
-
-  // Queries to jamBase for artists and venues by names and ids //
 
   get_artist_by_name = async (name) => {
     const url = this.api.custom(`artists?name=${name}&api_key=${this.API_KEY}`);

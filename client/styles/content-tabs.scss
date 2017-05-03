@@ -1,0 +1,22 @@
+.content-tabs {  // Sidebar tab buttons parent
+  z-index: 2;
+  transform: rotate($rot) translate(-91.3%, -1144%);// translate($trans, $trans-dist);
+  top: 0;
+  position: relative;
+
+  .tab-btn {  // Sidebar tab buttons
+    cursor: pointer;
+    margin-right: .2em;
+    padding: .95em 2em 1em 2em;
+    color: $fontC;
+    background-color: $btn_Bg;
+    text-transform: uppercase;
+    letter-spacing: .14em;
+    font-weight: 700;
+    box-shadow: -.15em -.1em 0.7em -.2em $dropShadow;
+    outline: none;
+    &:hover {  // Sidebar tab hover color
+      color: $btn_HoverBg;
+    }
+  }  // End of Tab Buttons
+}

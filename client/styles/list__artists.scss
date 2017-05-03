@@ -1,0 +1,18 @@
+.list__artists { // for artist and playlists's components text styling
+  //  first tear down the chain > "Artists" || "Playlists" names
+  // position: absolute;
+  // max-height: 81%;
+  line-height: 1;
+  font-weight: 400;
+  font-size: 2em;
+  overflow-y: auto;
+  // height: 100%;
+  background-color: #FFFFFF;
+  width: 9.8em;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  position: fixed;
+  padding: 2.5em .7em 5.6em .7em;
+
+}

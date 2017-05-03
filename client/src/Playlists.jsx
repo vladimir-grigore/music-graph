@@ -126,10 +126,10 @@ class Playlists extends Component {
     if(!localStorage.getItem('logged-in')){
       return (
         <div>
-          <li className="playlists">
+          <div className="playlists">
             <SearchBar handleSearch={this.handleSearch} />
             Please log in
-          </li>
+          </div>
           <Footer song={this.state.song} />
         </div>
       )
@@ -137,10 +137,10 @@ class Playlists extends Component {
       // Auth tokens expire after 60 min, users remain logged in
       return (
         <div>
-          <li className="playlists">
+          <div className="playlists">
             <SearchBar handleSearch={this.handleSearch} />
             Your session has expired
-          </li>
+          </div>
           <Footer song={this.state.song} />
         </div>
       )
@@ -158,21 +158,21 @@ class Playlists extends Component {
                     />);
         return (
           <div>
-            <li className="playlists">
+            <div className="playlists">
               <SearchBar handleSearch={this.handleSearch} />
               Playlists:
               {playlist}
-            </li>
+            </div>
             <Footer song={this.state.song} />
           </div>
         )
       } else {
         // Will be triggered while API calls are still running
         <div>
-          <li className="playlists">
+          <div className="playlists">
             <SearchBar />
             Playlists:
-          </li>
+          </div>
           <Footer song={this.state.song} />
         </div>
       }
@@ -198,14 +198,14 @@ class Playlist extends Component {
                      trackMenuClick={this.props.trackMenuClick}
                      />);
     return (
-      <ul>
-        <li style={{color: this.props.color}} onClick={this.playlistMenuClick}>
+      <div>
+        <div style={{color: this.props.color}} onClick={this.playlistMenuClick}>
           {this.props.name}
           <ul>
             {playlistTrack}
           </ul>
-        </li>
-      </ul>
+        </div>
+      </div>
     )
   }
 }

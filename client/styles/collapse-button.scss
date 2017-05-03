@@ -1,0 +1,41 @@
+.collapse-button {  // toggle side menu button
+  position: absolute;
+  width: 3.37em;
+  height: 3.45em;
+  right: 22.35em;
+  z-index: 2;
+  top: 0;
+  transition: transform 1s;
+  padding: 0;
+  margin: 0;
+  background-color: $btn_Bg;
+  &.closed {  // on closed side menu
+    right: 3.45em;
+    transform: translate(100%);
+    i {  // rotate icon opositely
+      transform: rotate(180deg);
+      transition: transform 5s;
+    }
+  }
+
+  i {  // toggle side menu button font-awesome icon
+    position: absolute;
+    cursor: pointer;
+    padding: 1.19em;
+    padding-bottom: 1.25em;
+    color: $fontC;
+    transition: transform .5s;
+    width: 1em;
+    height: 1em;
+    margin: 0;
+    fill: currentColor;
+    box-shadow: -.15em -.1em 0.7em -.2em $dropShadow;
+    &:hover {  // icon on hover
+      color: $btn_HoverBg;
+    }
+  }
+  .fa {  // center icon text
+    text-align: center;
+  }
+
+} // End of Collapse Button
