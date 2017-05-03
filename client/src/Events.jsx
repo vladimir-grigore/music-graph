@@ -8,6 +8,8 @@ import React, {Component} from 'react';
 import EventsAPI from './events.js';
 import SearchBar from './SearchBar.jsx';
 import Footer from './Footer.jsx';
+import DatePicker from 'react-datepicker';
+import moment from 'moment';
 const events = new EventsAPI();
 
 class Events extends Component {
@@ -17,8 +19,22 @@ class Events extends Component {
       isModalOpen: false,
       eventTypeSearch: '',
       queryResults: [],
-      eventResults: []
+      eventResults: [],
+      startDate: '',
+      endDate: ''
     }
+  }
+
+  //Datepicked
+  setStartDate = (date) => {
+    this.setState({startDate: date});
+  }
+  setEndDate = (date) => {
+    this.setState({endDate: date});
+  }
+  searchByDate = () => {
+    console.log("start date", this.state.startDate);
+    console.log("end date", this.state.endDate);
   }
 
   // Once event button is clicked set its type to state {either Artist or Venue}
@@ -71,17 +87,24 @@ class Events extends Component {
 
   render() {
     // Initial State
-    if ( this.state.queryResults === null ) {
+    if ( this.state.queryResults.length === 0 ) {
       return (
         <div>
           <div className='events'>
             <SearchBar handleSearch={this.handleSearch} />
             <EventTypeButtons handleEventTypeButtons={this.handleEventTypeButtons} />
+            <div>
+              <div className="start-date-label">Start Date</div>
+              <DatePicker selected={this.state.startDate} dateFormat="YYYY-MM-DD" onChange={this.setStartDate} className="start-date-picker" />
+              <div className="end-date-label">End Date</div>
+              <DatePicker selected={this.state.endDate} dateFormat="YYYY-MM-DD" onChange={this.setEndDate} className="end-date-picker" />
+              <button className="search-button" onClick={this.searchByDate}>Search</button>
+            </div>
           </div>
           <Footer song={this.props.song} />
         </div>
       )
-    } else if (this.state.queryResults.length !== 0 && (this.state.eventResults.length === 0)) {
+    } else if (this.state.eventResults.length === 0) {
       // When Search result is received and first query is complete save data
       const queryResultsList = (this.state.queryResults).map(item =>
         <EventsListClick
