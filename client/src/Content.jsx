@@ -36,8 +36,8 @@ class Content extends Component {
   }
   render() {
     return (
-      <div className='artistEntry' id='content-wrapper'>
-        <ul className='nav content-nav' id='scroll-area'>
+      <div className='content-wrapper'>
+        <ul className='scroll-area'>
           {this.handleContent(this.props.currentTab)}
         </ul>
       </div>
