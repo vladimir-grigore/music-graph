@@ -128,7 +128,7 @@ class Playlists extends Component {
         <div>
           <div className="playlists">
             <SearchBar handleSearch={this.handleSearch} />
-            Please log in
+            <h1>Please log in</h1>
           </div>
           <Footer song={this.state.song} />
         </div>
@@ -139,7 +139,7 @@ class Playlists extends Component {
         <div>
           <div className="playlists">
             <SearchBar handleSearch={this.handleSearch} />
-            Your session has expired
+            <h1>Your session has expired!</h1>
           </div>
           <Footer song={this.state.song} />
         </div>
@@ -160,7 +160,7 @@ class Playlists extends Component {
           <div>
             <div className="playlists">
               <SearchBar handleSearch={this.handleSearch} />
-              Playlists:
+              <h1>Playlists:</h1>
               {playlist}
             </div>
             <Footer song={this.state.song} />
@@ -198,7 +198,7 @@ class Playlist extends Component {
                      trackMenuClick={this.props.trackMenuClick}
                      />);
     return (
-      <div>
+      <div className="list__playlists">
         <div style={{color: this.props.color}} onClick={this.playlistMenuClick}>
           {this.props.name}
           <ul>
