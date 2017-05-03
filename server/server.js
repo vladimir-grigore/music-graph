@@ -8,7 +8,7 @@ app.use(express.static('public'));
 
 app.get('/callback', function(req, res) {
   res.render('callback', {
-    callback_root: process.env.NODE_ENV === 'production' ? 'https://musicgraph.herokuapp.com': 'http://localhost:3000'
+    callback_root: process.env.NODE_ENV === 'production' ? 'http://musicgraph.herokuapp.com': 'http://localhost:3000'
   });
 });
 
