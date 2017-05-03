@@ -29,12 +29,23 @@ class Events extends Component {
   setStartDate = (date) => {
     this.setState({startDate: date});
   }
+
   setEndDate = (date) => {
     this.setState({endDate: date});
   }
-  searchByDate = () => {
-    console.log("start date", this.state.startDate);
-    console.log("end date", this.state.endDate);
+
+  searchArtistIdByDate = async (id) => {
+    let start = moment(this.state.startDate).format('YYYY-MM-DD');
+    let end = moment(this.state.endDate).format('YYYY-MM-DD');
+    const result = await events.get_events_by_artist_id_start_end_date (id, start, end);
+    console.log("RESULT", result);
+  }
+
+  searchEventIdByDate = async (id) => {
+    let start = moment(this.state.startDate).format('YYYY-MM-DD');
+    let end = moment(this.state.endDate).format('YYYY-MM-DD');
+    const result = await events.get_events_by_venue_id_start_end_date (id, start, end);
+    console.log("RESULT", result);
   }
 
   // Once event button is clicked set its type to state {either Artist or Venue}
