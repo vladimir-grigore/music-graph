@@ -4,7 +4,7 @@ import restful, { fetchBackend } from 'restful.js';
 export default class EventsAPI {
   constructor(){
     this.API_KEY = process.env.API_KEY;
-    this.api = restful('http://api.jambase.com', fetchBackend(fetch));
+    this.api = restful('//api.jambase.com', fetchBackend(fetch));
     this.updateCallback = null;
   }
 
