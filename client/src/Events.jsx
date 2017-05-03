@@ -1,9 +1,3 @@
-///////////////////////EVENTS API//////////////////////////
-// events.get_artist_by_name('Metallica');
-// events.get_venue_by_name('Commodore');
-// events.get_events_by_venue_id(3816);
-///////////////////////EVENTS API//////////////////////////
-
 import React, {Component} from 'react';
 import EventsAPI from './events.js';
 import SearchBar from './SearchBar.jsx';
@@ -17,8 +11,13 @@ class Events extends Component {
     super(props);
     this.state = {
       isModalOpen: false,
-      eventTypeSearch: '',
-      queryResults: [],
+      eventTypeSearch: 'Venues',
+      queryResults: [
+         {Id: 1, Name: 'Commodore Ballroom', City: 'Vancouver', State: 'British Columbia', Country: 'CA'},
+         {Id: 2, Name: 'Commodore Barry Club', City: 'Philadelphia', State: 'Pennsylvannia', Country: 'US'},
+         {Id: 3, Name: 'Commodore Plaza', City: 'Coconut Grove', State: 'Florida', Country: 'US'},
+         {Id: 4, Name: 'Commodore Barry Park', City: 'Brooklyn', State: 'New York', Country: 'US'}
+      ],
       eventResults: [],
       selectionId: '',
       startDate: '',
@@ -129,14 +128,20 @@ class Events extends Component {
           <div className='events'>
             <SearchBar handleSearch={this.searchByName} />
             <EventTypeButtons handleEventTypeButtons={this.handleEventTypeButtons} />
-            {queryResultsList}
-            <div>
-              <div className="start-date-label">Start Date</div>
-              <DatePicker selected={this.state.startDate} dateFormat="YYYY-MM-DD" onChange={this.setStartDate} className="start-date-picker" />
-              <div className="end-date-label">End Date</div>
-              <DatePicker selected={this.state.endDate} dateFormat="YYYY-MM-DD" onChange={this.setEndDate} className="end-date-picker" />
-              <button className="search-button" onClick={this.getEvents}>Search</button>
+            <div className="date-picker">
+              <div className="start-date">
+                <div className="start-date-label">Start Date</div>
+                <DatePicker selected={this.state.startDate} dateFormat="YYYY-MM-DD" onChange={this.setStartDate} className="start-date-picker" />
+              </div>
+              <div className="end-date">
+                <div className="end-date-label">End Date</div>
+                <DatePicker selected={this.state.endDate} dateFormat="YYYY-MM-DD" onChange={this.setEndDate} className="end-date-picker" />
+              </div>
             </div>
+            <div>
+              {queryResultsList}
+            </div>
+            <button className="search-button" onClick={this.getEvents}>Search</button>
           </div>
           <Footer song={this.props.song} />
         </div>
@@ -155,15 +160,16 @@ class Events extends Component {
   
             <SearchBar handleSearch={this.searchByName} />
             <EventTypeButtons handleEventTypeButtons={this.handleEventTypeButtons} />
-            {queryResultsList}
-            <div>
+            <div className="date-picker">
               <div className="start-date-label">Start Date</div>
               <DatePicker selected={this.state.startDate} dateFormat="YYYY-MM-DD" onChange={this.setStartDate} className="start-date-picker" />
               <div className="end-date-label">End Date</div>
               <DatePicker selected={this.state.endDate} dateFormat="YYYY-MM-DD" onChange={this.setEndDate} className="end-date-picker" />
-              <button className="search-button" onClick={this.getEvents}>Search</button>
             </div>
-
+            <div>
+              {queryResultsList}
+            </div>
+            <button className="search-button" onClick={this.getEvents}>Search</button>
           </div>
           <Footer song={this.props.song} />
         </div>

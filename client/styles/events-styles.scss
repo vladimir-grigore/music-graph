@@ -1,0 +1,76 @@
+$btn_Bg: #C4C4C7;
+$btn_HoverBg: #7a7a7f;
+
+.events-venues {
+  font-family: 'Avenir Next', Avenir, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  padding: 1em;
+  font-weight: 400;
+  color: #555;
+  line-height: 1;
+  font-size: 1em;
+  display: block;
+  overflow-y: auto;
+}
+
+.search-button {
+  position: relative;
+  float: right;
+  margin-right: 4%; 
+  bottom: 0;
+  cursor: pointer;
+  padding: 1em 2em 1em 2em;
+  color: white;
+  background-color: #C4C4C7;
+  text-transform: uppercase;
+  letter-spacing: .14em;
+  font-weight: 700;
+  box-shadow: 0em 0em 0.666em -0.2em #999;
+  outline: none;
+  border: none;
+  &:hover {
+    color: $btn_HoverBg;
+  }
+}
+
+.date-picker {
+  padding-top: 2em;
+  font-size: 1em;
+  font-family: inherit;
+  font-weight: 400;
+  text-align: center;
+  display: flex;
+  width: 96%;
+
+  .start-date-label {
+    padding: 5% 5% 5% 0;
+  }
+
+  .end-date-label {
+    padding: 5% 0 5% 5%;
+  }
+
+  .start-date-picker {
+    background-color: $btn_Bg;
+    outline: none;
+    display: block;
+    float: left;
+    width: 80%;
+    border-style: inset;
+    text-align: center;
+    border: 1px solid #999;
+    padding: 5%;
+  }
+
+  .end-date-picker {
+    background-color: $btn_Bg;
+    outline: none;
+    display: block;
+    float: right;
+    width: 80%;
+    border-style: inset;
+    text-align: center;
+    border: 1px solid #999;
+    padding: 5%;
+  }
+
+}
