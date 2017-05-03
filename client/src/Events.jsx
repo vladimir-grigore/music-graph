@@ -50,7 +50,7 @@ class Events extends Component {
 
   // Once event button is clicked set its type to state {either Artist or Venue}
   handleEventTypeButtons = (eventType) => {
-    this.setState({eventTypeSearch: eventType})
+    this.setState({ eventTypeSearch: eventType, queryResults: [] })
   }
 
   // Use the name of either artist or venue and get its ID
