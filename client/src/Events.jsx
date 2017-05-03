@@ -130,12 +130,17 @@ class Events extends Component {
             <EventTypeButtons handleEventTypeButtons={this.handleEventTypeButtons} />
             <div className="date-picker">
               <div className="start-date">
-                <div className="start-date-label">Start Date</div>
-                <DatePicker selected={this.state.startDate} dateFormat="YYYY-MM-DD" onChange={this.setStartDate} className="start-date-picker" />
+                <DatePicker placeholderText="start date"
+                            selected={this.state.startDate} dateFormat="YYYY-MM-DD" 
+                            onChange={this.setStartDate} 
+                            className="start-date-picker" />
               </div>
               <div className="end-date">
-                <div className="end-date-label">End Date</div>
-                <DatePicker selected={this.state.endDate} dateFormat="YYYY-MM-DD" onChange={this.setEndDate} className="end-date-picker" />
+                <DatePicker placeholderText="end date"
+                            selected={this.state.endDate} 
+                            dateFormat="YYYY-MM-DD" 
+                            onChange={this.setEndDate} 
+                            className="end-date-picker" />
               </div>
             </div>
             <div>
