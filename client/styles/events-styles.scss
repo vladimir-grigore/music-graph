@@ -1,27 +1,12 @@
-// $btn_Bg: #C4C4C7;
-// $btn_HoverBg: #7a7a7f;
-
 .events {
   padding-top: 5em;
   padding-left: 4%;
-  text-transform: uppercase;
-
-  h1 {  // Events tab header
-    padding: 1em;
-    margin: 0;
-    width: 16.04em;
-    background: $btn_Bg;
-    color: $fontC;
-    box-shadow: 0em 0em 0.7em -0.2em #999;
-    font-size: 1.13em;
-    font-weight: 700;
-    text-align: center;
-  }
 
   .form-venueBtn,
   .form-artistBtn {  // Buttons to toggle between quering by venue || artist
+    text-transform: uppercase;
     cursor: pointer;
-    padding: .7em 2em 1em 2em;
+    padding: 1em 2em 1em 2em;
     color: $fontC;
     background-color: $btn_Bg;
     letter-spacing: .14em;
@@ -62,9 +47,9 @@
     color: $btn_HoverBg;
   }
 }
-.start-date {
-  padding-bottom: 1%;
-}
+// .start-date {
+//   padding-bottom: 1%;
+// }
 
 .date-picker {
   padding-top: 2em;
@@ -72,25 +57,45 @@
   font-family: inherit;
   font-weight: 400;
   text-align: center;
+  padding-right: 0.5em;
 
   .start-date-picker {
+    width: 100%;
+    padding: 5%;
     background-color: $btn_Bg;
     outline: none;
     border-style: inset;
     text-align: center;
     border: 1px solid #999;
-    padding-top: 5%;
-    padding-bottom: 5%;
   }
 
   .end-date-picker {
+    width: 100%;
+    padding: 5%;
     background-color: $btn_Bg;
     outline: none;
     border-style: inset;
     text-align: center;
     border: 1px solid #999;
-    padding-top: 5%;
-    padding-bottom: 5%;
-  }
+  } 
+}
 
+.start-date {
+  margin-bottom: .1em;
+}
+
+.end-date {
+  margin-bottom: .5em;
+}
+
+.events-venues {
+  cursor: pointer;
+  font-weight: 400;
+  line-height: 1em;
+  font-size: 1.3em;
+  margin-bottom: -1.5em;
+  cursor: pointer;
+  color: #777;
+  padding-bottom: 1em;
+  padding-left: 1em;
 }

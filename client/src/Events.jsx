@@ -166,9 +166,7 @@ class Events extends Component {
             <SearchBar handleSearch={this.searchByName} />
             <EventTypeButtons handleEventTypeButtons={this.handleEventTypeButtons} />
             <div className="date-picker">
-              <div className="start-date-label">Start Date</div>
               <DatePicker selected={this.state.startDate} dateFormat="YYYY-MM-DD" onChange={this.setStartDate} className="start-date-picker" />
-              <div className="end-date-label">End Date</div>
               <DatePicker selected={this.state.endDate} dateFormat="YYYY-MM-DD" onChange={this.setEndDate} className="end-date-picker" />
             </div>
             <div>
@@ -201,9 +199,7 @@ class SearchResultsList extends Component {
           <ul onClick={this.handleClick}>
             {this.props.item.Name}
             <li>
-              {this.props.item.City}
-              {this.props.item.State}
-              {this.props.item.Country}
+             {this.props.item.City}, {this.props.item.State}, {this.props.item.Country}
             </li>
           </ul>
         </div>
@@ -342,7 +338,6 @@ class EventTypeButtons extends Component {
   render(){
     return (
       <div>
-        <h1>Events</h1>
         <span className='form-venueBtn Venues' onClick={this.formSelector}>By Venue</span>
         <span className='form-artistBtn Artists' onClick={this.formSelector}>By Artist</span>
       </div>
