@@ -1,6 +1,6 @@
 .events {
-  padding-top: 5em;
-  padding-left: 4%;
+  padding-top: 5.3em;
+  padding-left: 1em;
   overflow-y: scroll;
   position: relative;
   height: 36.5em;
@@ -21,14 +21,34 @@
     }
   }
 }
+.venue-results {
+  padding-top: 6.5em;
+}
 
 .events-venues {
+  cursor: pointer;
   font-family: 'Avenir Next', Avenir, 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: 400;
-  color: #555;
+  color: #777;
   line-height: 1;
-  font-size: 1em;
+  margin-bottom: -1.5em;
+  padding-bottom: .1em;
+  padding-left: 1em;
   display: block;
+  ul {
+    list-style: none;
+    padding-left: 0;
+    font-size: 1.3em;
+  }
+
+  li {
+    font-size: 0.7em;
+  }
+
+  ul:hover,li:hover{
+    transition: all .16s cubic-bezier(0.4, -0.4, 0.57, 1.46);
+    color: #222;
+  }
 }
 
 .search-button {
@@ -60,7 +80,8 @@
   font-family: inherit;
   font-weight: 400;
   text-align: center;
-  padding-right: 0.5em;
+  position: absolute;
+  padding-left: 4em;
 
   .start-date-picker {
     width: 100%;
@@ -89,16 +110,4 @@
 
 .end-date {
   margin-bottom: .5em;
-}
-
-.events-venues {
-  cursor: pointer;
-  font-weight: 400;
-  line-height: 1em;
-  font-size: 1.3em;
-  margin-bottom: -1.5em;
-  cursor: pointer;
-  color: #777;
-  padding-bottom: 1em;
-  padding-left: 1em;
 }

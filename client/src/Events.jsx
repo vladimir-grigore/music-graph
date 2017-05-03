@@ -1,3 +1,18 @@
+/////////////////Venues search//////////////////////
+// queryResults: [
+//          {Id: 1, Name: 'Commodore Ballroom', City: 'Vancouver', State: 'British Columbia', Country: 'CA'},
+//          {Id: 2, Name: 'Commodore Barry Club', City: 'Philadelphia', State: 'Pennsylvannia', Country: 'US'},
+//          {Id: 3, Name: 'Commodore Plaza', City: 'Coconut Grove', State: 'Florida', Country: 'US'},
+//          {Id: 4, Name: 'Commodore Barry Park', City: 'Brooklyn', State: 'New York', Country: 'US'},
+//          {Id: 5, Name: 'Commodore Ballroom', City: 'Vancouver', State: 'British Columbia', Country: 'CA'},
+//          {Id: 6, Name: 'Commodore Barry Club', City: 'Philadelphia', State: 'Pennsylvannia', Country: 'US'},
+//          {Id: 7, Name: 'Commodore Plaza', City: 'Coconut Grove', State: 'Florida', Country: 'US'},
+//          {Id: 8, Name: 'Commodore Barry Park', City: 'Brooklyn', State: 'New York', Country: 'US'}
+//       ],
+/////////////////Venues search//////////////////////      
+
+
+
 import React, {Component} from 'react';
 import EventsAPI from './events.js';
 import SearchBar from './SearchBar.jsx';
@@ -113,7 +128,7 @@ class Events extends Component {
       return (
         <div>
           <div className='events'>
-            <SearchBar handleSearch={this.searchByName} />
+            <SearchBar placeholder="Search by name..." handleSearch={this.searchByName} />
             <EventTypeButtons handleEventTypeButtons={this.handleEventTypeButtons} />
           </div>
           <Footer song={this.props.song} />
@@ -130,7 +145,7 @@ class Events extends Component {
       return (
         <div>
           <div className='events'>
-            <SearchBar handleSearch={this.searchByName} />
+            <SearchBar placeholder="Search by name..." handleSearch={this.searchByName} />
             <EventTypeButtons handleEventTypeButtons={this.handleEventTypeButtons} />
             <div className="date-picker">
               <div className="start-date">
@@ -147,7 +162,7 @@ class Events extends Component {
                             className="end-date-picker" />
               </div>
             </div>
-            <div>
+            <div className="venue-results">
               {queryResultsList}
             </div>
             <button className="search-button" onClick={this.getEvents}>Search</button>
@@ -167,7 +182,7 @@ class Events extends Component {
             <EventsModal isOpen={this.state.isModalOpen} onClose={this.closeModal} events={this.state.eventResults.Events} 
                          eventTypeSearch={this.state.eventTypeSearch} />
   
-            <SearchBar handleSearch={this.searchByName} />
+            <SearchBar placeholder="Search by name..." handleSearch={this.searchByName} />
             <EventTypeButtons handleEventTypeButtons={this.handleEventTypeButtons} />
             <div className="date-picker">
               <DatePicker selected={this.state.startDate} dateFormat="YYYY-MM-DD" onChange={this.setStartDate} className="start-date-picker" />
