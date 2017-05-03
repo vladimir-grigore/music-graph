@@ -37,7 +37,7 @@ class Events extends Component {
 
   getEvents = (e) => {
     e.stopPropagation();
-    if (this.state.selectionId && this.state.startDate && this.state.startDate) {
+    if (this.state.selectionId && this.state.startDate && this.state.endDate) {
       this.queryByDate(this.state.selectionId);  
     } else if(this.state.selectionId) {
       this.queryById(this.state.selectionId);
@@ -50,17 +50,17 @@ class Events extends Component {
 
   // Once event button is clicked set its type to state {either Artist or Venue}
   handleEventTypeButtons = (eventType) => {
-    this.setState({ eventTypeSearch: eventType, queryResults: [] })
+    this.setState({ eventTypeSearch: eventType, queryResults: [], eventResults: [], startDate: '', endDate: '', selectionId: '' })
   }
 
   // Use the name of either artist or venue and get its ID
   searchByName = async (name) => { // Get first query jamBase to get list of names & ids
     if ( this.state.eventTypeSearch === 'Venues' ){
       const queryResults = await events.get_venue_by_name(name);
-      this.setState( { queryResults: queryResults.Venues } );
+      this.setState( { queryResults: queryResults.Venues, startDate: '', endDate: '', selectionId: '' } );
     } else {
       const queryResults = await events.get_artist_by_name(name);
-      this.setState( { queryResults: queryResults.Artists } );
+      this.setState( { queryResults: queryResults.Artists, startDate: '', endDate: '', selectionId: '' } );
     }
   }
 
@@ -142,14 +142,28 @@ class Events extends Component {
         </div>
       )
     } else {
-      // Open Modal when user clicks on name
+      const queryResultsList = (this.state.queryResults).map(item =>
+        <SearchResultsList key={item.Id} id={item.Id}
+                           item={item} eventTypeSearch={this.state.eventTypeSearch}
+                           addIdToState={this.addIdToState}
+                           />);  
       return (
         <div>
           <div className='events'>
-            <SearchBar handleSearch={this.searchByName} />
-            <EventTypeButtons handleEventTypeButtons={this.handleEventTypeButtons} />
             <EventsModal isOpen={this.state.isModalOpen} onClose={this.closeModal} events={this.state.eventResults.Events} 
                          eventTypeSearch={this.state.eventTypeSearch} />
+  
+            <SearchBar handleSearch={this.searchByName} />
+            <EventTypeButtons handleEventTypeButtons={this.handleEventTypeButtons} />
+            {queryResultsList}
+            <div>
+              <div className="start-date-label">Start Date</div>
+              <DatePicker selected={this.state.startDate} dateFormat="YYYY-MM-DD" onChange={this.setStartDate} className="start-date-picker" />
+              <div className="end-date-label">End Date</div>
+              <DatePicker selected={this.state.endDate} dateFormat="YYYY-MM-DD" onChange={this.setEndDate} className="end-date-picker" />
+              <button className="search-button" onClick={this.getEvents}>Search</button>
+            </div>
+
           </div>
           <Footer song={this.props.song} />
         </div>
@@ -202,9 +216,10 @@ class EventsModal extends Component {
   }
 
   close = (e) => {
-    e.preventDefault()
+    e.stopPropagation();
+    e.preventDefault();
     if (this.props.onClose) {
-      this.props.onClose()
+      this.props.onClose();
     }
   }
 
@@ -212,7 +227,7 @@ class EventsModal extends Component {
     if (this.props.isOpen === false) return null;
     const eventResults = this.props.events; // [{}] -> events={this.state.eventResults.Events} -> [{Artists}, {Venues}]
     if (this.props.eventTypeSearch === 'Venues') {
-      const eventDetails = eventResults.map(event => {  // loop through each object
+      const eventDetails = eventResults.map(event => {
         let event_id, date, ticket_url;
         let artist_name = [];
         event_id = event.Id;
@@ -227,10 +242,10 @@ class EventsModal extends Component {
           <tr key={event_id}>
             <td>{date}</td>
             <td>{artist_name}</td>
-            <td><a href={this.props.ticket_url}>Buy</a></td>
+            <td><a href={this.props.ticket_url} className="buy-tickets">Buy</a></td>
           </tr>
         )
-      }); // End of eventDetails map
+      });
       // Create table
       return (
         <div>

@@ -54,7 +54,6 @@ class App extends Component {
 
   // Search Spotify API for artist name and populte vis.js canvas
   lookUpArtist = async (artistName) => {
-    console.log('@A - Received search input is: ', artistName);
     // Reset the folder structure
     visualizer.artistStructure = {};
     // Update visualizer canvas
