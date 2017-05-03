@@ -3,12 +3,12 @@ $sideMenu_text: #777;
   // list-style: none;
   overflow-y: auto;
   background-color: #FFFFFF;
-  width: 20.4em;
+  width: 19.47em;
   top: 0;
   right: 0;
   bottom: 0;
   position: fixed;
-  padding: 4.5em 1em 10.6em 1em;
+  padding: 4.5em 1em 10.6em 1.9em;
 
   h1 {
     color: #333;
@@ -33,7 +33,6 @@ $sideMenu_text: #777;
   ul li {
     list-style: none;
     font-size: .74em;
-    // line-height: 1.1em;
     color: $sideMenu_text;
   }
 
