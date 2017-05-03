@@ -16,7 +16,11 @@ class Events extends Component {
          {Id: 1, Name: 'Commodore Ballroom', City: 'Vancouver', State: 'British Columbia', Country: 'CA'},
          {Id: 2, Name: 'Commodore Barry Club', City: 'Philadelphia', State: 'Pennsylvannia', Country: 'US'},
          {Id: 3, Name: 'Commodore Plaza', City: 'Coconut Grove', State: 'Florida', Country: 'US'},
-         {Id: 4, Name: 'Commodore Barry Park', City: 'Brooklyn', State: 'New York', Country: 'US'}
+         {Id: 4, Name: 'Commodore Barry Park', City: 'Brooklyn', State: 'New York', Country: 'US'},
+         {Id: 5, Name: 'Commodore Ballroom', City: 'Vancouver', State: 'British Columbia', Country: 'CA'},
+         {Id: 6, Name: 'Commodore Barry Club', City: 'Philadelphia', State: 'Pennsylvannia', Country: 'US'},
+         {Id: 7, Name: 'Commodore Plaza', City: 'Coconut Grove', State: 'Florida', Country: 'US'},
+         {Id: 8, Name: 'Commodore Barry Park', City: 'Brooklyn', State: 'New York', Country: 'US'}
       ],
       eventResults: [],
       selectionId: '',

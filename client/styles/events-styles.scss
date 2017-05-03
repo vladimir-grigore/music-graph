@@ -1,6 +1,9 @@
 .events {
   padding-top: 5em;
   padding-left: 4%;
+  overflow-y: scroll;
+  position: relative;
+  height: 36.5em;
 
   .form-venueBtn,
   .form-artistBtn {  // Buttons to toggle between quering by venue || artist
