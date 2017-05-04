@@ -1,120 +1,3 @@
-/////////////////Venues search//////////////////////
-// queryResults: [
-//          {Id: 1, Name: 'Commodore Ballroom', City: 'Vancouver', State: 'British Columbia', Country: 'CA'},
-//          {Id: 2, Name: 'Commodore Barry Club', City: 'Philadelphia', State: 'Pennsylvannia', Country: 'US'},
-//          {Id: 3, Name: 'Commodore Plaza', City: 'Coconut Grove', State: 'Florida', Country: 'US'},
-//          {Id: 4, Name: 'Commodore Barry Park', City: 'Brooklyn', State: 'New York', Country: 'US'},
-//          {Id: 5, Name: 'Commodore Ballroom', City: 'Vancouver', State: 'British Columbia', Country: 'CA'},
-//          {Id: 6, Name: 'Commodore Barry Club', City: 'Philadelphia', State: 'Pennsylvannia', Country: 'US'},
-//          {Id: 7, Name: 'Commodore Plaza', City: 'Coconut Grove', State: 'Florida', Country: 'US'},
-//          {Id: 8, Name: 'Commodore Barry Park', City: 'Brooklyn', State: 'New York', Country: 'US'}
-//       ],
-/////////////////Venues search//////////////////////      
-//////////////////Fake Events////////////////////		
-const fakeEnvents = {Events: [
-  {		
-  Id: 2927622,		
-  Date: '2017-05-10T00:00:00',		
-  TicketUrl: 'http://ticketmaster.evyy.net/c/252938/264167/4272?u=http%3A%2F%2Fticketmaster.com%2Fevent%2F15005242EECB475C',		
-  Venue: {		
-    City: 'Baltimore ',		
-    CountryCode: 'US',		
-    Name: 'M&T Bank Stadium',		
-    StateCode: 'MD'		
-  }		
-},		
-{		
-  Id: 2927623,		
-  Date: '2017-05-12T00:00:00',		
-  TicketUrl: 'http://ticketmaster.evyy.net/c/252938/264167/4272?u=http%3A%2F%2Fticketmaster.com%2Fevent%2F02005248D8DB65D7',		
-  Venue: {		
-    City: 'Philadelphia',		
-    CountryCode: 'US',		
-    Name: 'Lincoln Financial Field',		
-    StateCode: 'PA'		
-  }		
-},		
-{		
-  Id: 2927624,		
-  Date: '2017-05-14T00:00:00',		
-  TicketUrl: 'http://ticketmaster.evyy.net/c/252938/264167/4272?u=http%3A%2F%2Fticketmaster.com%2Fevent%2F00005247E37848EF',		
-  Venue: {		
-    City: 'East Rutherford',		
-    CountryCode: 'US',		
-    Name: 'MetLife Stadium ',		
-    StateCode: 'NJ'		
-  }		
-},
- {		
-  Id: 2927625,		
-  Date: '2017-05-10T00:00:00',		
-  TicketUrl: 'http://ticketmaster.evyy.net/c/252938/264167/4272?u=http%3A%2F%2Fticketmaster.com%2Fevent%2F15005242EECB475C',		
-  Venue: {		
-    City: 'Baltimore ',		
-    CountryCode: 'US',		
-    Name: 'M&T Bank Stadium',		
-    StateCode: 'MD'		
-  }		
-},		
-{		
-  Id: 29276236,		
-  Date: '2017-05-12T00:00:00',		
-  TicketUrl: 'http://ticketmaster.evyy.net/c/252938/264167/4272?u=http%3A%2F%2Fticketmaster.com%2Fevent%2F02005248D8DB65D7',		
-  Venue: {		
-    City: 'Philadelphia',		
-    CountryCode: 'US',		
-    Name: 'Lincoln Financial Field',		
-    StateCode: 'PA'		
-  }		
-},		
-{		
-  Id: 29276246,		
-  Date: '2017-05-14T00:00:00',		
-  TicketUrl: 'http://ticketmaster.evyy.net/c/252938/264167/4272?u=http%3A%2F%2Fticketmaster.com%2Fevent%2F00005247E37848EF',		
-  Venue: {		
-    City: 'East Rutherford',		
-    CountryCode: 'US',		
-    Name: 'MetLife Stadium ',		
-    StateCode: 'NJ'		
-  }		
-},
- {		
-  Id: 29276227,		
-  Date: '2017-05-10T00:00:00',		
-  TicketUrl: 'http://ticketmaster.evyy.net/c/252938/264167/4272?u=http%3A%2F%2Fticketmaster.com%2Fevent%2F15005242EECB475C',		
-  Venue: {		
-    City: 'Baltimore ',		
-    CountryCode: 'US',		
-    Name: 'M&T Bank Stadium',		
-    StateCode: 'MD'		
-  }		
-},		
-{		
-  Id: 29276239,		
-  Date: '2017-05-12T00:00:00',		
-  TicketUrl: 'http://ticketmaster.evyy.net/c/252938/264167/4272?u=http%3A%2F%2Fticketmaster.com%2Fevent%2F02005248D8DB65D7',		
-  Venue: {		
-    City: 'Philadelphia',		
-    CountryCode: 'US',		
-    Name: 'Lincoln Financial Field',		
-    StateCode: 'PA'		
-  }		
-},		
-{		
-  Id: 297624,		
-  Date: '2017-05-14T00:00:00',		
-  TicketUrl: 'http://ticketmaster.evyy.net/c/252938/264167/4272?u=http%3A%2F%2Fticketmaster.com%2Fevent%2F00005247E37848EF',		
-  Venue: {		
-    City: 'East Rutherford',		
-    CountryCode: 'US',		
-    Name: 'MetLife Stadium ',		
-    StateCode: 'NJ'		
-  }		
-}
-]}		
- //////////////////Fake Events////////////////////
-
-
 import React, {Component} from 'react';
 import EventsAPI from './events.js';
 import SearchBar from './SearchBar.jsx';
@@ -130,7 +13,6 @@ class Events extends Component {
       isModalOpen: true,
       eventTypeSearch: '',
       queryResults: [],
-      // eventResults: fakeEnvents,
       eventResults: [],
       selectionId: '',
       selectionName: 'Search by name...',
@@ -373,7 +255,7 @@ class EventsModal extends Component {
           <tr key={event_id}>
             <td>{date}</td>
             <td>{artist_name}</td>
-            <td><a href={this.props.ticket_url} className="buy-tickets">Buy</a></td>
+            <td><a href={ticket_url} className="buy-tickets">Buy</a></td>
           </tr>
         )
       });
@@ -409,7 +291,13 @@ class EventsModal extends Component {
             state_code = event.Venue.StateCode.trim();
             country_code = event.Venue.CountryCode.trim();
           });
-          return <CustomTable key={event_id} date={date} venue_name={venue_name} city_name={city_name} state_code={state_code} country_code={country_code} ticket_url={ticket_url} />
+          return <CustomTable key={event_id} 
+                              date={date} 
+                              venue_name={venue_name} 
+                              city_name={city_name} 
+                              state_code={state_code} 
+                              country_code={country_code} 
+                              ticket_url={ticket_url} />
         }
       });
       return (
