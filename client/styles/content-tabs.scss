@@ -18,5 +18,8 @@
     &:hover {  // Sidebar tab hover color
       color: $btn_HoverBg;
     }
+    &.selected {
+      color: $btn_HoverBg;
+    }
   }  // End of Tab Buttons
 }
