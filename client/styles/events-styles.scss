@@ -1,22 +1,66 @@
-$btn_Bg: #C4C4C7;
-$btn_HoverBg: #7a7a7f;
+.events {
+  padding-top: 5.3em;
+  padding-left: 1em;
+  overflow-y: scroll;
+  position: relative;
+  height: 36.5em;
 
-.events-venues {
+  .form-venueBtn,
+  .form-artistBtn {  // Buttons to toggle between quering by venue || artist
+    text-transform: uppercase;
+    cursor: pointer;
+    padding: 1em 2em 1em 2em;
+    color: $fontC;
+    background-color: $btn_Bg;
+    letter-spacing: .14em;
+    font-weight: 700;
+    box-shadow: 0em 0em 0.666em -.2em $dropShadow;
+    outline: none;
+    &:hover {  // Sidebar tab hover color
+      color: $btn_HoverBg;
+    }
+  }
+}
+.venue-results {
+    height: 23em;
+    position: absolute;
+    overflow: auto;
+    top: 14em;
+    width: 20.5em;
+}
+
+.events-venues, .events-artists {
+  cursor: pointer;
   font-family: 'Avenir Next', Avenir, 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  padding: 1em;
   font-weight: 400;
-  color: #555;
+  color: #777;
   line-height: 1;
-  font-size: 1em;
+  margin-bottom: -1.5em;
+  padding-bottom: .1em;
+  padding-left: 1em;
   display: block;
-  overflow-y: auto;
+  ul {
+    list-style: none;
+    padding-left: 0;
+    font-size: 1.3em;
+  }
+
+  li {
+    font-size: 0.7em;
+  }
+
+  ul:hover,li:hover{
+    transition: all .16s cubic-bezier(0.4, -0.4, 0.57, 1.46);
+    color: #222;
+  }
+  ul:visited,li:visited{
+    color:black;
+  }
 }
 
 .search-button {
-  position: relative;
-  float: right;
-  margin-right: 4%; 
-  bottom: 0;
+  position: fixed;
+  bottom: 10.5em;
   cursor: pointer;
   padding: 1em 2em 1em 2em;
   color: white;
@@ -27,10 +71,14 @@ $btn_HoverBg: #7a7a7f;
   box-shadow: 0em 0em 0.666em -0.2em #999;
   outline: none;
   border: none;
+  right: 1em;
   &:hover {
     color: $btn_HoverBg;
   }
 }
+// .start-date {
+//   padding-bottom: 1%;
+// }
 
 .date-picker {
   padding-top: 2em;
@@ -38,39 +86,34 @@ $btn_HoverBg: #7a7a7f;
   font-family: inherit;
   font-weight: 400;
   text-align: center;
-  display: flex;
-  width: 96%;
-
-  .start-date-label {
-    padding: 5% 5% 5% 0;
-  }
-
-  .end-date-label {
-    padding: 5% 0 5% 5%;
-  }
+  position: absolute;
+  padding-left: 4em;
 
   .start-date-picker {
+    width: 100%;
+    padding: 5%;
     background-color: $btn_Bg;
     outline: none;
-    display: block;
-    float: left;
-    width: 80%;
     border-style: inset;
     text-align: center;
     border: 1px solid #999;
-    padding: 5%;
   }
 
   .end-date-picker {
+    width: 100%;
+    padding: 5%;
     background-color: $btn_Bg;
     outline: none;
-    display: block;
-    float: right;
-    width: 80%;
     border-style: inset;
     text-align: center;
     border: 1px solid #999;
-    padding: 5%;
-  }
+  } 
+}
 
+.start-date {
+  margin-bottom: .1em;
+}
+
+.end-date {
+  margin-bottom: .5em;
 }

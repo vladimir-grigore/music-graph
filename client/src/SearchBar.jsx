@@ -25,7 +25,7 @@ class SearchBar extends Component {
         <input
           id="search-form"
           className='artist-lookup'
-          placeholder="Search for artist.."
+          placeholder={this.props.placeholder}
           value={this.state.value}
           onKeyPress={this.handleEnterKey}
           onChange={this.handleKeyDown}

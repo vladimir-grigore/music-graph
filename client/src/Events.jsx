@@ -10,16 +10,12 @@ class Events extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isModalOpen: false,
-      eventTypeSearch: 'Venues',
-      queryResults: [
-         {Id: 1, Name: 'Commodore Ballroom', City: 'Vancouver', State: 'British Columbia', Country: 'CA'},
-         {Id: 2, Name: 'Commodore Barry Club', City: 'Philadelphia', State: 'Pennsylvannia', Country: 'US'},
-         {Id: 3, Name: 'Commodore Plaza', City: 'Coconut Grove', State: 'Florida', Country: 'US'},
-         {Id: 4, Name: 'Commodore Barry Park', City: 'Brooklyn', State: 'New York', Country: 'US'}
-      ],
+      isModalOpen: true,
+      eventTypeSearch: '',
+      queryResults: [],
       eventResults: [],
       selectionId: '',
+      selectionName: 'Search by name...',
       startDate: '',
       endDate: ''
     }
@@ -43,8 +39,8 @@ class Events extends Component {
     }
   }
 
-  addIdToState = (id) => {
-    this.setState({selectionId: id});
+  addIdToState = (id, name) => {
+    this.setState({selectionId: id, selectionName: name});
   }
 
   // Once event button is clicked set its type to state {either Artist or Venue}
@@ -109,7 +105,7 @@ class Events extends Component {
       return (
         <div>
           <div className='events'>
-            <SearchBar handleSearch={this.searchByName} />
+            <SearchBar placeholder={this.state.selectionName} handleSearch={this.searchByName} />
             <EventTypeButtons handleEventTypeButtons={this.handleEventTypeButtons} />
           </div>
           <Footer song={this.props.song} />
@@ -126,19 +122,24 @@ class Events extends Component {
       return (
         <div>
           <div className='events'>
-            <SearchBar handleSearch={this.searchByName} />
+            <SearchBar placeholder={this.state.selectionName} handleSearch={this.searchByName} />
             <EventTypeButtons handleEventTypeButtons={this.handleEventTypeButtons} />
             <div className="date-picker">
               <div className="start-date">
-                <div className="start-date-label">Start Date</div>
-                <DatePicker selected={this.state.startDate} dateFormat="YYYY-MM-DD" onChange={this.setStartDate} className="start-date-picker" />
+                <DatePicker placeholderText="start date"
+                            selected={this.state.startDate} dateFormat="YYYY-MM-DD" 
+                            onChange={this.setStartDate} 
+                            className="start-date-picker" />
               </div>
               <div className="end-date">
-                <div className="end-date-label">End Date</div>
-                <DatePicker selected={this.state.endDate} dateFormat="YYYY-MM-DD" onChange={this.setEndDate} className="end-date-picker" />
+                <DatePicker placeholderText="end date"
+                            selected={this.state.endDate} 
+                            dateFormat="YYYY-MM-DD" 
+                            onChange={this.setEndDate} 
+                            className="end-date-picker" />
               </div>
             </div>
-            <div>
+            <div className="venue-results">
               {queryResultsList}
             </div>
             <button className="search-button" onClick={this.getEvents}>Search</button>
@@ -157,16 +158,24 @@ class Events extends Component {
           <div className='events'>
             <EventsModal isOpen={this.state.isModalOpen} onClose={this.closeModal} events={this.state.eventResults.Events} 
                          eventTypeSearch={this.state.eventTypeSearch} />
-  
-            <SearchBar handleSearch={this.searchByName} />
+            <SearchBar placeholder={this.state.selectionName} handleSearch={this.searchByName} />
             <EventTypeButtons handleEventTypeButtons={this.handleEventTypeButtons} />
             <div className="date-picker">
-              <div className="start-date-label">Start Date</div>
-              <DatePicker selected={this.state.startDate} dateFormat="YYYY-MM-DD" onChange={this.setStartDate} className="start-date-picker" />
-              <div className="end-date-label">End Date</div>
-              <DatePicker selected={this.state.endDate} dateFormat="YYYY-MM-DD" onChange={this.setEndDate} className="end-date-picker" />
+              <div className="start-date">
+                <DatePicker placeholderText="start date"
+                            selected={this.state.startDate} dateFormat="YYYY-MM-DD" 
+                            onChange={this.setStartDate} 
+                            className="start-date-picker" />
+              </div>
+              <div className="end-date">
+                <DatePicker placeholderText="end date"
+                            selected={this.state.endDate} 
+                            dateFormat="YYYY-MM-DD" 
+                            onChange={this.setEndDate} 
+                            className="end-date-picker" />
+              </div>
             </div>
-            <div>
+            <div className="venue-results">
               {queryResultsList}
             </div>
             <button className="search-button" onClick={this.getEvents}>Search</button>
@@ -186,7 +195,7 @@ class SearchResultsList extends Component {
 
   handleClick = (e) => {
     e.stopPropagation();
-    this.props.addIdToState(this.props.id);
+    this.props.addIdToState(this.props.id, this.props.item.Name);
   }
 
   render() {
@@ -196,9 +205,7 @@ class SearchResultsList extends Component {
           <ul onClick={this.handleClick}>
             {this.props.item.Name}
             <li>
-              {this.props.item.City}
-              {this.props.item.State}
-              {this.props.item.Country}
+             {this.props.item.City}, {this.props.item.State}, {this.props.item.Country}
             </li>
           </ul>
         </div>
@@ -248,7 +255,7 @@ class EventsModal extends Component {
           <tr key={event_id}>
             <td>{date}</td>
             <td>{artist_name}</td>
-            <td><a href={this.props.ticket_url} className="buy-tickets">Buy</a></td>
+            <td><a href={ticket_url} className="buy-tickets">Buy</a></td>
           </tr>
         )
       });
@@ -284,7 +291,13 @@ class EventsModal extends Component {
             state_code = event.Venue.StateCode.trim();
             country_code = event.Venue.CountryCode.trim();
           });
-          return <CustomTable key={event_id} date={date} venue_name={venue_name} city_name={city_name} state_code={state_code} country_code={country_code} ticket_url={ticket_url} />
+          return <CustomTable key={event_id} 
+                              date={date} 
+                              venue_name={venue_name} 
+                              city_name={city_name} 
+                              state_code={state_code} 
+                              country_code={country_code} 
+                              ticket_url={ticket_url} />
         }
       });
       return (
@@ -322,7 +335,7 @@ class CustomTable extends Component {
         <td>{this.props.city_name}</td>
         <td>{this.props.state_code}</td>
         <td>{this.props.country_code}</td>
-        <td><a href={this.props.ticket_url}>Buy</a></td>
+        <td><a href={this.props.ticket_url} className="buy-tickets">Buy</a></td>
       </tr>
     );
   }
@@ -337,7 +350,6 @@ class EventTypeButtons extends Component {
   render(){
     return (
       <div>
-        <h1>Events</h1>
         <span className='form-venueBtn Venues' onClick={this.formSelector}>By Venue</span>
         <span className='form-artistBtn Artists' onClick={this.formSelector}>By Artist</span>
       </div>

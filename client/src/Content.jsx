@@ -14,7 +14,7 @@ class Content extends Component {
     if (tab === 'Artists') {
       return (
         <div className="artists">
-          <SearchBar handleSearch={this.props.lookUpArtist} />
+          <SearchBar placeholder="Search for artist..." handleSearch={this.props.lookUpArtist} />
           {Object.keys(this.props.data)
             .map(item => <Artist key={item}
                                  id={item}

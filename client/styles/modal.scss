@@ -1,58 +1,3 @@
-.events {  // Events Tab
-  position: absolute;
-  top: 0;
-  padding-top: 1em;
-
-  h1 {  // Events tab header
-    padding: 1em;
-    margin: 0;
-    width: 16.04em;
-    background: $btn_Bg;
-    color: $fontC;
-    box-shadow: 0em 0em 0.7em -0.2em #999;
-    font-size: 1.13em;
-    font-weight: 700;
-    text-align: center;
-    font-style: oblique;
-  }
-  ul {  // styling for the album names
-    margin: 0;
-    padding: 0;
-    overflow-x: auto;
-    top: initial;
-    right: initial;
-    height: initial;
-    max-height: 85%;
-
-    padding: inherit;
-    padding-bottom: .5em;
-    font-weight: 400;
-    color: $sideMenu_text;
-    li {  // styling for the track names
-      font-size: .8em;
-      line-height: 1.35em;
-      color: $sideMenu_text;
-    }
-  }
-  .events ul li:hover{  // on Playlists hover
-    color: #222;
-  }
-  .form-venueBtn,
-  .form-artistBtn {  // Buttons to toggle between quering by venue || artist
-    cursor: pointer;
-    padding: .7em 2em 1em 2em;
-    color: $fontC;
-    background-color: $btn_Bg;
-    text-transform: uppercase;
-    letter-spacing: .14em;
-    font-weight: 700;
-    box-shadow: 0em 0em 0.666em -.2em $dropShadow;
-    outline: none;
-    &:hover {  // Sidebar tab hover color
-      color: $btn_HoverBg;
-    }
-  }
-}
 .events-modal {  // Events Modal pop-up
   position: fixed;
   top: 50.18%;
@@ -75,13 +20,11 @@
 
   #gradient-style th {  // Table Header
     font-size: 1.13em;
-    font-weight: normal;
+    font-weight: inherit;
     padding: 8px;
     background: $btn_Bg;
     border-top: 2px solid #8a8a8a;
     border-bottom: 1px solid #313131;
-    font-style: oblique;
-    font-weight: 700;
     color: black;
   }
 
@@ -96,7 +39,6 @@
   #gradient-style tfoot {  // Table footer
     tr td{
       font-size: 1.13em;
-      font-style: oblique;
       color: rgb(66, 66, 66);
     }
   }
@@ -104,6 +46,10 @@
   #gradient-style tbody tr:hover td {  // On Hover
     background: #a7a7a7;
     color: $fontC;
+  }
+
+  a.buy-tickets {
+    color: black;
   }
 }  // End of events modal
 
