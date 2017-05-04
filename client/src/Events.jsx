@@ -239,7 +239,7 @@ class EventsModal extends Component {
   }
 
   render() {
-    const TicketMasterLogo = path.resolve(__dirname, '/img/TicketmasterLogo.png');
+    const TicketMasterLogo = path.resolve(__dirname, '/img/TicketmasterLogo_d.png');
     if (this.props.isOpen === false) return null;
     const eventResults = this.props.events; // [{}] -> events={this.state.eventResults.Events} -> [{Artists}, {Venues}]
     if (this.props.eventTypeSearch === 'Venues') {
@@ -331,7 +331,7 @@ class EventsModal extends Component {
 // Rows for each Artist
 class CustomTable extends Component {
   render(){
-    const TicketMasterLogo = path.resolve(__dirname, '/img/TicketmasterLogo.png');
+    const TicketMasterLogo = path.resolve(__dirname, '/img/TicketmasterLogo_d.png');
     return (
       <tr key={this.props.event_id}>
         <td>{this.props.date}</td>
