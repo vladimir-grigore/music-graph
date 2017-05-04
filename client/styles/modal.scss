@@ -1,8 +1,8 @@
 .events-modal {  // Events Modal pop-up
-  position: fixed;
+  position: absolute;
   top: 50.18%;
   left: 40%;
-  // height: 75%;
+  height: 75%;
   width: 65%;
   transform: translate(-50%, -50%);
   z-index: 3;
