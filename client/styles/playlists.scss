@@ -12,14 +12,14 @@ $sideMenu_text: #777;
   h1 {
     color: $sideMenu_text;
     margin: 0;
-    padding-bottom: .35em;
+    padding-bottom: .7em;
+    line-height: 1;
     font-size: 2em;
     font-weight: 500;
   }
 
   .list__playlists{
     font-weight: 400;
-    // line-height: .9em;
     line-height: 1;
     font-size: 1.5em;
     margin-bottom: -.4em;
