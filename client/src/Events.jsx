@@ -4,6 +4,7 @@ import SearchBar from './SearchBar.jsx';
 import Footer from './Footer.jsx';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
+const path = require('path');
 const events = new EventsAPI();
 
 class Events extends Component {
@@ -45,7 +46,7 @@ class Events extends Component {
 
   // Once event button is clicked set its type to state {either Artist or Venue}
   handleEventTypeButtons = (eventType) => {
-    this.setState({ eventTypeSearch: eventType, queryResults: [], eventResults: [], startDate: '', endDate: '', selectionId: '' })
+    this.setState({ eventTypeSearch: eventType, queryResults: [], eventResults: [], startDate: '', endDate: '', selectionId: '', selectionName: 'Search by name...' })
   }
 
   // Use the name of either artist or venue and get its ID
@@ -237,6 +238,7 @@ class EventsModal extends Component {
   }
 
   render() {
+    const TicketMasterLogo = path.resolve(__dirname, '/img/TicketmasterLogo.png');
     if (this.props.isOpen === false) return null;
     const eventResults = this.props.events; // [{}] -> events={this.state.eventResults.Events} -> [{Artists}, {Venues}]
     if (this.props.eventTypeSearch === 'Venues') {
@@ -255,7 +257,7 @@ class EventsModal extends Component {
           <tr key={event_id}>
             <td>{date}</td>
             <td>{artist_name}</td>
-            <td><a href={ticket_url} className="buy-tickets">Buy</a></td>
+            <td><a href={ticket_url}><img className="buy-tickets" src={TicketMasterLogo} alt="buy-ticket"/></a></td>
           </tr>
         )
       });
@@ -328,6 +330,7 @@ class EventsModal extends Component {
 // Rows for each Artist
 class CustomTable extends Component {
   render(){
+    const TicketMasterLogo = path.resolve(__dirname, '/img/TicketmasterLogo.png');
     return (
       <tr key={this.props.event_id}>
         <td>{this.props.date}</td>
@@ -335,7 +338,7 @@ class CustomTable extends Component {
         <td>{this.props.city_name}</td>
         <td>{this.props.state_code}</td>
         <td>{this.props.country_code}</td>
-        <td><a href={this.props.ticket_url} className="buy-tickets">Buy</a></td>
+        <td><a href={this.props.ticket_url} ><img className="buy-tickets" src={TicketMasterLogo} alt="buy-ticket"/></a></td>
       </tr>
     );
   }

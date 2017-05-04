@@ -31,7 +31,7 @@ class Content extends Component {
     } else if (tab === 'Playlists') {
       return <Playlists />;
     } else {
-      return <Events song={this.props.song} />
+      return <Events song='' />
     }
   }
   render() {

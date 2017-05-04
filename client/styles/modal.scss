@@ -48,8 +48,11 @@
     color: $fontC;
   }
 
-  a.buy-tickets {
-    color: black;
+  img.buy-tickets {
+    border-style: none;
+    max-width: 100%;
+    width: auto;
+    height: 10%;
   }
 }  // End of events modal
 
