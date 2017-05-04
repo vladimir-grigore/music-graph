@@ -5,7 +5,7 @@ import Footer from './Footer.jsx';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import classNames from'classnames';
-const path = require('path');
+import path from 'path';
 const events = new EventsAPI();
 
 class Events extends Component {

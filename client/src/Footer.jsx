@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import ReactAudioPlayer from 'react-audio-player';
-const path = require('path');
+import path from 'path';
 
 class Footer extends Component {
   constructor(props){

@@ -1,7 +1,7 @@
 import SpotifyWebApi from 'spotify-web-api-node';
 import 'whatwg-fetch';
 import restful, { fetchBackend } from 'restful.js';
-const path = require('path');
+import path from 'path';
 
 class SpotifyAPI {
   constructor(){
