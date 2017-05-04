@@ -10,7 +10,109 @@
 //          {Id: 8, Name: 'Commodore Barry Park', City: 'Brooklyn', State: 'New York', Country: 'US'}
 //       ],
 /////////////////Venues search//////////////////////      
-
+//////////////////Fake Events////////////////////		
+const fakeEnvents = {Events: [
+  {		
+  Id: 2927622,		
+  Date: '2017-05-10T00:00:00',		
+  TicketUrl: 'http://ticketmaster.evyy.net/c/252938/264167/4272?u=http%3A%2F%2Fticketmaster.com%2Fevent%2F15005242EECB475C',		
+  Venue: {		
+    City: 'Baltimore ',		
+    CountryCode: 'US',		
+    Name: 'M&T Bank Stadium',		
+    StateCode: 'MD'		
+  }		
+},		
+{		
+  Id: 2927623,		
+  Date: '2017-05-12T00:00:00',		
+  TicketUrl: 'http://ticketmaster.evyy.net/c/252938/264167/4272?u=http%3A%2F%2Fticketmaster.com%2Fevent%2F02005248D8DB65D7',		
+  Venue: {		
+    City: 'Philadelphia',		
+    CountryCode: 'US',		
+    Name: 'Lincoln Financial Field',		
+    StateCode: 'PA'		
+  }		
+},		
+{		
+  Id: 2927624,		
+  Date: '2017-05-14T00:00:00',		
+  TicketUrl: 'http://ticketmaster.evyy.net/c/252938/264167/4272?u=http%3A%2F%2Fticketmaster.com%2Fevent%2F00005247E37848EF',		
+  Venue: {		
+    City: 'East Rutherford',		
+    CountryCode: 'US',		
+    Name: 'MetLife Stadium ',		
+    StateCode: 'NJ'		
+  }		
+},
+ {		
+  Id: 2927625,		
+  Date: '2017-05-10T00:00:00',		
+  TicketUrl: 'http://ticketmaster.evyy.net/c/252938/264167/4272?u=http%3A%2F%2Fticketmaster.com%2Fevent%2F15005242EECB475C',		
+  Venue: {		
+    City: 'Baltimore ',		
+    CountryCode: 'US',		
+    Name: 'M&T Bank Stadium',		
+    StateCode: 'MD'		
+  }		
+},		
+{		
+  Id: 29276236,		
+  Date: '2017-05-12T00:00:00',		
+  TicketUrl: 'http://ticketmaster.evyy.net/c/252938/264167/4272?u=http%3A%2F%2Fticketmaster.com%2Fevent%2F02005248D8DB65D7',		
+  Venue: {		
+    City: 'Philadelphia',		
+    CountryCode: 'US',		
+    Name: 'Lincoln Financial Field',		
+    StateCode: 'PA'		
+  }		
+},		
+{		
+  Id: 29276246,		
+  Date: '2017-05-14T00:00:00',		
+  TicketUrl: 'http://ticketmaster.evyy.net/c/252938/264167/4272?u=http%3A%2F%2Fticketmaster.com%2Fevent%2F00005247E37848EF',		
+  Venue: {		
+    City: 'East Rutherford',		
+    CountryCode: 'US',		
+    Name: 'MetLife Stadium ',		
+    StateCode: 'NJ'		
+  }		
+},
+ {		
+  Id: 29276227,		
+  Date: '2017-05-10T00:00:00',		
+  TicketUrl: 'http://ticketmaster.evyy.net/c/252938/264167/4272?u=http%3A%2F%2Fticketmaster.com%2Fevent%2F15005242EECB475C',		
+  Venue: {		
+    City: 'Baltimore ',		
+    CountryCode: 'US',		
+    Name: 'M&T Bank Stadium',		
+    StateCode: 'MD'		
+  }		
+},		
+{		
+  Id: 29276239,		
+  Date: '2017-05-12T00:00:00',		
+  TicketUrl: 'http://ticketmaster.evyy.net/c/252938/264167/4272?u=http%3A%2F%2Fticketmaster.com%2Fevent%2F02005248D8DB65D7',		
+  Venue: {		
+    City: 'Philadelphia',		
+    CountryCode: 'US',		
+    Name: 'Lincoln Financial Field',		
+    StateCode: 'PA'		
+  }		
+},		
+{		
+  Id: 297624,		
+  Date: '2017-05-14T00:00:00',		
+  TicketUrl: 'http://ticketmaster.evyy.net/c/252938/264167/4272?u=http%3A%2F%2Fticketmaster.com%2Fevent%2F00005247E37848EF',		
+  Venue: {		
+    City: 'East Rutherford',		
+    CountryCode: 'US',		
+    Name: 'MetLife Stadium ',		
+    StateCode: 'NJ'		
+  }		
+}
+]}		
+ //////////////////Fake Events////////////////////
 
 
 import React, {Component} from 'react';
@@ -25,9 +127,10 @@ class Events extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isModalOpen: false,
+      isModalOpen: true,
       eventTypeSearch: '',
       queryResults: [],
+      // eventResults: fakeEnvents,
       eventResults: [],
       selectionId: '',
       selectionName: 'Search by name...',
@@ -173,14 +276,24 @@ class Events extends Component {
           <div className='events'>
             <EventsModal isOpen={this.state.isModalOpen} onClose={this.closeModal} events={this.state.eventResults.Events} 
                          eventTypeSearch={this.state.eventTypeSearch} />
-  
             <SearchBar placeholder={this.state.selectionName} handleSearch={this.searchByName} />
             <EventTypeButtons handleEventTypeButtons={this.handleEventTypeButtons} />
             <div className="date-picker">
-              <DatePicker selected={this.state.startDate} dateFormat="YYYY-MM-DD" onChange={this.setStartDate} className="start-date-picker" />
-              <DatePicker selected={this.state.endDate} dateFormat="YYYY-MM-DD" onChange={this.setEndDate} className="end-date-picker" />
+              <div className="start-date">
+                <DatePicker placeholderText="start date"
+                            selected={this.state.startDate} dateFormat="YYYY-MM-DD" 
+                            onChange={this.setStartDate} 
+                            className="start-date-picker" />
+              </div>
+              <div className="end-date">
+                <DatePicker placeholderText="end date"
+                            selected={this.state.endDate} 
+                            dateFormat="YYYY-MM-DD" 
+                            onChange={this.setEndDate} 
+                            className="end-date-picker" />
+              </div>
             </div>
-            <div>
+            <div className="venue-results">
               {queryResultsList}
             </div>
             <button className="search-button" onClick={this.getEvents}>Search</button>
@@ -334,7 +447,7 @@ class CustomTable extends Component {
         <td>{this.props.city_name}</td>
         <td>{this.props.state_code}</td>
         <td>{this.props.country_code}</td>
-        <td><a href={this.props.ticket_url}>Buy</a></td>
+        <td><a href={this.props.ticket_url} className="buy-tickets">Buy</a></td>
       </tr>
     );
   }

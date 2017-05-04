@@ -2,7 +2,7 @@
   position: fixed;
   top: 50.18%;
   left: 40%;
-  height: 75%;
+  // height: 75%;
   width: 65%;
   transform: translate(-50%, -50%);
   z-index: 3;
@@ -20,13 +20,11 @@
 
   #gradient-style th {  // Table Header
     font-size: 1.13em;
-    font-weight: normal;
+    font-weight: inherit;
     padding: 8px;
     background: $btn_Bg;
     border-top: 2px solid #8a8a8a;
     border-bottom: 1px solid #313131;
-    font-style: oblique;
-    font-weight: 700;
     color: black;
   }
 
@@ -41,7 +39,6 @@
   #gradient-style tfoot {  // Table footer
     tr td{
       font-size: 1.13em;
-      font-style: oblique;
       color: rgb(66, 66, 66);
     }
   }
@@ -49,6 +46,10 @@
   #gradient-style tbody tr:hover td {  // On Hover
     background: #a7a7a7;
     color: $fontC;
+  }
+
+  a.buy-tickets {
+    color: black;
   }
 }  // End of events modal
 
