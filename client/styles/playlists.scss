@@ -10,9 +10,11 @@ $sideMenu_text: #777;
   padding: 4.5em 1em 10.6em 1.9em;
 
   h1 {
-    color: #333;
+    color: $sideMenu_text;
     margin: 0;
     padding-bottom: .35em;
+    font-size: 2em;
+    font-weight: 500;
   }
 
   .list__playlists{

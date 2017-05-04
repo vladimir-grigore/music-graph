@@ -5,7 +5,7 @@ import Visualizer from './visualizer.js';
 import User from './User.jsx';
 import Toggle from './Toggle.jsx';
 import auth from './auth.js';
-
+const path = require('path');
 const spotify_API = new SpotifyAPI();
 const network = document.getElementById('network');
 const visualizer = new Visualizer(network, spotify_API);
@@ -97,6 +97,7 @@ class App extends Component {
   }
 
   render() {
+    const vignette = path.resolve(__dirname, '/img/vignette.png');
     if (this.state.open == 'open') {
       return (
         <div>

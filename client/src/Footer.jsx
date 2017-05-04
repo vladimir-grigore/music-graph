@@ -11,6 +11,9 @@ class Footer extends Component {
     const SpotifyLogo = path.resolve(__dirname, '/img/SpotifyLogo_t.png');
     const JamBaseLogo = path.resolve(__dirname, '/img/JamBaseLogo_t.png');
     const VisJsLogo = path.resolve(__dirname, '/img/VisJsLogo_t.png');
+    const ReactLogo = path.resolve(__dirname, '/img/ReactLogo.png');
+    const NodeLogo = path.resolve(__dirname, '/img/NodeLogo.png');
+    const vignette = path.resolve(__dirname, '/img/vignette.png');
     if(Object.keys(this.props.song).length !== 0){
       const albumIMG = this.props.song.albumCover;
       return (
@@ -25,9 +28,12 @@ class Footer extends Component {
       return (
         <div className="footer-div logos">
           <div className="powered-by">Powered by</div>
-          <img src={SpotifyLogo} className="spotify-logo" alt="spotify-logo"/>
-          <img src={JamBaseLogo} className="jambase-logo" alt="jambase-logo"/>
-          <img src={VisJsLogo} className="visjs-logo" alt="visjs-logo"/>
+          <a href="https://www.spotify.com/"><img src={SpotifyLogo} className="spotify-logo" alt="spotify-logo"/></a>
+          <a href="http://www.jambase.com"><img src={JamBaseLogo} className="jambase-logo" alt="jambase-logo"/></a>
+          <a href="http://visjs.org/"><img src={VisJsLogo} className="visjs-logo" alt="visjs-logo"/></a>
+          <a href="https://reactjs.net/"><img src={ReactLogo} className="reactjs-logo" alt="reactjs-logo"/></a>
+          <a href="https://nodejs.org/en/"><img src={NodeLogo} className="nodejs-logo" alt="nodejs-logo"/></a>
+          <img src={vignette} className="footer-vignette" alt="vignette"/>
         </div>
       )
     }
