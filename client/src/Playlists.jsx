@@ -133,12 +133,12 @@ class Playlists extends Component {
           <Footer song={this.state.song} />
         </div>
       )
-    } else if(this.state.playlists === 'token_expired...') {
+    } else if(this.state.playlists === 'token_expired') {
       // Auth tokens expire after 60 min, users remain logged in
       return (
         <div>
           <div className="playlists">
-            <SearchBar placeholder="Search playlist.." handleSearch={this.handleSearch} />
+            <SearchBar placeholder="Search playlist..." handleSearch={this.handleSearch} />
             <h1>Your session has expired!</h1>
           </div>
           <Footer song={this.state.song} />
