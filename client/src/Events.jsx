@@ -4,7 +4,7 @@ import SearchBar from './SearchBar.jsx';
 import Footer from './Footer.jsx';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
-import classNames from'classnames';
+import classNames from 'classnames';
 import path from 'path';
 const events = new EventsAPI();
 
@@ -35,7 +35,7 @@ class Events extends Component {
   getEvents = (e) => {
     e.stopPropagation();
     if (this.state.selectionId && this.state.startDate && this.state.endDate) {
-      this.queryByDate(this.state.selectionId);  
+      this.queryByDate(this.state.selectionId);
     } else if(this.state.selectionId) {
       this.queryById(this.state.selectionId);
     }
@@ -119,7 +119,7 @@ class Events extends Component {
         <SearchResultsList key={item.Id} id={item.Id}
                            item={item} eventTypeSearch={this.state.eventTypeSearch}
                            addIdToState={this.addIdToState}
-                           />);                           
+                           />);
       // Render the list of results from first query
       return (
         <div>
@@ -129,15 +129,15 @@ class Events extends Component {
             <div className="date-picker">
               <div className="start-date">
                 <DatePicker placeholderText="start date"
-                            selected={this.state.startDate} dateFormat="YYYY-MM-DD" 
-                            onChange={this.setStartDate} 
+                            selected={this.state.startDate} dateFormat="YYYY-MM-DD"
+                            onChange={this.setStartDate}
                             className="start-date-picker" />
               </div>
               <div className="end-date">
                 <DatePicker placeholderText="end date"
-                            selected={this.state.endDate} 
-                            dateFormat="YYYY-MM-DD" 
-                            onChange={this.setEndDate} 
+                            selected={this.state.endDate}
+                            dateFormat="YYYY-MM-DD"
+                            onChange={this.setEndDate}
                             className="end-date-picker" />
               </div>
             </div>
@@ -154,26 +154,26 @@ class Events extends Component {
         <SearchResultsList key={item.Id} id={item.Id}
                            item={item} eventTypeSearch={this.state.eventTypeSearch}
                            addIdToState={this.addIdToState}
-                           />);  
+                           />);
       return (
         <div>
           <div className='events'>
-            <EventsModal isOpen={this.state.isModalOpen} onClose={this.closeModal} events={this.state.eventResults.Events} 
+            <EventsModal isOpen={this.state.isModalOpen} onClose={this.closeModal} events={this.state.eventResults.Events}
                          eventTypeSearch={this.state.eventTypeSearch} />
             <SearchBar placeholder={this.state.selectionName} handleSearch={this.searchByName} />
             <EventTypeButtons handleEventTypeButtons={this.handleEventTypeButtons} />
             <div className="date-picker">
               <div className="start-date">
                 <DatePicker placeholderText="start date"
-                            selected={this.state.startDate} dateFormat="YYYY-MM-DD" 
-                            onChange={this.setStartDate} 
+                            selected={this.state.startDate} dateFormat="YYYY-MM-DD"
+                            onChange={this.setStartDate}
                             className="start-date-picker" />
               </div>
               <div className="end-date">
                 <DatePicker placeholderText="end date"
-                            selected={this.state.endDate} 
-                            dateFormat="YYYY-MM-DD" 
-                            onChange={this.setEndDate} 
+                            selected={this.state.endDate}
+                            dateFormat="YYYY-MM-DD"
+                            onChange={this.setEndDate}
                             className="end-date-picker" />
               </div>
             </div>
@@ -294,12 +294,12 @@ class EventsModal extends Component {
             state_code = event.Venue.StateCode.trim();
             country_code = event.Venue.CountryCode.trim();
           });
-          return <CustomTable key={event_id} 
-                              date={date} 
-                              venue_name={venue_name} 
-                              city_name={city_name} 
-                              state_code={state_code} 
-                              country_code={country_code} 
+          return <CustomTable key={event_id}
+                              date={date}
+                              venue_name={venue_name}
+                              city_name={city_name}
+                              state_code={state_code}
+                              country_code={country_code}
                               ticket_url={ticket_url} />
         }
       });

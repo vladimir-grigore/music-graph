@@ -1,14 +1,8 @@
 const WIDTH_SCALE = 2,
   GREEN = '#107c15',
-  // GREEN = '#7CBF7F', // original
   BLUE = '#4366b3',
   RED = '#c62058',
   PURPLE = '#5a28c2',
-  // BLUE = '#6584C7',  // original
-  // RED = '#DC4B7C',   // original
-  // PURPLE = '#8D65E0',  // original
-  // FONT_GRAY = '#F0F0F0', // original
-  // EDGE_GRAY = '#A6A3A8'  // original
   FONT_GRAY = 'black',
   EDGE_GRAY = '#A6A3A8',
   BORDER = '#777'
@@ -32,17 +26,11 @@ export default class Visualizer {
     };
 
     this.options = Object.assign({}, {
-      // nodes: {
-      //   borderWidth: 4,
-      // },
       edges: {
-        // color: FONT_GRAY,
         color: { inherit: true },
-        // smooth: true
         smooth: {
           enabled: true,
           type: 'curvedCCW',
-          // forceDirection: 'none',
           roundness: .05,
         }
       },
@@ -58,12 +46,6 @@ export default class Visualizer {
         maxVelocity: 19,
         minVelocity: .75,
         timestep: .5,
-        // barnesHut: {
-        //   gravitationalConstant: -3000
-        // },
-        // stabilization: {
-        //   iterations: 5000
-        // }
       },
       groups: {
         artist: {
@@ -125,7 +107,6 @@ export default class Visualizer {
         this.updateCallback();
         break;
       case 'track':
-        // let data = await this.spotify_API.get_track(node.id);
         let trackID = node.id;
         let artistID = '';
         let albumID = '';
