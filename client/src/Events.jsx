@@ -4,6 +4,7 @@ import SearchBar from './SearchBar.jsx';
 import Footer from './Footer.jsx';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
+import classNames from'classnames';
 const path = require('path');
 const events = new EventsAPI();
 
@@ -346,15 +347,34 @@ class CustomTable extends Component {
 
 // To get information on which event is desired -> Either Venue || Artist
 class EventTypeButtons extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      venues: '',
+      artists: ''
+    }
+  }
+
   formSelector = (event) => {
+    event.stopPropagation();
     const eventType = event.target.className.split(' ')[1];
+    if (eventType === 'Venues') {
+      this.setState({ venues: ' selected', artists: '' });
+    } else if (eventType === 'Artists') {
+      this.setState({ venues: '', artists: ' selected' });
+    } else {
+      this.setState({ venues: '', artists: '' });
+    }
     this.props.handleEventTypeButtons(eventType);
   }
+
   render(){
+    let venuesBtn = classNames('form-venueBtn', 'Venues', this.state.venues);
+    let artistsBtn = classNames('form-artistBtn', 'Artists', this.state.artists);
     return (
       <div>
-        <span className='form-venueBtn Venues' onClick={this.formSelector}>By Venue</span>
-        <span className='form-artistBtn Artists' onClick={this.formSelector}>By Artist</span>
+        <span className={venuesBtn} onClick={this.formSelector}>By Venue</span>
+        <span className={artistsBtn} onClick={this.formSelector}>By Artist</span>
       </div>
     );
   }
