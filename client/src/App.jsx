@@ -24,6 +24,14 @@ class App extends Component {
     visualizer.clickTrack = this.trackMenuClick;
   }
 
+  componentWillMount = () => {
+    this.loginUser();
+    // Set Spotify API authentication token
+    // Used in getting user info and playlists details
+    const token = localStorage.getItem('access_token');
+    spotify_API.set_api_token(token);
+  }
+
   // Keep the artist/album/tracks strucutre as a component state
   handleUpdate = async () => {
     const folderStructure = await visualizer.getFolderStructure();

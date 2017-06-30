@@ -9,17 +9,24 @@ class SpotifyAPI {
     this.apiFallback = restful('https://api.spotify.com/v1', fetchBackend(fetch));
   }
 
-  set_api_token(token) {
+  set_api_token = (token) => {
     this.api.setAccessToken(token);
   }
 
+  
   search_artists = async function(name) {
     const MissingArtistImage = path.resolve(__dirname, '/img/MissingCover.png');
-    try {
-      const data = await this.api.searchArtists(name);
+    let auth_token = localStorage.getItem('access_token');
+    this.apiFallback.header('Accept', 'application/json');
+    this.apiFallback.header('Authorization', `Bearer ${auth_token}`);
+    const url = this.apiFallback.custom(`search?q=${name}&type=artist`);
+    
+    try{
+      let data = await url.get();
       const artists = [];
+      const MissingArtistImage = path.resolve(__dirname, '/img/MissingCover.png');
       // Filter artist by popularity
-      data.body.artists.items.forEach(function(item){
+      data.body().data().artists.items.forEach(function(item){
         if (item.popularity > 0) {
           artists.push(item);
         }
@@ -32,9 +39,33 @@ class SpotifyAPI {
         popularity: item.popularity
       }));
     } catch(err) {
-      console.error(err);
+      return err.statusCode;
     }
   }
+
+  // Does not work anymore - auth token is required
+  // search_artists = async function(name) {
+  //   const MissingArtistImage = path.resolve(__dirname, '/img/MissingCover.png');
+  //   try {
+  //     const data = await this.api.searchArtists(name);
+  //     const artists = [];
+  //     // Filter artist by popularity
+  //     data.body.artists.items.forEach(function(item){
+  //       if (item.popularity > 0) {
+  //         artists.push(item);
+  //       }
+  //     });
+
+  //     return artists.map(item => ({ 
+  //       id: item.id, 
+  //       name: item.name, 
+  //       image: item.images.length > 0 ? item.images[item.images.length - 1].url : MissingArtistImage,
+  //       popularity: item.popularity
+  //     }));
+  //   } catch(err) {
+  //     console.error(err);
+  //   }
+  // }
   
   get_albums_for_artist = async function(artistID) {
     try {
