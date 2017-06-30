@@ -69,8 +69,14 @@ class SpotifyAPI {
   
   get_albums_for_artist = async function(artistID) {
     try {
-      const data = await this.api.getArtistAlbums(artistID, {limit: 20, market: 'US'})
-      const ids = data.body.items.map(x => x.id);
+      let auth_token = localStorage.getItem('access_token');
+      this.apiFallback.header('Accept', 'application/json');
+      this.apiFallback.header('Authorization', `Bearer ${auth_token}`);
+      const url = this.apiFallback.custom(`artists/${artistID}/albums?market=US&limit=20`);
+      let data = await url.get();
+
+      // const data = await this.api.getArtistAlbums(artistID, {limit: 20, market: 'US'})
+      const ids = data.body().data().items.map(x => x.id);
       const result = await this.api.getAlbums(ids);
       return result.body.albums;
     } catch(err) {
