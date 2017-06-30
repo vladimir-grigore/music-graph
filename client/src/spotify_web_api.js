@@ -72,13 +72,17 @@ class SpotifyAPI {
       let auth_token = localStorage.getItem('access_token');
       this.apiFallback.header('Accept', 'application/json');
       this.apiFallback.header('Authorization', `Bearer ${auth_token}`);
-      const url = this.apiFallback.custom(`artists/${artistID}/albums?market=US&limit=20`);
-      let data = await url.get();
-
+      const artist_url = this.apiFallback.custom(`artists/${artistID}/albums?market=US&limit=20`);
+      let artist_data = await artist_url.get();
       // const data = await this.api.getArtistAlbums(artistID, {limit: 20, market: 'US'})
-      const ids = data.body().data().items.map(x => x.id);
-      const result = await this.api.getAlbums(ids);
-      return result.body.albums;
+      if(artist_data.body().data().items.length > 0){
+        const ids = artist_data.body().data().items.map(x => x.id).join();
+        const albums_url = this.apiFallback.custom(`albums/?ids=${ids}`);
+        let albums_data = await albums_url.get();
+        // const result = await this.api.getAlbums(ids);
+
+        return albums_data.body().data().albums;
+      }
     } catch(err) {
       console.error(err);
     }
