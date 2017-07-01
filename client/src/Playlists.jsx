@@ -89,7 +89,6 @@ class Playlists extends Component {
   // Handle clicks on each track
   trackMenuClick = async (trackId) => {
     let data = await spotify_API.get_track(trackId);
-    console.log("track", data)
     const albumCover = data.album.images[0].url;
     const artistName = data.artists[0].name;
     const trackUrl = data.preview_url;
