@@ -24,6 +24,7 @@ class App extends Component {
     visualizer.clickTrack = this.trackMenuClick;
   }
 
+  //Temporary - will refactor -
   componentWillMount = () => {
     this.loginUser();
     // Set Spotify API authentication token
@@ -51,7 +52,7 @@ class App extends Component {
   }
 
   // Handles the track clicks on the side bar
-  trackMenuClick = (artistID, albumID, trackID) => {
+  trackMenuClick = async (artistID, albumID, trackID) => {
     const albumCover = this.state.artists[artistID].albums[albumID].image;
     const artistName = this.state.artists[artistID].name;
     const trackUrl = this.state.artists[artistID].albums[albumID].tracks[trackID].url;
