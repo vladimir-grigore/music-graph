@@ -8,6 +8,15 @@
   position: fixed;
   padding: 4.5em 1em 10.6em 1.9em;
 
+  h1 {
+    color: $sideMenu_text;
+    margin: 0;
+    padding-bottom: .7em;
+    line-height: 1;
+    font-size: 2em;
+    font-weight: 500;
+  }
+
   .list__artists h1{
     color: $sideMenu_text;
     cursor: pointer;

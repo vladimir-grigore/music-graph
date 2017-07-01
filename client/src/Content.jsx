@@ -12,22 +12,32 @@ class Content extends Component {
 
   handleContent = (tab) => {
     if (tab === 'Artists') {
-      return (
-        <div className="artists">
-          <SearchBar placeholder="Search for artist..." handleSearch={this.props.lookUpArtist} />
-          {Object.keys(this.props.data)
-            .map(item => <Artist key={item}
-                                 id={item}
-                                 value={this.props.data[item].name}
-                                 albums={this.props.data[item].albums}
-                                 color={this.props.data[item].color}
-                                 artistMenuClick={this.props.artistMenuClick}
-                                 albumMenuClick={this.props.albumMenuClick}
-                                 trackMenuClick={this.props.trackMenuClick}
-                                 />)}
-          <Footer song={this.props.song} />
-        </div>
-      )
+      if(!localStorage.getItem('logged-in')){
+        return (
+            <div className="artists">
+              <SearchBar placeholder="Search for artist..." handleSearch={this.props.lookUpArtist} />
+              <h1>Please log in</h1>
+              <Footer song=''/>
+            </div>
+        ) 
+      } else {
+        return (
+          <div className="artists">
+            <SearchBar placeholder="Search for artist..." handleSearch={this.props.lookUpArtist} />
+            {Object.keys(this.props.data)
+              .map(item => <Artist key={item}
+                                  id={item}
+                                  value={this.props.data[item].name}
+                                  albums={this.props.data[item].albums}
+                                  color={this.props.data[item].color}
+                                  artistMenuClick={this.props.artistMenuClick}
+                                  albumMenuClick={this.props.albumMenuClick}
+                                  trackMenuClick={this.props.trackMenuClick}
+                                  />)}
+            <Footer song={this.props.song} />
+          </div>
+        )
+      }
     } else if (tab === 'Playlists') {
       return <Playlists />;
     } else {

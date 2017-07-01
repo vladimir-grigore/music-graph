@@ -24,15 +24,6 @@ class App extends Component {
     visualizer.clickTrack = this.trackMenuClick;
   }
 
-  //Temporary - will refactor -
-  componentWillMount = () => {
-    this.loginUser();
-    // Set Spotify API authentication token
-    // Used in getting user info and playlists details
-    const token = localStorage.getItem('access_token');
-    spotify_API.set_api_token(token);
-  }
-
   // Keep the artist/album/tracks strucutre as a component state
   handleUpdate = async () => {
     const folderStructure = await visualizer.getFolderStructure();
@@ -62,18 +53,20 @@ class App extends Component {
 
   // Search Spotify API for artist name and populte vis.js canvas
   lookUpArtist = async (artistName) => {
-    // Reset the folder structure
-    visualizer.artistStructure = {};
-    // Update visualizer canvas
-    visualizer.clear();
-    // Search for an artist, display all results
-    const artists = await spotify_API.search_artists(artistName);
+    if(localStorage.getItem('logged-in')){
+      // Reset the folder structure
+      visualizer.artistStructure = {};
+      // Update visualizer canvas
+      visualizer.clear();
+      // Search for an artist, display all results
+      const artists = await spotify_API.search_artists(artistName);
 
-    // Populate canvas with artist nodes
-    for( {id, name, image, popularity } of artists) {
-      visualizer.toggleArtistNode(id, name, image, popularity);
+      // Populate canvas with artist nodes
+      for( {id, name, image, popularity } of artists) {
+        visualizer.toggleArtistNode(id, name, image, popularity);
+      }
+      await this.handleUpdate();
     }
-    await this.handleUpdate();
   }
 
   // Open or close the sidebar
@@ -89,6 +82,9 @@ class App extends Component {
   loginUser = async () => {
     auth.login_user().then(() => {
       localStorage.setItem('logged-in', 'true');
+      // Set Spotify API authentication token
+      const token = localStorage.getItem('access_token');
+      spotify_API.set_api_token(token);
       this.setState({ logged_in: true });
     }).catch((err) => {
       console.error();

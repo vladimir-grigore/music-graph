@@ -137,7 +137,9 @@ export default class Visualizer {
   // Get albums for artist, display them on the canvas and side bar
   handleArtistClick = async (artistID) => {
     let albums = await this.spotify_API.get_albums_for_artist(artistID);
-    await this.toggleAlbums(artistID, albums);
+    if(albums){
+      await this.toggleAlbums(artistID, albums);
+    }
     // When expanding an artist, clear the rest of the search results
     this.clearRemainingArtists(artistID);
     this.updateCallback();
