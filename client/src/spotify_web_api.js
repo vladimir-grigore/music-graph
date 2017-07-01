@@ -1,29 +1,26 @@
-import SpotifyWebApi from 'spotify-web-api-node';
 import 'whatwg-fetch';
 import restful, { fetchBackend } from 'restful.js';
 import path from 'path';
 
 class SpotifyAPI {
   constructor(){
-    this.api = new SpotifyWebApi({});
-    this.apiFallback = restful('https://api.spotify.com/v1', fetchBackend(fetch));
+    this.api = restful('https://api.spotify.com/v1', fetchBackend(fetch));
   }
 
-  set_api_token = (token) => {
-    this.api.setAccessToken(token);
+  add_auth_token_to_request_header = () => {
+    let auth_token = localStorage.getItem('access_token');
+    this.api.header('Accept', 'application/json');
+    this.api.header('Authorization', `Bearer ${auth_token}`);
   }
-  
+
   search_artists = async function(name) {
     const MissingArtistImage = path.resolve(__dirname, '/img/MissingCover.png');
-    let auth_token = localStorage.getItem('access_token');
-    this.apiFallback.header('Accept', 'application/json');
-    this.apiFallback.header('Authorization', `Bearer ${auth_token}`);
-    const url = this.apiFallback.custom(`search?q=${name}&type=artist`);
+    const artists = [];
+    this.add_auth_token_to_request_header();
+    const url = this.api.custom(`search?q=${name}&type=artist`);
     
     try{
       let data = await url.get();
-      const artists = [];
-      const MissingArtistImage = path.resolve(__dirname, '/img/MissingCover.png');
       // Filter artist by popularity
       data.body().data().artists.items.forEach(function(item){
         if (item.popularity > 0) {
@@ -44,17 +41,14 @@ class SpotifyAPI {
   
   get_albums_for_artist = async function(artistID) {
     try {
-      let auth_token = localStorage.getItem('access_token');
-      this.apiFallback.header('Accept', 'application/json');
-      this.apiFallback.header('Authorization', `Bearer ${auth_token}`);
-      const artist_url = this.apiFallback.custom(`artists/${artistID}/albums?market=US&limit=20`);
+      this.add_auth_token_to_request_header();
+      const artist_url = this.api.custom(`artists/${artistID}/albums?market=US&limit=20`);
       let artist_data = await artist_url.get();
       
       if(artist_data.body().data().items.length > 0){
         const ids = artist_data.body().data().items.map(x => x.id).join();
-        const albums_url = this.apiFallback.custom(`albums/?ids=${ids}`);
+        const albums_url = this.api.custom(`albums/?ids=${ids}`);
         let albums_data = await albums_url.get();
-
         return albums_data.body().data().albums;
       }
     } catch(err) {
@@ -64,12 +58,9 @@ class SpotifyAPI {
 
   get_tracks_for_album = async function(albumID) {
     try {
-      let auth_token = localStorage.getItem('access_token');
-      this.apiFallback.header('Accept', 'application/json');
-      this.apiFallback.header('Authorization', `Bearer ${auth_token}`);
-      const tracks_url = this.apiFallback.custom(`albums/${albumID}/tracks`);
+      this.add_auth_token_to_request_header();
+      const tracks_url = this.api.custom(`albums/${albumID}/tracks`);
       let tracks_data = await tracks_url.get();
-
       return tracks_data.body().data().items;
     } catch(err) {
       console.error(err);
@@ -78,12 +69,9 @@ class SpotifyAPI {
 
   get_track = async function(trackID) {
     try {
-      let auth_token = localStorage.getItem('access_token');
-      this.apiFallback.header('Accept', 'application/json');
-      this.apiFallback.header('Authorization', `Bearer ${auth_token}`);
-      const tracks_url = this.apiFallback.custom(`tracks/${trackID}`);
+      this.add_auth_token_to_request_header();
+      const tracks_url = this.api.custom(`tracks/${trackID}`);
       let tracks_data = await tracks_url.get();
-      
       return tracks_data.body().data();
     } catch(err) {
       console.error(err);
@@ -92,8 +80,10 @@ class SpotifyAPI {
 
   get_current_user = async function() {
     try {
-      const data = await this.api.getMe();
-      return data.body;
+      this.add_auth_token_to_request_header();
+      const user_url = this.api.custom(`me`);
+      let user_data = await user_url.get();
+      return user_data.body().data();
     } catch(err) {
       return err.statusCode;
     }
@@ -101,8 +91,10 @@ class SpotifyAPI {
   
   get_user_playlists = async function(userID) {
     try {
-      const data = await this.api.getUserPlaylists(userID);
-      return data.body;
+      this.add_auth_token_to_request_header();
+      const playlists_url = this.api.custom(`users/${userID}/playlists`);
+      let playlists_data = await playlists_url.get();
+      return playlists_data.body().data();
     } catch(err) {
       return err.statusCode;
     }
@@ -110,8 +102,10 @@ class SpotifyAPI {
 
   get_playlist = async function(userID, playlistID) {
     try {
-      const data = await this.api.getPlaylist(userID, playlistID);
-      return data.body;
+      this.add_auth_token_to_request_header();
+      const playlist_details_url = this.api.custom(`users/${userID}/playlists/${playlistID}`);
+      let playlist_tracks_data = await playlist_details_url.get();
+      return playlist_tracks_data.body().data();
     } catch(err) {
       const spotifyPlaylist = await this.get_spotify_playlist(playlistID);
       return spotifyPlaylist;
@@ -120,10 +114,8 @@ class SpotifyAPI {
 
   // If user has added public playlists, a separate call need to be done
   get_spotify_playlist = async function(playlistID) {
-    let auth_token = localStorage.getItem('access_token');
-    this.apiFallback.header('Accept', 'application/json');
-    this.apiFallback.header('Authorization', `Bearer ${auth_token}`);
-    const url = this.apiFallback.custom(`users/spotify/playlists/${playlistID}`);
+    this.add_auth_token_to_request_header();
+    const url = this.api.custom(`users/spotify/playlists/${playlistID}`);
     try{
       const data = await url.get();
       return data.body().data();

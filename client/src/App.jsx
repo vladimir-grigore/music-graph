@@ -82,9 +82,6 @@ class App extends Component {
   loginUser = async () => {
     auth.login_user().then(() => {
       localStorage.setItem('logged-in', 'true');
-      // Set Spotify API authentication token
-      const token = localStorage.getItem('access_token');
-      spotify_API.set_api_token(token);
       this.setState({ logged_in: true });
     }).catch((err) => {
       console.error();

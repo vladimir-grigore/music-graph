@@ -54,17 +54,10 @@ class Playlists extends Component {
     }
   }
 
-  // Set Spotify API authentication token
-  // Used in getting user info and playlists details
-  addSpotifyAuthToken = () => {
-    const token = localStorage.getItem('access_token');
-    spotify_API.set_api_token(token);
-  }
-
   // Try to authenticat with existing token
   getPlaylist = async () => {
     if(localStorage.getItem('logged-in')) {
-      this.addSpotifyAuthToken();
+      // this.addSpotifyAuthToken();
       const user = await spotify_API.get_current_user();
       if(user === 401 || user === 403) {
         return 'token_expired';
@@ -96,6 +89,7 @@ class Playlists extends Component {
   // Handle clicks on each track
   trackMenuClick = async (trackId) => {
     let data = await spotify_API.get_track(trackId);
+    console.log("track", data)
     const albumCover = data.tracks[0].album.images[0].url;
     const artistName = data.tracks[0].artists[0].name;
     const trackUrl = data.tracks[0].preview_url;
@@ -108,7 +102,6 @@ class Playlists extends Component {
     if(input === ''){
       this.addPlaylistsToMenu();
     }
-
     let playlists = this.state.playlists;
     Object.keys(playlists).map(item => {
       let playlistName = Object.values(playlists[item])[0].toLowerCase();
@@ -117,7 +110,6 @@ class Playlists extends Component {
         delete playlists[item];
       }
     });
-
     this.setState({ playlists });
   }
 
