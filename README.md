@@ -1,3 +1,5 @@
+# Discontinued
+
 An online visualizer of music artists, their albums and tracks using the Spotify API. Features: artist albums and tracks displayed as force-directed graphs using the VisJs library, playback of tracks, display of user playlists, music event search by artist or venue using Jambase API. Technologies used: React, Node JS, Express, EJS, Webpack, Babel, Heroku, OAuth, Spotify and Jambase APIs.
 
 ## How to use:
